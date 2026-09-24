@@ -158,8 +158,20 @@ h1 {
   word-break: break-all;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .meta {
   margin-top: 5px;
+}
+
+.status {
+  margin-top: 15px;
+  color: #aeb9d2;
+  min-height: 24px;
 }
 
 .warning {
@@ -199,6 +211,10 @@ footer {
 
   .button {
     width: 100%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
   }
 }
 </style>
@@ -243,6 +259,7 @@ footer {
 
   </section>
 
+
   <section class="card">
 
     <h2>About PUL</h2>
@@ -254,6 +271,7 @@ footer {
     </p>
 
   </section>
+
 
   <section class="stats">
 
@@ -274,21 +292,35 @@ footer {
 
   </section>
 
+
   <section class="card">
 
     <h2>Contract Address</h2>
 
-    <button
-      class="button meta"
-      onclick="addToMetaMask()">
-      🦊 Add PUL to MetaMask
-    </button>
+    <div class="action-buttons">
+
+      <button
+        class="button"
+        onclick="addToMetaMask()">
+        🦊 Add PUL to MetaMask
+      </button>
+
+      <button
+        class="button secondary"
+        onclick="copyContract()">
+        📋 Copy Contract
+      </button>
+
+    </div>
+
+    <p id="status" class="status"></p>
 
     <div class="address">
       0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
     </div>
 
   </section>
+
 
   <section class="card">
 
@@ -304,24 +336,33 @@ footer {
 
 </div>
 
+
 <footer>
   © 2026 PUL Token · Ethereum Sepolia
 </footer>
 
+
 <script>
+
 const contractAddress =
   "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
 
+
 async function addToMetaMask() {
 
+  const status = document.getElementById("status");
+
   if (!window.ethereum) {
-    alert("Please install MetaMask first.");
+
+    status.textContent =
+      "MetaMask was not detected. Please open this site in a browser with MetaMask installed.";
+
     return;
   }
 
   try {
 
-    await window.ethereum.request({
+    const added = await window.ethereum.request({
 
       method: "wallet_watchAsset",
 
@@ -341,12 +382,52 @@ async function addToMetaMask() {
 
     });
 
+    if (added) {
+
+      status.textContent =
+        "PUL was added to MetaMask successfully.";
+
+    } else {
+
+      status.textContent =
+        "PUL was not added.";
+
+    }
+
   } catch (error) {
 
     console.log(error);
 
+    status.textContent =
+      "MetaMask request was cancelled or failed.";
+
   }
+
 }
+
+
+async function copyContract() {
+
+  const status = document.getElementById("status");
+
+  try {
+
+    await navigator.clipboard.writeText(contractAddress);
+
+    status.textContent =
+      "Contract address copied successfully!";
+
+  } catch (error) {
+
+    console.log(error);
+
+    status.textContent =
+      "Copy failed. Please copy the address manually.";
+
+  }
+
+}
+
 </script>
 
 </body>
