@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PUL — Ethereum Sepolia Token</title>
+  <title>PUL — Ethereum Sepolia</title>
 
   <style>
     * {
@@ -13,146 +13,263 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, #24345f 0%, #0b1020 45%, #060912 100%);
+      color: #ffffff;
       min-height: 100vh;
     }
 
     .container {
-      max-width: 1000px;
+      width: min(1100px, 92%);
       margin: auto;
-      padding: 40px 20px;
+    }
+
+    header {
+      padding: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .mini-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffe36e, #ff9f1c);
+      color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      box-shadow: 0 0 25px rgba(255, 193, 61, 0.35);
+    }
+
+    .network {
+      color: #ffe36e;
+      font-size: 14px;
+      border: 1px solid #354466;
+      padding: 8px 14px;
+      border-radius: 30px;
+      background: rgba(20, 29, 52, 0.7);
     }
 
     .hero {
       text-align: center;
-      padding: 70px 20px 50px;
+      padding: 80px 0 70px;
     }
 
-    .coin {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 25px;
+    .logo {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 30px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #ffd54a, #ff9f1c);
+      background: linear-gradient(145deg, #fff18a, #ffc52f, #ff9418);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 42px;
-      font-weight: bold;
+      font-size: 64px;
+      font-weight: 900;
       color: #171717;
-      box-shadow: 0 15px 50px rgba(255, 180, 40, 0.35);
+      box-shadow:
+        0 0 40px rgba(255, 194, 55, 0.45),
+        0 25px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 30px;
+      background: rgba(255, 214, 78, 0.1);
+      border: 1px solid rgba(255, 214, 78, 0.35);
+      color: #ffe36e;
+      font-size: 14px;
+      margin-bottom: 22px;
     }
 
     h1 {
-      font-size: 64px;
-      margin-bottom: 12px;
+      font-size: clamp(55px, 10vw, 100px);
+      line-height: 1;
+      letter-spacing: -5px;
+      margin-bottom: 20px;
     }
 
-    .subtitle {
-      color: #aeb8d0;
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #aeb9d2;
       font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 30px;
-      background: #18213b;
-      color: #ffd45a;
-      margin-bottom: 30px;
+      line-height: 1.7;
     }
 
     .buttons {
+      margin-top: 35px;
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
     .button {
-      display: inline-block;
-      padding: 14px 24px;
-      border-radius: 12px;
+      border: none;
+      cursor: pointer;
       text-decoration: none;
+      padding: 15px 24px;
+      border-radius: 13px;
+      font-size: 15px;
       font-weight: bold;
-      background: #ffd54a;
-      color: #171717;
+      transition: 0.2s;
     }
 
-    .button.secondary {
-      background: #18213b;
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #ffe36e, #ffad24);
+      color: #151515;
+      box-shadow: 0 10px 30px rgba(255, 183, 40, 0.25);
+    }
+
+    .secondary {
+      background: #151e35;
       color: white;
-      border: 1px solid #34405f;
-    }
-
-    .card {
-      background: #121a30;
-      border: 1px solid #263250;
-      border-radius: 20px;
-      padding: 30px;
-      margin-top: 25px;
-    }
-
-    .card h2 {
-      margin-bottom: 20px;
-      font-size: 28px;
+      border: 1px solid #344362;
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .stat,
+    .card {
+      background: rgba(18, 27, 49, 0.82);
+      border: 1px solid #293858;
+      border-radius: 22px;
+      backdrop-filter: blur(10px);
     }
 
     .stat {
-      background: #18213b;
-      padding: 22px;
-      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
     }
 
     .stat strong {
       display: block;
-      font-size: 24px;
-      margin-bottom: 8px;
-      color: #ffd54a;
+      color: #ffe36e;
+      font-size: 30px;
+      margin-bottom: 10px;
     }
 
     .stat span {
-      color: #aeb8d0;
+      color: #8f9bb5;
+    }
+
+    .card {
+      padding: 32px;
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      font-size: 27px;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #aeb9d2;
+      line-height: 1.8;
+    }
+
+    .address-box {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .address {
-      word-break: break-all;
-      background: #0b1020;
-      padding: 16px;
+      flex: 1;
+      min-width: 250px;
+      background: #080d19;
+      border: 1px solid #293858;
       border-radius: 12px;
-      color: #ffd54a;
-      margin-top: 15px;
+      padding: 15px;
+      color: #ffe36e;
       font-family: monospace;
+      word-break: break-all;
+    }
+
+    .copy-button {
+      background: #263452;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .copy-button:hover {
+      background: #34466b;
     }
 
     .warning {
-      color: #aeb8d0;
-      line-height: 1.7;
+      border-left: 4px solid #ffc52f;
+      padding-left: 18px;
     }
 
     footer {
       text-align: center;
-      padding: 40px 20px;
-      color: #68738d;
+      padding: 45px 0;
+      color: #65718b;
     }
 
     @media (max-width: 700px) {
-      h1 {
-        font-size: 46px;
+      header {
+        gap: 15px;
+      }
+
+      .network {
+        display: none;
       }
 
       .stats {
         grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        font-size: 50px;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .copy-button {
+        width: 100%;
+        padding: 14px;
       }
     }
   </style>
@@ -162,101 +279,188 @@
 
   <div class="container">
 
+    <header>
+      <div class="brand">
+        <div class="mini-logo">₽</div>
+        PUL
+      </div>
+
+      <div class="network">
+        Ethereum Sepolia
+      </div>
+    </header>
+
+
     <section class="hero">
 
-      <div class="coin">₽</div>
+      <div class="logo">₽</div>
 
-      <div class="badge">Ethereum Sepolia Testnet</div>
+      <div class="tag">
+        ERC-20 · TESTNET
+      </div>
 
       <h1>PUL</h1>
 
-      <p class="subtitle">
-        A simple ERC-20 test token built on Ethereum.
+      <p>
+        A simple experimental token built on Ethereum Sepolia
+        for learning, testing and development.
       </p>
 
       <div class="buttons">
 
         <a
-          class="button"
+          class="button primary"
           href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
           target="_blank">
           View Contract
         </a>
 
-        <a
+        <button
           class="button secondary"
-          href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
-          target="_blank">
-          Token Explorer
-        </a>
+          onclick="addToMetaMask()">
+          🦊 Add PUL to MetaMask
+        </button>
 
       </div>
 
     </section>
+
+
+    <section class="stats">
+
+      <div class="stat">
+        <strong>1,000,000,000</strong>
+        <span>Total Supply</span>
+      </div>
+
+      <div class="stat">
+        <strong>18</strong>
+        <span>Decimals</span>
+      </div>
+
+      <div class="stat">
+        <strong>ERC-20</strong>
+        <span>Token Standard</span>
+      </div>
+
+    </section>
+
 
     <section class="card">
 
       <h2>About PUL</h2>
 
-      <p class="warning">
+      <p>
         PUL is an experimental ERC-20 token deployed on the
-        Ethereum Sepolia testnet for educational and development purposes.
+        Ethereum Sepolia testnet. The project is designed for
+        educational purposes, smart-contract testing and Web3 development.
       </p>
 
     </section>
 
-    <section class="card">
-
-      <h2>Token Information</h2>
-
-      <div class="stats">
-
-        <div class="stat">
-          <strong>1B</strong>
-          <span>Total Supply</span>
-        </div>
-
-        <div class="stat">
-          <strong>18</strong>
-          <span>Decimals</span>
-        </div>
-
-        <div class="stat">
-          <strong>ERC-20</strong>
-          <span>Token Standard</span>
-        </div>
-
-      </div>
-
-    </section>
 
     <section class="card">
 
       <h2>Contract Address</h2>
 
-      <div class="address">
-        0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+      <div class="address-box">
+
+        <div class="address" id="contract">
+          0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+        </div>
+
+        <button
+          class="copy-button"
+          onclick="copyAddress()">
+          Copy
+        </button>
+
       </div>
 
     </section>
 
+
     <section class="card">
 
-      <h2>Important</h2>
+      <h2>Testnet Only</h2>
 
       <p class="warning">
-        PUL is currently a test token on Ethereum Sepolia.
-        It is not intended to represent real-world value.
-        The project is created for learning, testing and development.
+        PUL currently exists on the Ethereum Sepolia testnet.
+        It is intended for learning, testing and development
+        and is not intended to represent real-world value.
       </p>
 
     </section>
 
+
+    <footer>
+      © 2026 PUL Token · Ethereum Sepolia
+    </footer>
+
   </div>
 
-  <footer>
-    © 2026 PUL Token · Ethereum Sepolia
-  </footer>
+
+  <script>
+
+    const contractAddress =
+      "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
+
+    async function copyAddress() {
+
+      try {
+
+        await navigator.clipboard.writeText(contractAddress);
+
+        const button = document.querySelector(".copy-button");
+
+        button.innerText = "Copied!";
+
+        setTimeout(() => {
+          button.innerText = "Copy";
+        }, 1800);
+
+      } catch (error) {
+
+        alert("Copy failed. Please copy the address manually.");
+
+      }
+
+    }
+
+
+    async function addToMetaMask() {
+
+      if (!window.ethereum) {
+
+        alert("Please install MetaMask first.");
+
+        return;
+
+      }
+
+      try {
+
+        await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: {
+              address: contractAddress,
+              symbol: "PUL",
+              decimals: 18
+            }
+          }
+        });
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
