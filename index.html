@@ -273,6 +273,35 @@
       font-size: 14px;
     }
 
+    .wallet-box {
+      max-width: 800px;
+      margin: 25px auto 0;
+      padding: 20px;
+      border-radius: 14px;
+      background: #0d0d10;
+      border: 1px solid #27272d;
+    }
+
+    .wallet-title {
+      color: #f4cc50;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    #walletInfo {
+      color: #bdbdc3;
+      word-break: break-word;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    #walletBalance {
+      margin-top: 8px;
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
     .notice {
       margin-top: 25px;
       padding: 18px;
@@ -332,6 +361,7 @@
 <header>
   <div class="container">
     <nav>
+
       <a href="#" class="logo">
         <span class="logo-mark">₽</span>
         PUL
@@ -343,18 +373,24 @@
         <a href="#roadmap">Roadmap</a>
         <a href="#contract">Contract</a>
       </div>
+
     </nav>
   </div>
 </header>
+
 
 <main>
 
   <section class="hero">
     <div class="container hero-content">
 
-      <div class="badge">ETHEREUM • SEPOLIA TESTNET</div>
+      <div class="badge">
+        ETHEREUM • SEPOLIA TESTNET
+      </div>
 
-      <div class="coin">₽</div>
+      <div class="coin">
+        ₽
+      </div>
 
       <h1>
         <span class="gold">PUL</span>
@@ -366,13 +402,19 @@
       </p>
 
       <div class="buttons">
+
         <a class="btn btn-primary" href="#contract">
           View Contract
         </a>
 
-        <a class="btn" href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76" target="_blank">
+        <a
+          class="btn"
+          href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+          target="_blank"
+        >
           Token Explorer
         </a>
+
       </div>
 
     </div>
@@ -430,7 +472,8 @@
         <div class="card">
           <h3>No Additional Minting</h3>
           <p>
-            The current smart contract does not include a function for creating additional PUL tokens.
+            The current smart contract does not include a function
+            for creating additional PUL tokens.
           </p>
         </div>
 
@@ -458,7 +501,11 @@
       <div class="roadmap">
 
         <div class="card roadmap-item">
-          <div class="phase">01</div>
+
+          <div class="phase">
+            01
+          </div>
+
           <div>
             <h3>Foundation</h3>
             <p>
@@ -466,10 +513,16 @@
               verification and initial website launch.
             </p>
           </div>
+
         </div>
 
+
         <div class="card roadmap-item">
-          <div class="phase">02</div>
+
+          <div class="phase">
+            02
+          </div>
+
           <div>
             <h3>Community</h3>
             <p>
@@ -477,10 +530,16 @@
               and experiment with Web3.
             </p>
           </div>
+
         </div>
 
+
         <div class="card roadmap-item">
-          <div class="phase">03</div>
+
+          <div class="phase">
+            03
+          </div>
+
           <div>
             <h3>Web3 Development</h3>
             <p>
@@ -488,16 +547,23 @@
               and blockchain integrations.
             </p>
           </div>
+
         </div>
 
+
         <div class="card roadmap-item">
-          <div class="phase">04</div>
+
+          <div class="phase">
+            04
+          </div>
+
           <div>
             <h3>Future</h3>
             <p>
               Research future possibilities for the PUL ecosystem.
             </p>
           </div>
+
         </div>
 
       </div>
@@ -507,6 +573,7 @@
 
 
   <section id="contract">
+
     <div class="container">
 
       <div class="section-title">
@@ -514,19 +581,34 @@
         <p>Official PUL smart contract</p>
       </div>
 
+
       <div class="card contract-box">
 
-        <div class="address" id="contractAddress">
+        <div class="address">
           0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
         </div>
 
+
         <div class="buttons">
 
-          <button class="btn btn-primary" onclick="addToMetaMask()">
+          <button
+            class="btn btn-primary"
+            onclick="connectWallet()"
+          >
+            🔗 Connect Wallet
+          </button>
+
+          <button
+            class="btn"
+            onclick="addToMetaMask()"
+          >
             🦊 Add PUL to MetaMask
           </button>
 
-          <button class="btn" onclick="copyContract()">
+          <button
+            class="btn"
+            onclick="copyContract()"
+          >
             📋 Copy Contract
           </button>
 
@@ -540,26 +622,52 @@
 
         </div>
 
+
+        <div class="wallet-box">
+
+          <div class="wallet-title">
+            Wallet
+          </div>
+
+          <div id="walletInfo">
+            Wallet not connected
+          </div>
+
+          <div id="walletBalance">
+            PUL Balance: —
+          </div>
+
+        </div>
+
+
         <div id="status"></div>
 
+
         <div class="notice">
-          <strong>Important:</strong> PUL is currently an experimental token
-          deployed on the Ethereum Sepolia testnet. It has no guaranteed
-          monetary value and is intended for educational and development purposes.
+
+          <strong>Important:</strong>
+          PUL is currently an experimental token deployed on
+          the Ethereum Sepolia testnet. It has no guaranteed
+          monetary value and is intended for educational
+          and development purposes.
+
         </div>
 
       </div>
 
     </div>
+
   </section>
 
 </main>
 
 
 <footer>
+
   <div class="container">
     ₽ PUL — Experimental Web3 Project
   </div>
+
 </footer>
 
 
@@ -568,27 +676,156 @@
   const contractAddress =
     "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
 
+  const tokenDecimals = 18;
+
+
+  async function connectWallet() {
+
+    if (!window.ethereum) {
+
+      document.getElementById("status").innerText =
+        "MetaMask is not installed.";
+
+      return;
+    }
+
+
+    try {
+
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+
+
+      const wallet = accounts[0];
+
+
+      document.getElementById("walletInfo").innerText =
+        "Connected: " + wallet;
+
+
+      document.getElementById("status").innerText =
+        "Wallet connected.";
+
+
+      await loadPULBalance(wallet);
+
+    } catch (error) {
+
+      document.getElementById("status").innerText =
+        "Wallet connection cancelled.";
+
+    }
+
+  }
+
+
+  async function loadPULBalance(wallet) {
+
+    try {
+
+      const balanceOfSignature =
+        "0x70a08231" +
+        wallet.slice(2).padStart(64, "0");
+
+
+      const result = await window.ethereum.request({
+
+        method: "eth_call",
+
+        params: [
+          {
+            to: contractAddress,
+            data: balanceOfSignature
+          },
+          "latest"
+        ]
+
+      });
+
+
+      const rawBalance =
+        BigInt(result);
+
+
+      const divisor =
+        10n ** BigInt(tokenDecimals);
+
+
+      const whole =
+        rawBalance / divisor;
+
+
+      const fraction =
+        rawBalance % divisor;
+
+
+      let fractionString =
+        fraction.toString().padStart(tokenDecimals, "0");
+
+
+      fractionString =
+        fractionString.replace(/0+$/, "");
+
+
+      let formattedBalance =
+        whole.toString();
+
+
+      if (fractionString.length > 0) {
+
+        formattedBalance +=
+          "." + fractionString;
+
+      }
+
+
+      document.getElementById("walletBalance").innerText =
+        "PUL Balance: " + formattedBalance;
+
+    } catch (error) {
+
+      document.getElementById("walletBalance").innerText =
+        "PUL Balance: unavailable";
+
+    }
+
+  }
+
+
   async function addToMetaMask() {
 
     if (!window.ethereum) {
+
       document.getElementById("status").innerText =
         "MetaMask is not installed.";
+
       return;
     }
+
 
     try {
 
       await window.ethereum.request({
+
         method: "wallet_watchAsset",
+
         params: {
+
           type: "ERC20",
+
           options: {
+
             address: contractAddress,
             symbol: "PUL",
             decimals: 18
+
           }
+
         }
+
       });
+
 
       document.getElementById("status").innerText =
         "PUL token added to MetaMask.";
@@ -599,6 +836,7 @@
         "Request cancelled.";
 
     }
+
   }
 
 
@@ -606,7 +844,10 @@
 
     try {
 
-      await navigator.clipboard.writeText(contractAddress);
+      await navigator.clipboard.writeText(
+        contractAddress
+      );
+
 
       document.getElementById("status").innerText =
         "Contract address copied.";
@@ -617,6 +858,36 @@
         "Could not copy the address.";
 
     }
+
+  }
+
+
+  if (window.ethereum) {
+
+    window.ethereum.on(
+      "accountsChanged",
+      function(accounts) {
+
+        if (accounts.length === 0) {
+
+          document.getElementById("walletInfo").innerText =
+            "Wallet not connected";
+
+          document.getElementById("walletBalance").innerText =
+            "PUL Balance: —";
+
+        } else {
+
+          document.getElementById("walletInfo").innerText =
+            "Connected: " + accounts[0];
+
+          loadPULBalance(accounts[0]);
+
+        }
+
+      }
+    );
+
   }
 
 
