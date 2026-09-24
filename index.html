@@ -1,5 +1,7 @@
 <script>
 
+document.addEventListener("DOMContentLoaded", () => {
+
   /* =========================
      Удаляем utm_source из URL
   ========================= */
@@ -58,11 +60,8 @@
     document.documentElement.lang =
       currentLang;
 
-
     document
-      .querySelectorAll(
-        "[data-ru][data-en]"
-      )
+      .querySelectorAll("[data-ru][data-en]")
       .forEach(el => {
 
         el.textContent =
@@ -73,12 +72,15 @@
       });
 
 
-    document.getElementById(
-      "langBtn"
-    ).textContent =
-      currentLang === "ru"
-        ? "EN"
-        : "RU";
+    const langBtn =
+      document.getElementById("langBtn");
+
+    if(langBtn){
+      langBtn.textContent =
+        currentLang === "ru"
+          ? "EN"
+          : "RU";
+    }
 
 
     const refreshBtn =
@@ -102,9 +104,12 @@
   }
 
 
-  document
-    .getElementById("langBtn")
-    .addEventListener(
+  const langBtn =
+    document.getElementById("langBtn");
+
+  if(langBtn){
+
+    langBtn.addEventListener(
       "click",
       () => {
 
@@ -124,6 +129,8 @@
 
       }
     );
+
+  }
 
 
   function shortAddress(address){
@@ -159,7 +166,6 @@
     const n =
       Number(value);
 
-
     return Number.isFinite(n)
       ? formatNumber(n,6)
       : "—";
@@ -173,9 +179,12 @@
     type = ""
   ){
 
+    if(!element){
+      return;
+    }
+
     element.textContent =
       message;
-
 
     element.className =
       "status " +
@@ -193,13 +202,11 @@
     const controller =
       new AbortController();
 
-
     const timer =
       setTimeout(
         () => controller.abort(),
         7000
       );
-
 
     try{
 
@@ -381,6 +388,11 @@
       );
 
 
+    if(!element){
+      return;
+    }
+
+
     try{
 
       const result =
@@ -496,6 +508,11 @@
       );
 
 
+    if(!holdersElement || !transfersElement){
+      return;
+    }
+
+
     try{
 
       const data =
@@ -549,6 +566,11 @@
       document.getElementById(
         "historyList"
       );
+
+
+    if(!container){
+      return;
+    }
 
 
     if(!items.length){
@@ -731,6 +753,11 @@
       );
 
 
+    if(!container){
+      return;
+    }
+
+
     try{
 
       const data =
@@ -832,20 +859,34 @@
         );
 
 
-      document.getElementById(
-        "ethBalance"
-      ).textContent =
-        formatNumber(
-          value,
-          6
+      const element =
+        document.getElementById(
+          "ethBalance"
         );
+
+
+      if(element){
+
+        element.textContent =
+          formatNumber(
+            value,
+            6
+          );
+
+      }
 
     }catch(error){
 
-      document.getElementById(
-        "ethBalance"
-      ).textContent =
-        "—";
+      const element =
+        document.getElementById(
+          "ethBalance"
+        );
+
+
+      if(element){
+        element.textContent =
+          "—";
+      }
 
     }
 
@@ -860,30 +901,50 @@
       address;
 
 
-    document.getElementById(
-      "walletAddress"
-    ).textContent =
-      address;
+    const walletAddress =
+      document.getElementById(
+        "walletAddress"
+      );
+
+
+    if(walletAddress){
+      walletAddress.textContent =
+        address;
+    }
 
 
     try{
 
-      document.getElementById(
-        "walletBalance"
-      ).textContent =
-        formatNumber(
-          await getTokenBalance(
-            address
-          ),
-          6
+      const walletBalance =
+        document.getElementById(
+          "walletBalance"
         );
+
+
+      if(walletBalance){
+
+        walletBalance.textContent =
+          formatNumber(
+            await getTokenBalance(
+              address
+            ),
+            6
+          );
+
+      }
 
     }catch(error){
 
-      document.getElementById(
-        "walletBalance"
-      ).textContent =
-        "—";
+      const walletBalance =
+        document.getElementById(
+          "walletBalance"
+        );
+
+
+      if(walletBalance){
+        walletBalance.textContent =
+          "—";
+      }
 
     }
 
@@ -928,9 +989,7 @@
 
 
       if(!accounts.length){
-
         return;
-
       }
 
 
@@ -1037,12 +1096,20 @@
       );
 
 
-      document.getElementById(
-        "connectBtn"
-      ).textContent =
-        shortAddress(
-          accounts[0]
+      const connectBtn =
+        document.getElementById(
+          "connectBtn"
         );
+
+
+      if(connectBtn){
+
+        connectBtn.textContent =
+          shortAddress(
+            accounts[0]
+          );
+
+      }
 
 
       setStatus(
@@ -1072,12 +1139,20 @@
   }
 
 
-  document
-    .getElementById("connectBtn")
-    .addEventListener(
+  const connectBtn =
+    document.getElementById(
+      "connectBtn"
+    );
+
+
+  if(connectBtn){
+
+    connectBtn.addEventListener(
       "click",
       connectWallet
     );
+
+  }
 
 
   function parsePulAmount(
@@ -1160,6 +1235,11 @@
       document.getElementById(
         "sendStatus"
       );
+
+
+    if(!status){
+      return;
+    }
 
 
     const labels = {
@@ -1325,16 +1405,29 @@
       );
 
 
-    const recipient =
+    const recipientElement =
       document.getElementById(
         "recipient"
-      ).value.trim();
+      );
+
+
+    const amountElement =
+      document.getElementById(
+        "amount"
+      );
+
+
+    if(!recipientElement || !amountElement){
+      return;
+    }
+
+
+    const recipient =
+      recipientElement.value.trim();
 
 
     const amount =
-      document.getElementById(
-        "amount"
-      ).value.trim();
+      amountElement.value.trim();
 
 
     if(!window.ethereum){
@@ -1460,14 +1553,9 @@
         });
 
 
-      document.getElementById(
-        "amount"
-      ).value = "";
+      amountElement.value = "";
 
-
-      document.getElementById(
-        "recipient"
-      ).value = "";
+      recipientElement.value = "";
 
 
       showTxStatus(
@@ -1542,12 +1630,20 @@
   }
 
 
-  document
-    .getElementById("sendBtn")
-    .addEventListener(
+  const sendBtn =
+    document.getElementById(
+      "sendBtn"
+    );
+
+
+  if(sendBtn){
+
+    sendBtn.addEventListener(
       "click",
       sendPUL
     );
+
+  }
 
 
   if(
@@ -1566,30 +1662,45 @@
             null;
 
 
-          document.getElementById(
-            "walletAddress"
-          ).textContent =
-            "—";
+          const walletAddress =
+            document.getElementById(
+              "walletAddress"
+            );
+
+          const walletBalance =
+            document.getElementById(
+              "walletBalance"
+            );
+
+          const ethBalance =
+            document.getElementById(
+              "ethBalance"
+            );
+
+          const connectButton =
+            document.getElementById(
+              "connectBtn"
+            );
 
 
-          document.getElementById(
-            "walletBalance"
-          ).textContent =
-            "—";
+          if(walletAddress)
+            walletAddress.textContent = "—";
+
+          if(walletBalance)
+            walletBalance.textContent = "—";
+
+          if(ethBalance)
+            ethBalance.textContent = "—";
 
 
-          document.getElementById(
-            "ethBalance"
-          ).textContent =
-            "—";
+          if(connectButton){
 
+            connectButton.textContent =
+              currentLang === "ru"
+                ? "Подключить MetaMask"
+                : "Connect MetaMask";
 
-          document.getElementById(
-            "connectBtn"
-          ).textContent =
-            currentLang === "ru"
-              ? "Подключить MetaMask"
-              : "Connect MetaMask";
+          }
 
 
           return;
@@ -1602,12 +1713,20 @@
         );
 
 
-        document.getElementById(
-          "connectBtn"
-        ).textContent =
-          shortAddress(
-            accounts[0]
+        const connectButton =
+          document.getElementById(
+            "connectBtn"
           );
+
+
+        if(connectButton){
+
+          connectButton.textContent =
+            shortAddress(
+              accounts[0]
+            );
+
+        }
 
       }
     );
@@ -1702,9 +1821,7 @@
 
 
     if(!button){
-
       return;
-
     }
 
 
@@ -1756,7 +1873,7 @@
       currentAccount ||
       document.getElementById(
         "walletAddress"
-      ).textContent
+      )?.textContent
   );
 
 
@@ -1767,11 +1884,15 @@
   );
 
 
-  document
-    .getElementById(
+  const refreshHistoryBtn =
+    document.getElementById(
       "refreshHistoryBtn"
-    )
-    .addEventListener(
+    );
+
+
+  if(refreshHistoryBtn){
+
+    refreshHistoryBtn.addEventListener(
       "click",
       async () => {
 
@@ -1802,6 +1923,8 @@
 
       }
     );
+
+  }
 
 
   async function init(){
@@ -1850,12 +1973,20 @@
             );
 
 
-            document.getElementById(
-              "connectBtn"
-            ).textContent =
-              shortAddress(
-                accounts[0]
+            const button =
+              document.getElementById(
+                "connectBtn"
               );
+
+
+            if(button){
+
+              button.textContent =
+                shortAddress(
+                  accounts[0]
+                );
+
+            }
 
           }
 
@@ -1877,4 +2008,5 @@
 
   init();
 
+});
 </script>
