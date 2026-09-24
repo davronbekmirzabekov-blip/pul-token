@@ -3,451 +3,482 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>PUL — Digital Token</title>
   <meta name="description" content="PUL — цифровой токен на Ethereum Sepolia.">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#07111f;
+      --bg2:#0b1728;
+      --card:rgba(17,31,52,.72);
+      --card2:rgba(20,38,63,.8);
+      --border:rgba(255,255,255,.09);
+      --text:#f5f8ff;
+      --muted:#9eacc2;
+      --blue:#4f8cff;
+      --blue2:#79a9ff;
+      --green:#45d483;
+      --danger:#ff6b7a;
+      --shadow:0 20px 60px rgba(0,0,0,.28)
     }
 
-    :root {
-      --bg: #07111f;
-      --bg2: #0b1728;
-      --card: rgba(17, 31, 52, .72);
-      --border: rgba(255,255,255,.09);
-      --text: #f5f8ff;
-      --muted: #9eacc2;
-      --blue: #4f8cff;
-      --blue2: #79a9ff;
-      --green: #45d483;
-      --danger: #ff6b7a;
-      --shadow: 0 20px 60px rgba(0,0,0,.28);
-    }
-
-    body {
-      font-family: Inter, Arial, sans-serif;
+    body{
+      font-family:Inter,Arial,sans-serif;
       background:
-        radial-gradient(circle at 20% 0%, rgba(55,105,190,.18), transparent 32%),
-        radial-gradient(circle at 90% 20%, rgba(79,140,255,.10), transparent 30%),
+        radial-gradient(circle at 20% 0%,rgba(55,105,190,.18),transparent 32%),
+        radial-gradient(circle at 90% 20%,rgba(79,140,255,.10),transparent 30%),
         var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.55;
+      color:var(--text);
+      min-height:100vh;
+      line-height:1.55
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    a{
+      color:inherit;
+      text-decoration:none
     }
 
-    .container {
-      width: min(1120px, calc(100% - 32px));
-      margin: auto;
+    .container{
+      width:min(1120px,calc(100% - 32px));
+      margin:auto
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: rgba(7,17,31,.78);
-      border-bottom: 1px solid var(--border);
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(7,17,31,.78);
+      border-bottom:1px solid var(--border)
     }
 
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px
     }
 
-    .logo {
-      font-size: 25px;
-      font-weight: 900;
-      letter-spacing: .08em;
+    .logo{
+      font-size:25px;
+      font-weight:900;
+      letter-spacing:.08em
     }
 
-    .logo span {
-      color: var(--blue2);
+    .logo span{
+      color:var(--blue2)
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+    nav{
+      display:flex;
+      align-items:center;
+      gap:24px
     }
 
-    nav a {
-      color: var(--muted);
-      font-size: 14px;
-      transition: .2s;
+    nav a{
+      color:var(--muted);
+      font-size:14px;
+      transition:.2s
     }
 
-    nav a:hover {
-      color: var(--text);
+    nav a:hover{
+      color:var(--text)
     }
 
     .lang-btn,
     .wallet-btn,
-    .send-btn {
-      border: 0;
-      cursor: pointer;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: .2s;
+    .send-btn{
+      border:0;
+      cursor:pointer;
+      border-radius:12px;
+      font-weight:700;
+      transition:.2s
     }
 
-    .lang-btn {
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      padding: 9px 13px;
-      border: 1px solid var(--border);
+    .lang-btn{
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      padding:9px 13px;
+      border:1px solid var(--border)
     }
 
-    .wallet-btn {
-      background: var(--blue);
-      color: #fff;
-      padding: 12px 18px;
-      box-shadow: 0 8px 25px rgba(79,140,255,.22);
+    .wallet-btn{
+      background:var(--blue);
+      color:#fff;
+      padding:12px 18px;
+      box-shadow:0 8px 25px rgba(79,140,255,.22)
     }
 
     .wallet-btn:hover,
-    .send-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
+    .send-btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.08)
     }
 
-    .hero {
-      padding: 95px 0 70px;
-      text-align: center;
+    .hero{
+      padding:95px 0 70px;
+      text-align:center
     }
 
-    .badge {
-      display: inline-flex;
-      padding: 7px 12px;
-      border: 1px solid rgba(79,140,255,.3);
-      background: rgba(79,140,255,.09);
-      color: var(--blue2);
-      border-radius: 999px;
-      font-size: 13px;
-      margin-bottom: 22px;
+    .badge{
+      display:inline-flex;
+      padding:7px 12px;
+      border:1px solid rgba(79,140,255,.3);
+      background:rgba(79,140,255,.09);
+      color:var(--blue2);
+      border-radius:999px;
+      font-size:13px;
+      margin-bottom:22px
     }
 
-    h1 {
-      font-size: clamp(55px, 11vw, 105px);
-      line-height: .95;
-      letter-spacing: -.05em;
-      margin-bottom: 22px;
+    h1{
+      font-size:clamp(55px,11vw,105px);
+      line-height:.95;
+      letter-spacing:-.05em;
+      margin-bottom:22px
     }
 
-    .hero h1 span {
-      color: var(--blue2);
+    .hero h1 span{
+      color:var(--blue2)
     }
 
-    .hero p {
-      max-width: 650px;
-      margin: auto;
-      color: var(--muted);
-      font-size: 18px;
+    .hero p{
+      max-width:650px;
+      margin:auto;
+      color:var(--muted);
+      font-size:18px
     }
 
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
-      flex-wrap: wrap;
+    .hero-actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:30px;
+      flex-wrap:wrap
     }
 
-    .outline-btn {
-      padding: 12px 18px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      background: rgba(255,255,255,.04);
+    .outline-btn{
+      padding:12px 18px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      color:var(--text);
+      background:rgba(255,255,255,.04)
     }
 
-    section {
-      padding: 70px 0;
+    section{
+      padding:70px 0
     }
 
-    .section-title {
-      margin-bottom: 30px;
+    .section-title{
+      margin-bottom:30px
     }
 
-    .section-title h2 {
-      font-size: 34px;
-      margin-bottom: 8px;
+    .section-title h2{
+      font-size:34px;
+      margin-bottom:8px
     }
 
-    .section-title p {
-      color: var(--muted);
+    .section-title p{
+      color:var(--muted)
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px
     }
 
-    .card {
-      background: linear-gradient(
+    .card{
+      background:linear-gradient(
         145deg,
         var(--card),
         rgba(10,23,40,.7)
       );
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--shadow);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:24px;
+      box-shadow:var(--shadow)
     }
 
-    .stat-label {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 9px;
+    .stat-label{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:9px
     }
 
-    .stat-value {
-      font-size: 25px;
-      font-weight: 800;
-      word-break: break-word;
+    .stat-value{
+      font-size:25px;
+      font-weight:800;
+      word-break:break-word
     }
 
-    .wallet-card {
-      margin-top: 18px;
+    .wallet-card{
+      margin-top:18px
     }
 
-    .wallet-address {
-      font-family: monospace;
-      color: var(--blue2);
-      word-break: break-all;
-      margin-top: 6px;
+    .wallet-address{
+      font-family:monospace;
+      color:var(--blue2);
+      word-break:break-all;
+      margin-top:6px
     }
 
-    .balance-big {
-      font-size: 38px;
-      font-weight: 900;
-      margin: 15px 0 5px;
+    .balance-big{
+      font-size:38px;
+      font-weight:900;
+      margin:15px 0 5px
     }
 
-    .eth-balance {
-      color: var(--muted);
+    .eth-balance{
+      color:var(--muted)
     }
 
-    .form {
-      display: grid;
-      gap: 13px;
+    .form{
+      display:grid;
+      gap:13px
     }
 
-    label {
-      font-size: 13px;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 6px;
+    label{
+      font-size:13px;
+      color:var(--muted)
     }
 
-    input {
-      width: 100%;
-      background: rgba(0,0,0,.22);
-      color: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 14px;
-      outline: none;
+    input{
+      width:100%;
+      background:rgba(0,0,0,.22);
+      color:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:13px 14px;
+      outline:none
     }
 
-    input:focus {
-      border-color: rgba(79,140,255,.65);
+    input:focus{
+      border-color:rgba(79,140,255,.65)
     }
 
-    .send-btn {
-      background: var(--blue);
-      color: #fff;
-      padding: 13px 18px;
-      margin-top: 4px;
+    .send-btn{
+      background:var(--blue);
+      color:#fff;
+      padding:13px 18px;
+      margin-top:4px
     }
 
-    .status {
-      min-height: 22px;
-      color: var(--muted);
-      font-size: 13px;
+    .status{
+      min-height:22px;
+      color:var(--muted);
+      font-size:13px
     }
 
-    .status.success {
-      color: var(--green);
+    .status.success{
+      color:var(--green)
     }
 
-    .status.error {
-      color: var(--danger);
+    .status.error{
+      color:var(--danger)
     }
 
-    .history {
-      display: grid;
-      gap: 10px;
+    .history{
+      display:grid;
+      gap:10px
     }
 
-    .history-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 15px;
-      padding: 16px;
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    .history-item{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:15px;
+      padding:16px;
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--border);
+      border-radius:14px
     }
 
-    .history-main {
-      min-width: 0;
+    .history-main{
+      min-width:0
     }
 
-    .history-type {
-      font-weight: 800;
-      margin-bottom: 3px;
+    .history-type{
+      font-weight:800;
+      margin-bottom:3px
     }
 
-    .history-address {
-      color: var(--muted);
-      font-family: monospace;
-      font-size: 12px;
-      overflow-wrap: anywhere;
+    .history-address{
+      color:var(--muted);
+      font-family:monospace;
+      font-size:12px;
+      overflow-wrap:anywhere
     }
 
-    .history-amount {
-      text-align: right;
-      font-weight: 800;
-      white-space: nowrap;
+    .history-amount{
+      text-align:right;
+      font-weight:800;
+      white-space:nowrap
     }
 
-    .history-link {
-      color: var(--blue2);
-      font-size: 12px;
-      margin-top: 5px;
-      display: inline-block;
+    .history-link{
+      color:var(--blue2);
+      font-size:12px;
+      margin-top:5px;
+      display:inline-block
     }
 
-    .tokenomics {
-      display: grid;
-      gap: 13px;
+    .copy-row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top:8px;
+      flex-wrap:wrap
     }
 
-    .token-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--border);
+    .copy-btn,
+    .refresh-btn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 11px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:12px;
+      font-weight:700
     }
 
-    .token-row:last-child {
-      border-bottom: 0;
+    .copy-btn:hover,
+    .refresh-btn:hover{
+      background:rgba(255,255,255,.09)
     }
 
-    .token-row span:first-child {
-      color: var(--muted);
+    .history-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px
     }
 
-    .roadmap {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    .tx-status{
+      margin-top:6px
     }
 
-    .phase-number {
-      color: var(--blue2);
-      font-weight: 900;
-      margin-bottom: 10px;
+    .tokenomics{
+      display:grid;
+      gap:13px
     }
 
-    .phase h3 {
-      margin-bottom: 8px;
+    .token-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding:15px 0;
+      border-bottom:1px solid var(--border)
     }
 
-    .phase p {
-      color: var(--muted);
-      font-size: 14px;
+    .token-row:last-child{
+      border-bottom:0
     }
 
-    .contract {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
+    .token-row span:first-child{
+      color:var(--muted)
     }
 
-    .contract-address {
-      font-family: monospace;
-      color: var(--blue2);
-      overflow-wrap: anywhere;
+    .roadmap{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px
     }
 
-    .explorer-link {
-      display: inline-block;
-      padding: 11px 15px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      white-space: nowrap;
+    .phase-number{
+      color:var(--blue2);
+      font-weight:900;
+      margin-bottom:10px
     }
 
-    footer {
-      padding: 35px 0 50px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 13px;
+    .phase h3{
+      margin-bottom:8px
     }
 
-    @media (max-width: 850px) {
-      nav a {
-        display: none;
+    .phase p{
+      color:var(--muted);
+      font-size:14px
+    }
+
+    .contract{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center
+    }
+
+    .contract-address{
+      font-family:monospace;
+      color:var(--blue2);
+      overflow-wrap:anywhere
+    }
+
+    .explorer-link{
+      display:inline-block;
+      padding:11px 15px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      white-space:nowrap
+    }
+
+    footer{
+      padding:35px 0 50px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      text-align:center;
+      font-size:13px
+    }
+
+    @media(max-width:850px){
+      nav a{
+        display:none
       }
 
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
+      .grid{
+        grid-template-columns:repeat(2,1fr)
       }
 
-      .roadmap {
-        grid-template-columns: 1fr;
+      .roadmap{
+        grid-template-columns:1fr
       }
 
-      .contract {
-        align-items: flex-start;
-        flex-direction: column;
+      .contract{
+        align-items:flex-start;
+        flex-direction:column
       }
     }
 
-    @media (max-width: 520px) {
-      .container {
-        width: min(100% - 22px, 1120px);
+    @media(max-width:520px){
+      .container{
+        width:min(100% - 22px,1120px)
       }
 
-      .hero {
-        padding-top: 70px;
+      .hero{
+        padding-top:70px
       }
 
-      .grid {
-        grid-template-columns: 1fr;
+      .grid{
+        grid-template-columns:1fr
       }
 
-      .card {
-        padding: 19px;
+      .card{
+        padding:19px
       }
 
-      section {
-        padding: 50px 0;
+      section{
+        padding:50px 0
       }
 
-      .history-item {
-        grid-template-columns: 1fr;
+      .history-item{
+        grid-template-columns:1fr
       }
 
-      .history-amount {
-        text-align: left;
+      .history-amount{
+        text-align:left
       }
     }
   </style>
@@ -471,7 +502,12 @@
     </nav>
 
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="lang-btn" id="langBtn">EN</button>
+
+      <button
+        class="lang-btn"
+        id="langBtn">
+        EN
+      </button>
 
       <button
         class="wallet-btn"
@@ -480,8 +516,8 @@
         data-en="Connect MetaMask">
         Подключить MetaMask
       </button>
-    </div>
 
+    </div>
   </div>
 </header>
 
@@ -498,7 +534,9 @@
       Ethereum Sepolia • Тестовая сеть
     </div>
 
-    <h1>P<span>UL</span></h1>
+    <h1>
+      P<span>UL</span>
+    </h1>
 
     <p
       data-ru="Цифровой токен PUL на Ethereum Sepolia. Простой, прозрачный и созданный для экспериментов с Web3."
@@ -519,7 +557,6 @@
       <a
         href="https://eth-sepolia.blockscout.com/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
         target="_blank"
-        rel="noopener"
         class="outline-btn"
         data-ru="Открыть контракт"
         data-en="Open contract">
@@ -527,16 +564,20 @@
       </a>
 
     </div>
+
   </div>
 </section>
 
 
 <section id="wallet">
+
   <div class="container">
 
     <div class="section-title">
 
-      <h2 data-ru="Кошелёк" data-en="Wallet">
+      <h2
+        data-ru="Кошелёк"
+        data-en="Wallet">
         Кошелёк
       </h2>
 
@@ -548,6 +589,7 @@
 
     </div>
 
+
     <div class="card wallet-card">
 
       <div
@@ -557,9 +599,24 @@
         Адрес кошелька
       </div>
 
-      <div id="walletAddress" class="wallet-address">
+      <div
+        id="walletAddress"
+        class="wallet-address">
         —
       </div>
+
+      <div class="copy-row">
+
+        <button
+          id="copyWalletBtn"
+          class="copy-btn"
+          data-ru="Скопировать адрес"
+          data-en="Copy address">
+          Скопировать адрес
+        </button>
+
+      </div>
+
 
       <div class="balance-big">
         <span id="walletBalance">—</span> PUL
@@ -576,11 +633,13 @@
       </div>
 
     </div>
+
   </div>
 </section>
 
 
 <section>
+
   <div class="container">
 
     <div class="section-title">
@@ -599,9 +658,11 @@
 
     </div>
 
+
     <div class="grid">
 
       <div class="card">
+
         <div
           class="stat-label"
           data-ru="Общее предложение"
@@ -614,10 +675,12 @@
           id="totalSupply">
           —
         </div>
+
       </div>
 
 
       <div class="card">
+
         <div
           class="stat-label"
           data-ru="Владельцы"
@@ -630,10 +693,12 @@
           id="holders">
           —
         </div>
+
       </div>
 
 
       <div class="card">
+
         <div
           class="stat-label"
           data-ru="Переводы"
@@ -646,10 +711,12 @@
           id="transfers">
           —
         </div>
+
       </div>
 
 
       <div class="card">
+
         <div class="stat-label">
           Decimals
         </div>
@@ -657,14 +724,18 @@
         <div class="stat-value">
           18
         </div>
+
       </div>
 
     </div>
+
   </div>
+
 </section>
 
 
 <section id="send">
+
   <div class="container">
 
     <div class="section-title">
@@ -682,6 +753,7 @@
       </p>
 
     </div>
+
 
     <div class="card">
 
@@ -737,12 +809,16 @@
         </div>
 
       </div>
+
     </div>
+
   </div>
+
 </section>
 
 
 <section id="history">
+
   <div class="container">
 
     <div class="section-title">
@@ -761,9 +837,33 @@
 
     </div>
 
+
     <div class="card">
 
-      <div id="historyList" class="history">
+      <div class="history-header">
+
+        <div
+          class="stat-label"
+          style="margin:0"
+          data-ru="Данные обновляются из Blockscout"
+          data-en="Data updates from Blockscout">
+          Данные обновляются из Blockscout
+        </div>
+
+        <button
+          id="refreshHistoryBtn"
+          class="refresh-btn"
+          data-ru="Обновить"
+          data-en="Refresh">
+          Обновить
+        </button>
+
+      </div>
+
+
+      <div
+        id="historyList"
+        class="history">
 
         <div
           class="status"
@@ -775,11 +875,14 @@
       </div>
 
     </div>
+
   </div>
+
 </section>
 
 
 <section id="tokenomics">
+
   <div class="container">
 
     <div class="section-title">
@@ -798,37 +901,69 @@
 
     </div>
 
+
     <div class="card tokenomics">
 
       <div class="token-row">
-        <span data-ru="Название" data-en="Name">
+
+        <span
+          data-ru="Название"
+          data-en="Name">
           Название
         </span>
-        <strong>PUL</strong>
+
+        <strong>
+          PUL
+        </strong>
+
       </div>
 
+
       <div class="token-row">
-        <span data-ru="Тикер" data-en="Ticker">
+
+        <span
+          data-ru="Тикер"
+          data-en="Ticker">
           Тикер
         </span>
-        <strong>PUL</strong>
+
+        <strong>
+          PUL
+        </strong>
+
       </div>
 
+
       <div class="token-row">
+
         <span
           data-ru="Общее предложение"
           data-en="Total supply">
           Общее предложение
         </span>
-        <strong>1,000,000,000 PUL</strong>
+
+        <strong>
+          1,000,000,000 PUL
+        </strong>
+
       </div>
 
-      <div class="token-row">
-        <span>Decimals</span>
-        <strong>18</strong>
-      </div>
 
       <div class="token-row">
+
+        <span>
+          Decimals
+        </span>
+
+        <strong>
+          18
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
         <span
           data-ru="Дополнительный выпуск"
           data-en="Additional minting">
@@ -840,7 +975,9 @@
           data-en="No">
           Нет
         </strong>
+
       </div>
+
 
       <div class="token-row">
 
@@ -857,11 +994,14 @@
       </div>
 
     </div>
+
   </div>
+
 </section>
 
 
 <section id="roadmap">
+
   <div class="container">
 
     <div class="section-title">
@@ -946,11 +1086,14 @@
       </div>
 
     </div>
+
   </div>
+
 </section>
 
 
 <section>
+
   <div class="container">
 
     <div class="section-title">
@@ -962,6 +1105,7 @@
       </h2>
 
     </div>
+
 
     <div class="card contract">
 
@@ -978,21 +1122,32 @@
           0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
         </div>
 
+        <div class="copy-row">
+
+          <button
+            id="copyContractBtn"
+            class="copy-btn"
+            data-ru="Скопировать адрес"
+            data-en="Copy address">
+            Скопировать адрес
+          </button>
+
+        </div>
+
       </div>
 
 
       <a
         href="https://eth-sepolia.blockscout.com/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
         target="_blank"
-        rel="noopener"
-        class="explorer-link"
-        data-ru="Blockscout ↗"
-        data-en="Blockscout ↗">
+        class="explorer-link">
         Blockscout ↗
       </a>
 
     </div>
+
   </div>
+
 </section>
 
 </main>
@@ -1028,21 +1183,20 @@
   let currentAccount = null;
 
   let currentLang =
-    localStorage.getItem("pul-language") || "ru";
+    localStorage.getItem("pul-language") ||
+    "ru";
 
 
-  /* =========================
-     LANGUAGE
-  ========================= */
-
-  function applyLanguage() {
+  function applyLanguage(){
 
     document.documentElement.lang =
       currentLang;
 
 
     document
-      .querySelectorAll("[data-ru][data-en]")
+      .querySelectorAll(
+        "[data-ru][data-en]"
+      )
       .forEach(el => {
 
         el.textContent =
@@ -1053,56 +1207,74 @@
       });
 
 
-    document.getElementById("langBtn")
-      .textContent =
+    document.getElementById(
+      "langBtn"
+    ).textContent =
+      currentLang === "ru"
+        ? "EN"
+        : "RU";
+
+
+    const refreshBtn =
+      document.getElementById(
+        "refreshHistoryBtn"
+      );
+
+
+    if(
+      refreshBtn &&
+      !refreshBtn.textContent.includes("...")
+    ){
+
+      refreshBtn.textContent =
         currentLang === "ru"
-          ? "EN"
-          : "RU";
+          ? "Обновить"
+          : "Refresh";
+
+    }
 
   }
 
 
   document
     .getElementById("langBtn")
-    .addEventListener("click", () => {
+    .addEventListener(
+      "click",
+      () => {
 
-      currentLang =
-        currentLang === "ru"
-          ? "en"
-          : "ru";
-
-      localStorage.setItem(
-        "pul-language",
-        currentLang
-      );
-
-      applyLanguage();
-
-    });
+        currentLang =
+          currentLang === "ru"
+            ? "en"
+            : "ru";
 
 
-  /* =========================
-     HELPERS
-  ========================= */
+        localStorage.setItem(
+          "pul-language",
+          currentLang
+        );
 
-  function shortAddress(address) {
 
-    if (!address) {
-      return "—";
-    }
+        applyLanguage();
 
-    return (
-      address.slice(0, 8) +
-      "..." +
-      address.slice(-6)
+      }
     );
+
+
+  function shortAddress(address){
+
+    return address
+      ? address.slice(0,8) +
+        "..." +
+        address.slice(-6)
+      : "—";
+
   }
 
 
   function formatNumber(
     value,
     maximumFractionDigits = 4
-  ) {
+  ){
 
     return new Intl.NumberFormat(
       currentLang === "ru"
@@ -1116,15 +1288,16 @@
   }
 
 
-  function formatTokenAmount(value) {
+  function formatTokenAmount(value){
 
-    const number = Number(value);
+    const n =
+      Number(value);
 
-    if (!Number.isFinite(number)) {
-      return "—";
-    }
 
-    return formatNumber(number, 6);
+    return Number.isFinite(n)
+      ? formatNumber(n,6)
+      : "—";
+
   }
 
 
@@ -1132,28 +1305,28 @@
     element,
     message,
     type = ""
-  ) {
+  ){
 
-    element.textContent = message;
+    element.textContent =
+      message;
+
 
     element.className =
-      "status " + type;
+      "status " +
+      type;
 
   }
 
-
-  /* =========================
-     RPC
-  ========================= */
 
   async function rpcRequest(
     url,
     method,
     params = []
-  ) {
+  ){
 
     const controller =
       new AbortController();
+
 
     const timer =
       setTimeout(
@@ -1162,29 +1335,39 @@
       );
 
 
-    try {
+    try{
 
       const response =
-        await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-          body: JSON.stringify({
-            jsonrpc: "2.0",
-            id: Date.now(),
-            method,
-            params
-          }),
-          signal: controller.signal
-        });
+        await fetch(
+          url,
+          {
+            method:"POST",
 
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
 
-      if (!response.ok) {
-        throw new Error(
-          "RPC HTTP " + response.status
+            body:JSON.stringify({
+              jsonrpc:"2.0",
+              id:Date.now(),
+              method,
+              params
+            }),
+
+            signal:
+              controller.signal
+          }
         );
+
+
+      if(!response.ok){
+
+        throw new Error(
+          "RPC HTTP " +
+          response.status
+        );
+
       }
 
 
@@ -1192,7 +1375,7 @@
         await response.json();
 
 
-      if (data.error) {
+      if(data.error){
 
         throw new Error(
           data.error.message ||
@@ -1204,7 +1387,7 @@
 
       return data.result;
 
-    } finally {
+    }finally{
 
       clearTimeout(timer);
 
@@ -1216,14 +1399,17 @@
   async function rpc(
     method,
     params = []
-  ) {
+  ){
 
-    let lastError = null;
+    let lastError =
+      null;
 
 
-    for (const url of RPCS) {
+    for(
+      const url of RPCS
+    ){
 
-      try {
+      try{
 
         return await rpcRequest(
           url,
@@ -1231,9 +1417,10 @@
           params
         );
 
-      } catch (error) {
+      }catch(error){
 
-        lastError = error;
+        lastError =
+          error;
 
       }
 
@@ -1242,41 +1429,49 @@
 
     throw (
       lastError ||
-      new Error("No RPC available")
+      new Error(
+        "No RPC available"
+      )
     );
 
   }
 
 
-  /* =========================
-     TOKEN BALANCE
-  ========================= */
-
-  async function getTokenBalance(address) {
+  async function getTokenBalance(
+    address
+  ){
 
     const cleanAddress =
       address
-        .replace(/^0x/, "")
+        .replace(/^0x/,"")
         .toLowerCase();
 
 
     const data =
       "0x70a08231" +
-      cleanAddress.padStart(64, "0");
+      cleanAddress.padStart(
+        64,
+        "0"
+      );
 
 
     const result =
-      await rpc("eth_call", [
-        {
-          to: CONTRACT,
-          data
-        },
-        "latest"
-      ]);
+      await rpc(
+        "eth_call",
+        [
+          {
+            to:CONTRACT,
+            data
+          },
+          "latest"
+        ]
+      );
 
 
-    if (!result) {
+    if(!result){
+
       return 0;
+
     }
 
 
@@ -1294,26 +1489,25 @@
       1000000000000000000n;
 
 
-    const fractionString =
+    const combined =
+      whole.toString() +
+      "." +
       fraction
         .toString()
-        .padStart(18, "0");
+        .padStart(
+          18,
+          "0"
+        );
 
 
     return Number(
-      whole.toString() +
-      "." +
-      fractionString
+      combined
     );
 
   }
 
 
-  /* =========================
-     TOTAL SUPPLY
-  ========================= */
-
-  async function loadTotalSupply() {
+  async function loadTotalSupply(){
 
     const element =
       document.getElementById(
@@ -1321,16 +1515,19 @@
       );
 
 
-    try {
+    try{
 
       const result =
-        await rpc("eth_call", [
-          {
-            to: CONTRACT,
-            data: "0x18160ddd"
-          },
-          "latest"
-        ]);
+        await rpc(
+          "eth_call",
+          [
+            {
+              to:CONTRACT,
+              data:"0x18160ddd"
+            },
+            "latest"
+          ]
+        );
 
 
       const raw =
@@ -1347,29 +1544,19 @@
         1000000000000000000n;
 
 
-      if (fraction === 0n) {
+      element.textContent =
+        fraction === 0n
+          ? formatNumber(
+              Number(whole),
+              0
+            )
+          : formatNumber(
+              Number(raw) /
+              1e18,
+              6
+            );
 
-        element.textContent =
-          formatNumber(
-            Number(whole),
-            0
-          );
-
-      } else {
-
-        element.textContent =
-          formatNumber(
-            Number(raw) / 1e18,
-            6
-          );
-
-      }
-
-    } catch (error) {
-
-      /*
-        Supply фиксирован контрактом.
-      */
+    }catch(error){
 
       element.textContent =
         "1,000,000,000";
@@ -1379,14 +1566,10 @@
   }
 
 
-  /* =========================
-     BLOCKSCOUT REQUEST
-  ========================= */
-
   async function fetchWithTimeout(
     url,
     timeout = 8000
-  ) {
+  ){
 
     const controller =
       new AbortController();
@@ -1399,19 +1582,24 @@
       );
 
 
-    try {
+    try{
 
       const response =
-        await fetch(url, {
-          cache: "no-store",
-          signal: controller.signal
-        });
+        await fetch(
+          url,
+          {
+            cache:"no-store",
+            signal:
+              controller.signal
+          }
+        );
 
 
-      if (!response.ok) {
+      if(!response.ok){
 
         throw new Error(
-          "HTTP " + response.status
+          "HTTP " +
+          response.status
         );
 
       }
@@ -1419,7 +1607,7 @@
 
       return await response.json();
 
-    } finally {
+    }finally{
 
       clearTimeout(timer);
 
@@ -1428,11 +1616,7 @@
   }
 
 
-  /* =========================
-     STATS
-  ========================= */
-
-  async function loadStats() {
+  async function loadStats(){
 
     const holdersElement =
       document.getElementById(
@@ -1446,63 +1630,39 @@
       );
 
 
-    try {
-
-      const url =
-        BLOCKSCOUT +
-        "/api/v2/tokens/" +
-        CONTRACT +
-        "/counters";
-
+    try{
 
       const data =
-        await fetchWithTimeout(url);
+        await fetchWithTimeout(
+          BLOCKSCOUT +
+          "/api/v2/tokens/" +
+          CONTRACT +
+          "/counters"
+        );
 
 
-      if (
-        data &&
-        data.token_holders_count !==
-        undefined
-      ) {
-
-        holdersElement.textContent =
-          formatNumber(
-            Number(
-              data.token_holders_count
-            ),
-            0
-          );
-
-      } else {
-
-        holdersElement.textContent =
-          "—";
-
-      }
+      holdersElement.textContent =
+        data?.token_holders_count !== undefined
+          ? formatNumber(
+              Number(
+                data.token_holders_count
+              ),
+              0
+            )
+          : "—";
 
 
-      if (
-        data &&
-        data.transfers_count !==
-        undefined
-      ) {
+      transfersElement.textContent =
+        data?.transfers_count !== undefined
+          ? formatNumber(
+              Number(
+                data.transfers_count
+              ),
+              0
+            )
+          : "—";
 
-        transfersElement.textContent =
-          formatNumber(
-            Number(
-              data.transfers_count
-            ),
-            0
-          );
-
-      } else {
-
-        transfersElement.textContent =
-          "—";
-
-      }
-
-    } catch (error) {
+    }catch(error){
 
       holdersElement.textContent =
         "—";
@@ -1515,11 +1675,9 @@
   }
 
 
-  /* =========================
-     HISTORY RENDER
-  ========================= */
-
-  function renderHistoryItems(items) {
+  function renderHistoryItems(
+    items
+  ){
 
     const container =
       document.getElementById(
@@ -1527,9 +1685,10 @@
       );
 
 
-    if (!items.length) {
+    if(!items.length){
 
-      container.innerHTML = `
+      container.innerHTML =
+        `
         <div class="status">
           ${
             currentLang === "ru"
@@ -1537,41 +1696,47 @@
               : "No transfers found yet."
           }
         </div>
-      `;
+        `;
 
       return;
+
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+      "";
 
 
     items
-      .slice(0, 20)
+      .slice(0,20)
       .forEach(item => {
 
         const from =
-          item.from?.hash || "";
+          item.from?.hash ||
+          "";
 
 
         const to =
-          item.to?.hash || "";
+          item.to?.hash ||
+          "";
 
 
         const rawValue =
           item.total?.value ||
-          item.value ||
           "0";
 
 
         const decimals =
           Number(
-            item.total?.decimals ?? 18
+            item.total?.decimals ??
+            18
           );
 
 
         const amount =
-          Number(rawValue) /
+          Number(
+            rawValue
+          ) /
           Math.pow(
             10,
             decimals
@@ -1580,7 +1745,6 @@
 
         const txHash =
           item.transaction_hash ||
-          item.tx_hash ||
           "";
 
 
@@ -1606,8 +1770,8 @@
           "history-item";
 
 
-        div.innerHTML = `
-
+        div.innerHTML =
+          `
           <div class="history-main">
 
             <div class="history-type">
@@ -1618,36 +1782,29 @@
               }
             </div>
 
-
             <div class="history-address">
               ${
                 currentLang === "ru"
                   ? "От: "
                   : "From: "
-              }
-
-              ${
+              }${
                 from
                   ? shortAddress(from)
                   : "—"
               }
             </div>
 
-
             <div class="history-address">
               ${
                 currentLang === "ru"
                   ? "Кому: "
                   : "To: "
-              }
-
-              ${
+              }${
                 to
                   ? shortAddress(to)
                   : "—"
               }
             </div>
-
 
             ${
               timestamp
@@ -1660,7 +1817,6 @@
                 `
                 : ""
             }
-
 
             ${
               txHash
@@ -1682,26 +1838,26 @@
 
           </div>
 
-
           <div class="history-amount">
-            ${formatTokenAmount(amount)} PUL
+            ${
+              formatTokenAmount(
+                amount
+              )
+            } PUL
           </div>
+          `;
 
-        `;
 
-
-        container.appendChild(div);
+        container.appendChild(
+          div
+        );
 
       });
 
   }
 
 
-  /* =========================
-     HISTORY
-  ========================= */
-
-  async function loadHistory() {
+  async function loadHistory(){
 
     const container =
       document.getElementById(
@@ -1709,21 +1865,21 @@
       );
 
 
-    try {
-
-      const url =
-        BLOCKSCOUT +
-        "/api/v2/tokens/" +
-        CONTRACT +
-        "/transfers";
-
+    try{
 
       const data =
-        await fetchWithTimeout(url);
+        await fetchWithTimeout(
+          BLOCKSCOUT +
+          "/api/v2/tokens/" +
+          CONTRACT +
+          "/transfers"
+        );
 
 
       const items =
-        Array.isArray(data?.items)
+        Array.isArray(
+          data?.items
+        )
           ? data.items.filter(
               item =>
                 !item.token_type ||
@@ -1733,11 +1889,14 @@
           : [];
 
 
-      renderHistoryItems(items);
+      renderHistoryItems(
+        items
+      );
 
-    } catch (error) {
+    }catch(error){
 
-      container.innerHTML = `
+      container.innerHTML =
+        `
         <div class="status">
 
           ${
@@ -1757,22 +1916,18 @@
           </a>
 
         </div>
-      `;
+        `;
 
     }
 
   }
 
 
-  /* =========================
-     ETH BALANCE
-  ========================= */
-
   async function loadEthBalance(
     address
-  ) {
+  ){
 
-    try {
+    try{
 
       const result =
         await rpc(
@@ -1804,7 +1959,10 @@
           "." +
           fraction
             .toString()
-            .padStart(18, "0")
+            .padStart(
+              18,
+              "0"
+            )
         );
 
 
@@ -1816,24 +1974,21 @@
           6
         );
 
-    } catch (error) {
+    }catch(error){
 
       document.getElementById(
         "ethBalance"
-      ).textContent = "—";
+      ).textContent =
+        "—";
 
     }
 
   }
 
 
-  /* =========================
-     WALLET
-  ========================= */
-
   async function refreshWallet(
     address
-  ) {
+  ){
 
     currentAccount =
       address;
@@ -1845,23 +2000,19 @@
       address;
 
 
-    try {
-
-      const balance =
-        await getTokenBalance(
-          address
-        );
-
+    try{
 
       document.getElementById(
         "walletBalance"
       ).textContent =
         formatNumber(
-          balance,
+          await getTokenBalance(
+            address
+          ),
           6
         );
 
-    } catch (error) {
+    }catch(error){
 
       document.getElementById(
         "walletBalance"
@@ -1878,11 +2029,7 @@
   }
 
 
-  /* =========================
-     CONNECT
-  ========================= */
-
-  async function connectWallet() {
+  async function connectWallet(){
 
     const status =
       document.getElementById(
@@ -1890,7 +2037,7 @@
       );
 
 
-    if (!window.ethereum) {
+    if(!window.ethereum){
 
       setStatus(
         status,
@@ -1901,10 +2048,11 @@
       );
 
       return;
+
     }
 
 
-    try {
+    try{
 
       const accounts =
         await window.ethereum.request({
@@ -1913,28 +2061,31 @@
         });
 
 
-      if (!accounts.length) {
+      if(!accounts.length){
+
         return;
+
       }
 
 
       let chainId =
         await window.ethereum.request({
-          method: "eth_chainId"
+          method:"eth_chainId"
         });
 
 
-      if (
+      if(
         chainId.toLowerCase() !==
         SEPOLIA_CHAIN_ID
-      ) {
+      ){
 
-        try {
+        try{
 
           await window.ethereum.request({
             method:
               "wallet_switchEthereumChain",
-            params: [
+
+            params:[
               {
                 chainId:
                   SEPOLIA_CHAIN_ID
@@ -1942,17 +2093,18 @@
             ]
           });
 
-        } catch (switchError) {
+        }catch(switchError){
 
-          if (
+          if(
             switchError.code ===
             4902
-          ) {
+          ){
 
             await window.ethereum.request({
               method:
                 "wallet_addEthereumChain",
-              params: [
+
+              params:[
                 {
                   chainId:
                     SEPOLIA_CHAIN_ID,
@@ -1960,31 +2112,34 @@
                   chainName:
                     "Ethereum Sepolia",
 
-                  nativeCurrency: {
+                  nativeCurrency:{
                     name:
                       "Sepolia Ether",
+
                     symbol:
                       "ETH",
+
                     decimals:
                       18
                   },
 
-                  rpcUrls: [
+                  rpcUrls:[
                     RPCS[0]
                   ],
 
-                  blockExplorerUrls: [
+                  blockExplorerUrls:[
                     BLOCKSCOUT
                   ]
                 }
               ]
             });
 
-          } else {
+          }else{
 
             throw switchError;
 
           }
+
         }
 
 
@@ -1997,10 +2152,10 @@
       }
 
 
-      if (
+      if(
         chainId.toLowerCase() !==
         SEPOLIA_CHAIN_ID
-      ) {
+      ){
 
         throw new Error(
           currentLang === "ru"
@@ -2032,7 +2187,8 @@
         "success"
       );
 
-    } catch (error) {
+
+    }catch(error){
 
       setStatus(
         status,
@@ -2058,25 +2214,21 @@
     );
 
 
-  /* =========================
-     AMOUNT PARSER
-  ========================= */
-
   function parsePulAmount(
     value
-  ) {
+  ){
 
     const input =
       String(value)
         .trim()
-        .replace(",", ".");
+        .replace(",",".");
 
 
-    if (
+    if(
       !/^\d+(?:\.\d{1,18})?$/.test(
         input
       )
-    ) {
+    ){
 
       throw new Error(
         currentLang === "ru"
@@ -2105,7 +2257,7 @@
         (
           fractionPart +
           "0".repeat(18)
-        ).slice(0, 18)
+        ).slice(0,18)
       );
 
 
@@ -2115,7 +2267,9 @@
       fraction;
 
 
-    if (result <= 0n) {
+    if(
+      result <= 0n
+    ){
 
       throw new Error(
         currentLang === "ru"
@@ -2131,11 +2285,173 @@
   }
 
 
-  /* =========================
-     SEND
-  ========================= */
+  function showTxStatus(
+    txHash,
+    state
+  ){
 
-  async function sendPUL() {
+    const status =
+      document.getElementById(
+        "sendStatus"
+      );
+
+
+    const labels = {
+
+      sent:
+        currentLang === "ru"
+          ? "Транзакция отправлена. Ожидаем подтверждение..."
+          : "Transaction sent. Waiting for confirmation...",
+
+      confirmed:
+        currentLang === "ru"
+          ? "Транзакция подтверждена."
+          : "Transaction confirmed.",
+
+      failed:
+        currentLang === "ru"
+          ? "Транзакция не подтверждена."
+          : "Transaction failed.",
+
+      pending:
+        currentLang === "ru"
+          ? "Проверяем статус транзакции..."
+          : "Checking transaction status..."
+
+    };
+
+
+    status.className =
+      "status " +
+      (
+        state === "confirmed"
+          ? "success"
+          : state === "failed"
+            ? "error"
+            : ""
+      );
+
+
+    status.innerHTML =
+      "<div>" +
+      labels[state] +
+      "</div>";
+
+
+    if(txHash){
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href =
+        BLOCKSCOUT +
+        "/tx/" +
+        txHash;
+
+
+      link.target =
+        "_blank";
+
+
+      link.rel =
+        "noopener";
+
+
+      link.className =
+        "history-link tx-status";
+
+
+      link.textContent =
+        currentLang === "ru"
+          ? "Открыть транзакцию ↗"
+          : "Open transaction ↗";
+
+
+      status.appendChild(
+        link
+      );
+
+    }
+
+  }
+
+
+  async function waitForReceipt(
+    txHash
+  ){
+
+    for(
+      let i=0;
+      i<30;
+      i++
+    ){
+
+      try{
+
+        const receipt =
+          await window.ethereum.request({
+            method:
+              "eth_getTransactionReceipt",
+
+            params:[
+              txHash
+            ]
+          });
+
+
+        if(receipt){
+
+          if(
+            receipt.status ===
+            "0x1"
+          ){
+
+            return true;
+
+          }
+
+
+          if(
+            receipt.status ===
+            "0x0"
+          ){
+
+            return false;
+
+          }
+
+        }
+
+      }catch(error){
+
+        console.log(
+          "Receipt check:",
+          error
+        );
+
+      }
+
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            3000
+          )
+      );
+
+    }
+
+
+    return null;
+
+  }
+
+
+  async function sendPUL(){
 
     const status =
       document.getElementById(
@@ -2155,7 +2471,7 @@
       ).value.trim();
 
 
-    if (!window.ethereum) {
+    if(!window.ethereum){
 
       setStatus(
         status,
@@ -2166,10 +2482,11 @@
       );
 
       return;
+
     }
 
 
-    if (!currentAccount) {
+    if(!currentAccount){
 
       setStatus(
         status,
@@ -2180,14 +2497,15 @@
       );
 
       return;
+
     }
 
 
-    if (
+    if(
       !/^0x[a-fA-F0-9]{40}$/.test(
         recipient
       )
-    ) {
+    ){
 
       setStatus(
         status,
@@ -2198,20 +2516,21 @@
       );
 
       return;
+
     }
 
 
     let tokenAmount;
 
 
-    try {
+    try{
 
       tokenAmount =
         parsePulAmount(
           amount
         );
 
-    } catch (error) {
+    }catch(error){
 
       setStatus(
         status,
@@ -2220,10 +2539,11 @@
       );
 
       return;
+
     }
 
 
-    try {
+    try{
 
       setStatus(
         status,
@@ -2236,7 +2556,10 @@
       const data =
         "0xa9059cbb" +
         recipient
-          .replace(/^0x/, "")
+          .replace(
+            /^0x/,
+            ""
+          )
           .toLowerCase()
           .padStart(
             64,
@@ -2252,9 +2575,11 @@
 
       const txHash =
         await window.ethereum.request({
+
           method:
             "eth_sendTransaction",
-          params: [
+
+          params:[
             {
               from:
                 currentAccount,
@@ -2265,55 +2590,8 @@
               data
             }
           ]
+
         });
-
-
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Транзакция отправлена."
-          : "Transaction sent.",
-        "success"
-      );
-
-
-      const link =
-        document.createElement(
-          "a"
-        );
-
-
-      link.href =
-        BLOCKSCOUT +
-        "/tx/" +
-        txHash;
-
-
-      link.target = "_blank";
-
-      link.rel =
-        "noopener";
-
-
-      link.textContent =
-        currentLang === "ru"
-          ? "Открыть транзакцию ↗"
-          : "Open transaction ↗";
-
-
-      link.style.color =
-        "var(--blue2)";
-
-      link.style.display =
-        "block";
-
-      link.style.marginTop =
-        "7px";
-
-
-      status.appendChild(
-        link
-      );
 
 
       document.getElementById(
@@ -2326,27 +2604,61 @@
       ).value = "";
 
 
-      setTimeout(
-        async () => {
-
-          if (currentAccount) {
-
-            await refreshWallet(
-              currentAccount
-            );
-
-          }
-
-          await loadHistory();
-
-          await loadStats();
-
-        },
-        5000
+      showTxStatus(
+        txHash,
+        "sent"
       );
 
 
-    } catch (error) {
+      const result =
+        await waitForReceipt(
+          txHash
+        );
+
+
+      if(
+        result === true
+      ){
+
+        showTxStatus(
+          txHash,
+          "confirmed"
+        );
+
+
+        await Promise.allSettled([
+          loadHistory(),
+          loadStats(),
+          currentAccount
+            ? refreshWallet(
+                currentAccount
+              )
+            : Promise.resolve()
+        ]);
+
+      }else if(
+        result === false
+      ){
+
+        showTxStatus(
+          txHash,
+          "failed"
+        );
+
+      }else{
+
+        showTxStatus(
+          txHash,
+          "pending"
+        );
+
+
+        await loadHistory();
+
+      }
+
+
+    }catch(error){
 
       setStatus(
         status,
@@ -2372,17 +2684,17 @@
     );
 
 
-  /* =========================
-     METAMASK EVENTS
-  ========================= */
-
-  if (window.ethereum) {
+  if(
+    window.ethereum
+  ){
 
     window.ethereum.on(
       "accountsChanged",
       async accounts => {
 
-        if (!accounts.length) {
+        if(
+          !accounts.length
+        ){
 
           currentAccount =
             null;
@@ -2415,6 +2727,7 @@
 
 
           return;
+
         }
 
 
@@ -2444,11 +2757,188 @@
   }
 
 
-  /* =========================
-     INIT
-  ========================= */
+  async function copyText(
+    text
+  ){
 
-  async function init() {
+    if(
+      !text ||
+      text === "—"
+    ){
+
+      return false;
+
+    }
+
+
+    try{
+
+      await navigator.clipboard.writeText(
+        text
+      );
+
+
+      return true;
+
+    }catch(error){
+
+      const area =
+        document.createElement(
+          "textarea"
+        );
+
+
+      area.value =
+        text;
+
+
+      area.style.position =
+        "fixed";
+
+
+      area.style.opacity =
+        "0";
+
+
+      document.body.appendChild(
+        area
+      );
+
+
+      area.select();
+
+
+      const ok =
+        document.execCommand(
+          "copy"
+        );
+
+
+      area.remove();
+
+
+      return ok;
+
+    }
+
+  }
+
+
+  function bindCopyButton(
+    buttonId,
+    getValue
+  ){
+
+    const button =
+      document.getElementById(
+        buttonId
+      );
+
+
+    if(!button){
+
+      return;
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      async () => {
+
+        const ok =
+          await copyText(
+            getValue()
+          );
+
+
+        const original =
+          button.textContent;
+
+
+        button.textContent =
+          ok
+            ? (
+                currentLang === "ru"
+                  ? "Скопировано ✓"
+                  : "Copied ✓"
+              )
+            : original;
+
+
+        setTimeout(
+          () => {
+
+            button.textContent =
+              currentLang === "ru"
+                ? "Скопировать адрес"
+                : "Copy address";
+
+          },
+          1500
+        );
+
+      }
+    );
+
+  }
+
+
+  bindCopyButton(
+    "copyWalletBtn",
+    () =>
+      currentAccount ||
+      document.getElementById(
+        "walletAddress"
+      ).textContent
+  );
+
+
+  bindCopyButton(
+    "copyContractBtn",
+    () =>
+      CONTRACT
+  );
+
+
+  document
+    .getElementById(
+      "refreshHistoryBtn"
+    )
+    .addEventListener(
+      "click",
+      async () => {
+
+        const btn =
+          document.getElementById(
+            "refreshHistoryBtn"
+          );
+
+
+        const old =
+          btn.textContent;
+
+
+        btn.textContent =
+          currentLang === "ru"
+            ? "Обновление..."
+            : "Refreshing...";
+
+
+        await Promise.allSettled([
+          loadHistory(),
+          loadStats()
+        ]);
+
+
+        btn.textContent =
+          old;
+
+      }
+    );
+
+
+  async function init(){
 
     applyLanguage();
 
@@ -2460,9 +2950,11 @@
     ]);
 
 
-    if (window.ethereum) {
+    if(
+      window.ethereum
+    ){
 
-      try {
+      try{
 
         const accounts =
           await window.ethereum.request({
@@ -2471,7 +2963,9 @@
           });
 
 
-        if (accounts.length) {
+        if(
+          accounts.length
+        ){
 
           const chainId =
             await window.ethereum.request({
@@ -2480,10 +2974,10 @@
             });
 
 
-          if (
+          if(
             chainId.toLowerCase() ===
             SEPOLIA_CHAIN_ID
-          ) {
+          ){
 
             await refreshWallet(
               accounts[0]
@@ -2501,7 +2995,7 @@
 
         }
 
-      } catch (error) {
+      }catch(error){
 
         console.log(
           "Wallet restore:",
