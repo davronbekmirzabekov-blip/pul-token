@@ -186,6 +186,12 @@
       background: #ffd54f;
     }
 
+    .btn-success {
+      background: rgba(76, 175, 80, 0.12);
+      border-color: rgba(76, 175, 80, 0.4);
+      color: #8be28f;
+    }
+
     section {
       padding: 75px 0;
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -260,7 +266,6 @@
     }
 
     .phase {
-      position: relative;
       padding: 24px;
       border-radius: 18px;
       background: rgba(255,255,255,0.025);
@@ -356,6 +361,24 @@
       border-color: rgba(255,193,7,0.55);
     }
 
+    .transaction-box {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(76, 175, 80, 0.06);
+      border: 1px solid rgba(76, 175, 80, 0.18);
+    }
+
+    .transaction-hash {
+      margin-top: 10px;
+      margin-bottom: 14px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #999;
+      word-break: break-all;
+    }
+
     .notice {
       max-width: 820px;
       margin: 30px auto 0;
@@ -389,16 +412,14 @@
     }
 
     @media (max-width: 850px) {
+
       .nav-links a {
         display: none;
       }
 
       .stats,
       .cards,
-      .roadmap {
-        grid-template-columns: 1fr;
-      }
-
+      .roadmap,
       .wallet-grid {
         grid-template-columns: 1fr;
       }
@@ -414,6 +435,7 @@
 
   <nav>
     <div class="container nav-inner">
+
       <a href="#" class="logo">
         <span class="logo-mark">₽</span>
         <span>PUL</span>
@@ -424,10 +446,19 @@
         <a href="#tokenomics" data-i18n="navTokenomics">Tokenomics</a>
         <a href="#roadmap" data-i18n="navRoadmap">Roadmap</a>
         <a href="#contract" data-i18n="navContract">Contract</a>
-        <button class="language-btn" onclick="toggleLanguage()" id="languageBtn">RU</button>
+
+        <button
+          class="language-btn"
+          onclick="toggleLanguage()"
+          id="languageBtn"
+        >
+          RU
+        </button>
       </div>
+
     </div>
   </nav>
+
 
   <main>
 
@@ -449,6 +480,7 @@
         </p>
 
         <div class="hero-buttons">
+
           <a
             class="btn btn-primary"
             href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
@@ -466,23 +498,33 @@
           >
             Token Explorer
           </a>
+
         </div>
 
+
         <div class="stats">
+
           <div class="stat">
             <div class="stat-number">1B</div>
-            <div class="stat-label" data-i18n="totalSupply">Total Supply</div>
+            <div class="stat-label" data-i18n="totalSupply">
+              Total Supply
+            </div>
           </div>
 
           <div class="stat">
             <div class="stat-number">PUL</div>
-            <div class="stat-label" data-i18n="tokenSymbol">Token Symbol</div>
+            <div class="stat-label" data-i18n="tokenSymbol">
+              Token Symbol
+            </div>
           </div>
 
           <div class="stat">
             <div class="stat-number">18</div>
-            <div class="stat-label" data-i18n="decimals">Decimals</div>
+            <div class="stat-label" data-i18n="decimals">
+              Decimals
+            </div>
           </div>
+
         </div>
 
       </div>
@@ -492,7 +534,9 @@
     <section id="about">
       <div class="container">
 
-        <h2 class="section-title" data-i18n="aboutTitle">About PUL</h2>
+        <h2 class="section-title" data-i18n="aboutTitle">
+          About PUL
+        </h2>
 
         <p class="section-description" data-i18n="aboutDescription">
           PUL is an experimental digital token created on the Ethereum Sepolia test network.
@@ -531,7 +575,9 @@
     <section id="tokenomics">
       <div class="container">
 
-        <h2 class="section-title" data-i18n="tokenomicsTitle">Tokenomics</h2>
+        <h2 class="section-title" data-i18n="tokenomicsTitle">
+          Tokenomics
+        </h2>
 
         <p class="section-description" data-i18n="tokenomicsDescription">
           Basic information about the PUL token.
@@ -540,27 +586,40 @@
         <div class="cards">
 
           <div class="card">
-            <h3 data-i18n="supplyTitle">Fixed Supply</h3>
+            <h3 data-i18n="supplyTitle">
+              Fixed Supply
+            </h3>
+
             <p>
               <strong>1,000,000,000 PUL</strong>
             </p>
+
             <p data-i18n="supplyText">
               The initial supply was created at deployment.
             </p>
           </div>
 
+
           <div class="card">
-            <h3 data-i18n="mintTitle">No Additional Minting</h3>
+            <h3 data-i18n="mintTitle">
+              No Additional Minting
+            </h3>
+
             <p data-i18n="mintText">
               The current smart contract does not contain a public function for creating additional PUL tokens.
             </p>
           </div>
 
+
           <div class="card">
-            <h3 data-i18n="networkTitle">Network</h3>
+            <h3 data-i18n="networkTitle">
+              Network
+            </h3>
+
             <p>
               <strong>Ethereum Sepolia</strong>
             </p>
+
             <p data-i18n="networkText">
               PUL currently exists on the test network.
             </p>
@@ -575,7 +634,9 @@
     <section id="roadmap">
       <div class="container">
 
-        <h2 class="section-title" data-i18n="roadmapTitle">Roadmap</h2>
+        <h2 class="section-title" data-i18n="roadmapTitle">
+          Roadmap
+        </h2>
 
         <p class="section-description" data-i18n="roadmapDescription">
           A simple development direction for the PUL project.
@@ -584,32 +645,59 @@
         <div class="roadmap">
 
           <div class="phase">
-            <div class="phase-number" data-i18n="phase1">Phase 01</div>
-            <h3 data-i18n="phase1Title">Foundation</h3>
+            <div class="phase-number" data-i18n="phase1">
+              Phase 01
+            </div>
+
+            <h3 data-i18n="phase1Title">
+              Foundation
+            </h3>
+
             <p data-i18n="phase1Text">
               Smart contract deployment, token creation, verification and initial website launch.
             </p>
           </div>
 
+
           <div class="phase">
-            <div class="phase-number" data-i18n="phase2">Phase 02</div>
-            <h3 data-i18n="phase2Title">Community</h3>
+            <div class="phase-number" data-i18n="phase2">
+              Phase 02
+            </div>
+
+            <h3 data-i18n="phase2Title">
+              Community
+            </h3>
+
             <p data-i18n="phase2Text">
               Build a community, improve the website and experiment with Web3.
             </p>
           </div>
 
+
           <div class="phase">
-            <div class="phase-number" data-i18n="phase3">Phase 03</div>
-            <h3 data-i18n="phase3Title">Web3 Development</h3>
+            <div class="phase-number" data-i18n="phase3">
+              Phase 03
+            </div>
+
+            <h3 data-i18n="phase3Title">
+              Web3 Development
+            </h3>
+
             <p data-i18n="phase3Text">
               Explore dApps, wallets, token utilities and blockchain integrations.
             </p>
           </div>
 
+
           <div class="phase">
-            <div class="phase-number" data-i18n="phase4">Phase 04</div>
-            <h3 data-i18n="phase4Title">Future</h3>
+            <div class="phase-number" data-i18n="phase4">
+              Phase 04
+            </div>
+
+            <h3 data-i18n="phase4Title">
+              Future
+            </h3>
+
             <p data-i18n="phase4Text">
               Research future possibilities and define the next stages of development.
             </p>
@@ -624,11 +712,14 @@
     <section id="contract">
       <div class="container">
 
-        <h2 class="section-title" data-i18n="contractTitle">PUL Contract</h2>
+        <h2 class="section-title" data-i18n="contractTitle">
+          PUL Contract
+        </h2>
 
         <p class="section-description" data-i18n="contractDescription">
           Connect your MetaMask wallet to interact with PUL on Sepolia.
         </p>
+
 
         <div class="contract-box">
 
@@ -640,48 +731,89 @@
             0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
           </div>
 
+
           <div class="hero-buttons">
 
-            <button class="btn btn-primary" onclick="connectWallet()" data-i18n="connectWallet">
+            <button
+              class="btn btn-primary"
+              onclick="connectWallet()"
+              data-i18n="connectWallet"
+            >
               🦊 Connect MetaMask
             </button>
 
-            <button class="btn" onclick="addToMetaMask()" data-i18n="addMetaMask">
+            <button
+              class="btn"
+              onclick="addToMetaMask()"
+              data-i18n="addMetaMask"
+            >
               🦊 Add PUL to MetaMask
             </button>
 
-            <button class="btn" onclick="copyContract()" data-i18n="copyContract">
+            <button
+              class="btn"
+              onclick="copyContract()"
+              data-i18n="copyContract"
+            >
               📋 Copy Contract
             </button>
 
-            <button class="btn" onclick="copyMyAddress()" data-i18n="copyMyAddress">
+            <button
+              class="btn"
+              onclick="copyMyAddress()"
+              data-i18n="copyMyAddress"
+            >
               📋 Copy My Address
             </button>
 
           </div>
+
 
           <div class="wallet-box">
 
             <div class="wallet-grid">
 
               <div class="wallet-stat">
-                <span data-i18n="walletAddress">Wallet Address</span>
-                <strong id="walletAddress">—</strong>
+                <span data-i18n="walletAddress">
+                  Wallet Address
+                </span>
+
+                <strong id="walletAddress">
+                  —
+                </strong>
               </div>
 
-              <div class="wallet-stat">
-                <span data-i18n="pulBalance">PUL Balance</span>
-                <strong id="pulBalance">—</strong>
-              </div>
 
               <div class="wallet-stat">
-                <span data-i18n="sepoliaBalance">Sepolia ETH Balance</span>
-                <strong id="ethBalance">—</strong>
+                <span data-i18n="pulBalance">
+                  PUL Balance
+                </span>
+
+                <strong id="pulBalance">
+                  —
+                </strong>
               </div>
 
+
               <div class="wallet-stat">
-                <span data-i18n="network">Network</span>
-                <strong id="networkName">—</strong>
+                <span data-i18n="sepoliaBalance">
+                  Sepolia ETH Balance
+                </span>
+
+                <strong id="ethBalance">
+                  —
+                </strong>
+              </div>
+
+
+              <div class="wallet-stat">
+                <span data-i18n="network">
+                  Network
+                </span>
+
+                <strong id="networkName">
+                  —
+                </strong>
               </div>
 
             </div>
@@ -689,7 +821,10 @@
 
             <div class="send-box">
 
-              <h3 data-i18n="sendTitle">Send PUL</h3>
+              <h3 data-i18n="sendTitle">
+                Send PUL
+              </h3>
+
 
               <input
                 id="recipient"
@@ -698,6 +833,7 @@
                 data-i18n-placeholder="recipientPlaceholder"
                 placeholder="Recipient wallet address"
               >
+
 
               <input
                 id="amount"
@@ -708,13 +844,46 @@
                 placeholder="Amount of PUL"
               >
 
-              <button class="btn btn-primary" onclick="sendPUL()" data-i18n="sendButton">
+
+              <button
+                class="btn btn-primary"
+                onclick="sendPUL()"
+                data-i18n="sendButton"
+              >
                 Send PUL
               </button>
 
             </div>
 
+
             <div id="status"></div>
+
+
+            <div
+              class="transaction-box"
+              id="transactionBox"
+            >
+
+              <strong data-i18n="transactionSuccess">
+                Transaction successful
+              </strong>
+
+              <div
+                class="transaction-hash"
+                id="transactionHash"
+              ></div>
+
+              <a
+                id="transactionLink"
+                class="btn btn-success"
+                href="#"
+                target="_blank"
+                data-i18n="viewTransaction"
+              >
+                🔎 View Transaction
+              </a>
+
+            </div>
 
           </div>
 
@@ -733,12 +902,19 @@
 
 
   <footer>
+
     <div class="container">
-      <div class="footer-logo">₽ PUL</div>
+
+      <div class="footer-logo">
+        ₽ PUL
+      </div>
+
       <div data-i18n="footerText">
         Built for learning, experimentation and future Web3 development.
       </div>
+
     </div>
+
   </footer>
 
 
@@ -751,7 +927,8 @@
 
     let currentAccount = null;
 
-    let language = localStorage.getItem("pul-language") || "en";
+    let language =
+      localStorage.getItem("pul-language") || "en";
 
 
     const translations = {
@@ -798,14 +975,17 @@
           "Basic information about the PUL token.",
 
         supplyTitle: "Fixed Supply",
+
         supplyText:
           "The initial supply was created at deployment.",
 
         mintTitle: "No Additional Minting",
+
         mintText:
           "The current smart contract does not contain a public function for creating additional PUL tokens.",
 
         networkTitle: "Network",
+
         networkText:
           "PUL currently exists on the test network.",
 
@@ -816,21 +996,25 @@
 
         phase1: "Phase 01",
         phase1Title: "Foundation",
+
         phase1Text:
           "Smart contract deployment, token creation, verification and initial website launch.",
 
         phase2: "Phase 02",
         phase2Title: "Community",
+
         phase2Text:
           "Build a community, improve the website and experiment with Web3.",
 
         phase3: "Phase 03",
         phase3Title: "Web3 Development",
+
         phase3Text:
           "Explore dApps, wallets, token utilities and blockchain integrations.",
 
         phase4: "Phase 04",
         phase4Title: "Future",
+
         phase4Text:
           "Research future possibilities and define the next stages of development.",
 
@@ -842,16 +1026,30 @@
         contractAddressLabel: "Contract Address",
 
         connectWallet: "🦊 Connect MetaMask",
-        addMetaMask: "🦊 Add PUL to MetaMask",
-        copyContract: "📋 Copy Contract",
-        copyMyAddress: "📋 Copy My Address",
 
-        walletAddress: "Wallet Address",
-        pulBalance: "PUL Balance",
-        sepoliaBalance: "Sepolia ETH Balance",
-        network: "Network",
+        addMetaMask:
+          "🦊 Add PUL to MetaMask",
 
-        sendTitle: "Send PUL",
+        copyContract:
+          "📋 Copy Contract",
+
+        copyMyAddress:
+          "📋 Copy My Address",
+
+        walletAddress:
+          "Wallet Address",
+
+        pulBalance:
+          "PUL Balance",
+
+        sepoliaBalance:
+          "Sepolia ETH Balance",
+
+        network:
+          "Network",
+
+        sendTitle:
+          "Send PUL",
 
         recipientPlaceholder:
           "Recipient wallet address",
@@ -859,7 +1057,14 @@
         amountPlaceholder:
           "Amount of PUL",
 
-        sendButton: "Send PUL",
+        sendButton:
+          "Send PUL",
+
+        transactionSuccess:
+          "Transaction successful",
+
+        viewTransaction:
+          "🔎 View Transaction",
 
         notice:
           "Important: PUL is currently a testnet token on Ethereum Sepolia. It has no guaranteed monetary value and should not be considered an investment.",
@@ -919,95 +1124,152 @@
         navRoadmap: "План",
         navContract: "Контракт",
 
-        badge: "Ethereum Sepolia • Тестовая сеть",
+        badge:
+          "Ethereum Sepolia • Тестовая сеть",
 
         heroSubtitle:
           "Цифровой токен для обучения, экспериментов и дальнейшего развития в Web3.",
 
-        viewContract: "Открыть контракт",
-        tokenExplorer: "Обозреватель токена",
+        viewContract:
+          "Открыть контракт",
 
-        totalSupply: "Общий выпуск",
-        tokenSymbol: "Символ токена",
-        decimals: "Знаков после запятой",
+        tokenExplorer:
+          "Обозреватель токена",
 
-        aboutTitle: "О PUL",
+        totalSupply:
+          "Общий выпуск",
+
+        tokenSymbol:
+          "Символ токена",
+
+        decimals:
+          "Знаков после запятой",
+
+        aboutTitle:
+          "О PUL",
 
         aboutDescription:
           "PUL — экспериментальный цифровой токен, созданный в тестовой сети Ethereum Sepolia. Проект предназначен для изучения блокчейна и разработки будущих идей в Web3.",
 
-        aboutCard1Title: "Простота",
+        aboutCard1Title:
+          "Простота",
+
         aboutCard1Text:
           "У PUL фиксированный выпуск и понятный смарт-контракт.",
 
-        aboutCard2Title: "Прозрачность",
+        aboutCard2Title:
+          "Прозрачность",
+
         aboutCard2Text:
           "Контракт открыт и доступен для просмотра в блокчейн-обозревателе.",
 
-        aboutCard3Title: "Web3",
+        aboutCard3Title:
+          "Web3",
+
         aboutCard3Text:
           "Проект является основой для будущих экспериментов с Web3.",
 
-        tokenomicsTitle: "Токеномика",
+        tokenomicsTitle:
+          "Токеномика",
 
         tokenomicsDescription:
           "Основная информация о токене PUL.",
 
-        supplyTitle: "Фиксированный выпуск",
+        supplyTitle:
+          "Фиксированный выпуск",
+
         supplyText:
           "Начальный выпуск был создан во время размещения контракта.",
 
-        mintTitle: "Без дополнительного выпуска",
+        mintTitle:
+          "Без дополнительного выпуска",
+
         mintText:
           "В текущем смарт-контракте нет публичной функции для создания дополнительных токенов PUL.",
 
-        networkTitle: "Сеть",
+        networkTitle:
+          "Сеть",
+
         networkText:
           "Сейчас PUL работает в тестовой сети.",
 
-        roadmapTitle: "План развития",
+        roadmapTitle:
+          "План развития",
 
         roadmapDescription:
           "Основные направления развития проекта PUL.",
 
-        phase1: "Этап 01",
-        phase1Title: "Основа",
+        phase1:
+          "Этап 01",
+
+        phase1Title:
+          "Основа",
+
         phase1Text:
           "Размещение смарт-контракта, создание токена, проверка контракта и запуск сайта.",
 
-        phase2: "Этап 02",
-        phase2Title: "Сообщество",
+        phase2:
+          "Этап 02",
+
+        phase2Title:
+          "Сообщество",
+
         phase2Text:
           "Создание сообщества, улучшение сайта и эксперименты с Web3.",
 
-        phase3: "Этап 03",
-        phase3Title: "Развитие Web3",
+        phase3:
+          "Этап 03",
+
+        phase3Title:
+          "Развитие Web3",
+
         phase3Text:
           "Изучение dApps, кошельков, возможностей токена и интеграций с блокчейном.",
 
-        phase4: "Этап 04",
-        phase4Title: "Будущее",
+        phase4:
+          "Этап 04",
+
+        phase4Title:
+          "Будущее",
+
         phase4Text:
           "Изучение будущих возможностей и определение следующих этапов развития.",
 
-        contractTitle: "Контракт PUL",
+        contractTitle:
+          "Контракт PUL",
 
         contractDescription:
           "Подключите MetaMask, чтобы работать с PUL в сети Sepolia.",
 
-        contractAddressLabel: "Адрес контракта",
+        contractAddressLabel:
+          "Адрес контракта",
 
-        connectWallet: "🦊 Подключить MetaMask",
-        addMetaMask: "🦊 Добавить PUL в MetaMask",
-        copyContract: "📋 Скопировать контракт",
-        copyMyAddress: "📋 Скопировать мой адрес",
+        connectWallet:
+          "🦊 Подключить MetaMask",
 
-        walletAddress: "Адрес кошелька",
-        pulBalance: "Баланс PUL",
-        sepoliaBalance: "Баланс Sepolia ETH",
-        network: "Сеть",
+        addMetaMask:
+          "🦊 Добавить PUL в MetaMask",
 
-        sendTitle: "Отправить PUL",
+        copyContract:
+          "📋 Скопировать контракт",
+
+        copyMyAddress:
+          "📋 Скопировать мой адрес",
+
+        walletAddress:
+          "Адрес кошелька",
+
+        pulBalance:
+          "Баланс PUL",
+
+        sepoliaBalance:
+          "Баланс Sepolia ETH",
+
+        network:
+          "Сеть",
+
+        sendTitle:
+          "Отправить PUL",
 
         recipientPlaceholder:
           "Адрес кошелька получателя",
@@ -1015,7 +1277,14 @@
         amountPlaceholder:
           "Количество PUL",
 
-        sendButton: "Отправить PUL",
+        sendButton:
+          "Отправить PUL",
+
+        transactionSuccess:
+          "Транзакция успешно выполнена",
+
+        viewTransaction:
+          "🔎 Посмотреть транзакцию",
 
         notice:
           "Важно: сейчас PUL является тестовым токеном в сети Ethereum Sepolia. Он не имеет гарантированной денежной стоимости и не является инвестиционным инструментом.",
@@ -1079,80 +1348,145 @@
 
       document.documentElement.lang = language;
 
-      document.querySelectorAll("[data-i18n]").forEach(element => {
-        const key = element.getAttribute("data-i18n");
-        element.textContent = t(key);
-      });
+      document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
 
-      document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
-        const key = element.getAttribute("data-i18n-placeholder");
-        element.placeholder = t(key);
-      });
+          const key =
+            element.getAttribute("data-i18n");
 
-      document.getElementById("languageBtn").textContent =
+          element.textContent =
+            t(key);
+
+        });
+
+
+      document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach(element => {
+
+          const key =
+            element.getAttribute(
+              "data-i18n-placeholder"
+            );
+
+          element.placeholder =
+            t(key);
+
+        });
+
+
+      document.getElementById(
+        "languageBtn"
+      ).textContent =
         language === "en" ? "RU" : "EN";
 
-      localStorage.setItem("pul-language", language);
+
+      localStorage.setItem(
+        "pul-language",
+        language
+      );
+
     }
 
 
     function toggleLanguage() {
 
-      language = language === "en" ? "ru" : "en";
+      language =
+        language === "en"
+          ? "ru"
+          : "en";
 
       applyLanguage();
 
       if (currentAccount) {
-        document.getElementById("status").textContent =
-          t("statusConnected");
+
+        setStatus(
+          t("statusConnected")
+        );
+
       }
+
     }
 
 
     function setStatus(message) {
-      document.getElementById("status").textContent = message;
+
+      document.getElementById(
+        "status"
+      ).textContent = message;
+
     }
 
 
     async function connectWallet() {
 
       if (!window.ethereum) {
-        setStatus(t("statusMetaMaskMissing"));
+
+        setStatus(
+          t("statusMetaMaskMissing")
+        );
+
         return;
       }
 
+
       try {
 
-        setStatus(t("statusConnecting"));
+        setStatus(
+          t("statusConnecting")
+        );
 
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts"
-        });
+
+        const accounts =
+          await window.ethereum.request({
+            method: "eth_requestAccounts"
+          });
+
 
         if (!accounts || !accounts.length) {
           return;
         }
 
-        currentAccount = accounts[0];
 
-        const chainId = await window.ethereum.request({
-          method: "eth_chainId"
-        });
+        currentAccount =
+          accounts[0];
+
+
+        const chainId =
+          await window.ethereum.request({
+            method: "eth_chainId"
+          });
+
 
         if (chainId !== "0xaa36a7") {
-          setStatus(t("statusWrongNetwork"));
+
+          setStatus(
+            t("statusWrongNetwork")
+          );
+
           return;
         }
 
-        document.getElementById("walletAddress").textContent =
+
+        document.getElementById(
+          "walletAddress"
+        ).textContent =
           currentAccount;
 
-        document.getElementById("networkName").textContent =
+
+        document.getElementById(
+          "networkName"
+        ).textContent =
           "Ethereum Sepolia";
+
 
         await updateBalances();
 
-        setStatus(t("statusConnected"));
+
+        setStatus(
+          t("statusConnected")
+        );
 
       } catch (error) {
 
@@ -1162,6 +1496,7 @@
         );
 
       }
+
     }
 
 
@@ -1171,18 +1506,30 @@
         return;
       }
 
+
       try {
 
-        const balanceHex = await window.ethereum.request({
-          method: "eth_getBalance",
-          params: [currentAccount, "latest"]
-        });
+        const balanceHex =
+          await window.ethereum.request({
+            method: "eth_getBalance",
+            params: [
+              currentAccount,
+              "latest"
+            ]
+          });
 
-        const ethWei = BigInt(balanceHex);
 
-        const eth = Number(ethWei) / 1e18;
+        const ethWei =
+          BigInt(balanceHex);
 
-        document.getElementById("ethBalance").textContent =
+
+        const eth =
+          Number(ethWei) / 1e18;
+
+
+        document.getElementById(
+          "ethBalance"
+        ).textContent =
           eth.toFixed(5) + " ETH";
 
 
@@ -1192,25 +1539,39 @@
             .replace("0x", "")
             .padStart(64, "0");
 
-        const pulBalanceHex = await window.ethereum.request({
-          method: "eth_call",
-          params: [
-            {
-              to: CONTRACT_ADDRESS,
-              data: data
-            },
-            "latest"
-          ]
-        });
 
-        const pulWei = BigInt(pulBalanceHex);
+        const pulBalanceHex =
+          await window.ethereum.request({
+            method: "eth_call",
+            params: [
+              {
+                to: CONTRACT_ADDRESS,
+                data: data
+              },
+              "latest"
+            ]
+          });
+
+
+        const pulWei =
+          BigInt(pulBalanceHex);
+
 
         const pul =
-          Number(pulWei) / Math.pow(10, TOKEN_DECIMALS);
+          Number(pulWei) /
+          Math.pow(
+            10,
+            TOKEN_DECIMALS
+          );
 
-        document.getElementById("pulBalance").textContent =
+
+        document.getElementById(
+          "pulBalance"
+        ).textContent =
           pul.toLocaleString(
-            language === "ru" ? "ru-RU" : "en-US",
+            language === "ru"
+              ? "ru-RU"
+              : "en-US",
             {
               maximumFractionDigits: 6
             }
@@ -1221,36 +1582,58 @@
         console.error(error);
 
       }
+
     }
 
 
     async function addToMetaMask() {
 
       if (!window.ethereum) {
-        setStatus(t("statusMetaMaskMissing"));
+
+        setStatus(
+          t("statusMetaMaskMissing")
+        );
+
         return;
       }
 
+
       try {
 
-        setStatus(t("statusAdding"));
+        setStatus(
+          t("statusAdding")
+        );
 
-        const wasAdded = await window.ethereum.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: CONTRACT_ADDRESS,
-              symbol: "PUL",
-              decimals: 18
+
+        const wasAdded =
+          await window.ethereum.request({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC20",
+              options: {
+                address:
+                  CONTRACT_ADDRESS,
+                symbol:
+                  "PUL",
+                decimals:
+                  18
+              }
             }
-          }
-        });
+          });
+
 
         if (wasAdded) {
-          setStatus(t("statusAdded"));
+
+          setStatus(
+            t("statusAdded")
+          );
+
         } else {
-          setStatus(t("statusAddRejected"));
+
+          setStatus(
+            t("statusAddRejected")
+          );
+
         }
 
       } catch (error) {
@@ -1261,6 +1644,7 @@
         );
 
       }
+
     }
 
 
@@ -1272,7 +1656,9 @@
           CONTRACT_ADDRESS
         );
 
-        setStatus(t("statusCopied"));
+        setStatus(
+          t("statusCopied")
+        );
 
       } catch (error) {
 
@@ -1282,18 +1668,22 @@
         );
 
       }
+
     }
 
 
     async function copyMyAddress() {
 
       if (!currentAccount) {
+
         await connectWallet();
 
         if (!currentAccount) {
           return;
         }
+
       }
+
 
       try {
 
@@ -1301,7 +1691,9 @@
           currentAccount
         );
 
-        setStatus(t("statusCopied"));
+        setStatus(
+          t("statusCopied")
+        );
 
       } catch (error) {
 
@@ -1311,55 +1703,93 @@
         );
 
       }
+
     }
 
 
-    function parsePULAmount(amountString) {
+    function parsePULAmount(
+      amountString
+    ) {
 
-      const value = amountString.trim();
+      const value =
+        amountString.trim();
+
 
       if (!/^\d+(\.\d+)?$/.test(value)) {
-        throw new Error("INVALID_AMOUNT");
+        throw new Error(
+          "INVALID_AMOUNT"
+        );
       }
 
-      const parts = value.split(".");
 
-      const whole = parts[0] || "0";
+      const parts =
+        value.split(".");
 
-      let fraction = parts[1] || "";
 
-      if (fraction.length > TOKEN_DECIMALS) {
-        throw new Error("INVALID_AMOUNT");
+      const whole =
+        parts[0] || "0";
+
+
+      let fraction =
+        parts[1] || "";
+
+
+      if (
+        fraction.length >
+        TOKEN_DECIMALS
+      ) {
+
+        throw new Error(
+          "INVALID_AMOUNT"
+        );
+
       }
 
-      fraction = fraction.padEnd(
-        TOKEN_DECIMALS,
-        "0"
-      );
+
+      fraction =
+        fraction.padEnd(
+          TOKEN_DECIMALS,
+          "0"
+        );
+
 
       return (
         BigInt(whole) *
-        (10n ** BigInt(TOKEN_DECIMALS)) +
+        (10n **
+          BigInt(TOKEN_DECIMALS)) +
         BigInt(fraction)
       );
 
     }
 
 
-    function encodeTransfer(to, amountWei) {
+    function encodeTransfer(
+      to,
+      amountWei
+    ) {
 
       const method =
         "a9059cbb";
 
+
       const address =
-        to.replace("0x", "").padStart(64, "0");
+        to
+          .replace("0x", "")
+          .padStart(64, "0");
+
 
       const amount =
         amountWei
           .toString(16)
           .padStart(64, "0");
 
-      return "0x" + method + address + amount;
+
+      return (
+        "0x" +
+        method +
+        address +
+        amount
+      );
 
     }
 
@@ -1367,56 +1797,97 @@
     async function sendPUL() {
 
       if (!window.ethereum) {
-        setStatus(t("statusMetaMaskMissing"));
+
+        setStatus(
+          t("statusMetaMaskMissing")
+        );
+
         return;
       }
 
+
       if (!currentAccount) {
+
         await connectWallet();
 
         if (!currentAccount) {
           return;
         }
+
       }
+
 
       try {
 
-        const chainId = await window.ethereum.request({
-          method: "eth_chainId"
-        });
+        const chainId =
+          await window.ethereum.request({
+            method: "eth_chainId"
+          });
+
 
         if (chainId !== "0xaa36a7") {
-          setStatus(t("statusWrongNetwork"));
+
+          setStatus(
+            t("statusWrongNetwork")
+          );
+
           return;
         }
 
+
         const recipient =
-          document.getElementById("recipient").value.trim();
+          document.getElementById(
+            "recipient"
+          ).value.trim();
+
 
         const amount =
-          document.getElementById("amount").value.trim();
+          document.getElementById(
+            "amount"
+          ).value.trim();
 
 
         if (
-          !/^0x[a-fA-F0-9]{40}$/.test(recipient)
+          !/^0x[a-fA-F0-9]{40}$/.test(
+            recipient
+          )
         ) {
-          setStatus(t("statusInvalidRecipient"));
+
+          setStatus(
+            t("statusInvalidRecipient")
+          );
+
           return;
         }
 
 
         let amountWei;
 
+
         try {
-          amountWei = parsePULAmount(amount);
+
+          amountWei =
+            parsePULAmount(
+              amount
+            );
+
         } catch {
-          setStatus(t("statusInvalidAmount"));
+
+          setStatus(
+            t("statusInvalidAmount")
+          );
+
           return;
+
         }
 
 
         if (amountWei <= 0n) {
-          setStatus(t("statusInvalidAmount"));
+
+          setStatus(
+            t("statusInvalidAmount")
+          );
+
           return;
         }
 
@@ -1428,39 +1899,83 @@
           );
 
 
-        setStatus(t("statusSending"));
+        setStatus(
+          t("statusSending")
+        );
 
 
         const txHash =
           await window.ethereum.request({
-            method: "eth_sendTransaction",
+            method:
+              "eth_sendTransaction",
             params: [
               {
-                from: currentAccount,
-                to: CONTRACT_ADDRESS,
-                data: data
+                from:
+                  currentAccount,
+
+                to:
+                  CONTRACT_ADDRESS,
+
+                data:
+                  data
               }
             ]
           });
 
 
         setStatus(
-          t("statusSent") +
-          " " +
-          txHash
+          t("statusSent")
         );
 
 
+        const transactionBox =
+          document.getElementById(
+            "transactionBox"
+          );
+
+
+        const transactionHash =
+          document.getElementById(
+            "transactionHash"
+          );
+
+
+        const transactionLink =
+          document.getElementById(
+            "transactionLink"
+          );
+
+
+        transactionHash.textContent =
+          txHash;
+
+
+        transactionLink.href =
+          "https://sepolia.etherscan.io/tx/" +
+          txHash;
+
+
+        transactionBox.style.display =
+          "block";
+
+
         await updateBalances();
+
 
       } catch (error) {
 
         if (
           error.code === 4001 ||
-          String(error.message || "").toLowerCase().includes("reject")
+          String(
+            error.message || ""
+          )
+            .toLowerCase()
+            .includes("reject")
         ) {
 
-          setStatus(t("statusCancelled"));
+          setStatus(
+            t("statusCancelled")
+          );
 
         } else {
 
@@ -1472,6 +1987,7 @@
         }
 
       }
+
     }
 
 
@@ -1483,31 +1999,44 @@
 
           if (accounts.length === 0) {
 
-            currentAccount = null;
+            currentAccount =
+              null;
+
 
             document.getElementById(
               "walletAddress"
-            ).textContent = "—";
+            ).textContent =
+              "—";
+
 
             document.getElementById(
               "pulBalance"
-            ).textContent = "—";
+            ).textContent =
+              "—";
+
 
             document.getElementById(
               "ethBalance"
-            ).textContent = "—";
+            ).textContent =
+              "—";
+
 
             document.getElementById(
               "networkName"
-            ).textContent = "—";
+            ).textContent =
+              "—";
 
           } else {
 
-            currentAccount = accounts[0];
+            currentAccount =
+              accounts[0];
+
 
             document.getElementById(
               "walletAddress"
-            ).textContent = currentAccount;
+            ).textContent =
+              currentAccount;
+
 
             await updateBalances();
 
@@ -1527,7 +2056,11 @@
     }
 
 
-    if (window.location.search.includes("utm_source")) {
+    if (
+      window.location.search.includes(
+        "utm_source"
+      )
+    ) {
 
       window.history.replaceState(
         {},
