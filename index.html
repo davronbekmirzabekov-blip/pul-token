@@ -3,396 +3,482 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>PUL Token</title>
-  <meta name="description" content="PUL Token on Ethereum Sepolia">
-  <meta name="theme-color" content="#0b1020">
+  <title>PUL — Digital Token</title>
+  <meta name="description" content="PUL — цифровой токен на Ethereum Sepolia.">
 
   <style>
-    :root {
-      --bg: #080b14;
-      --card: #111727;
-      --card2: #171e31;
-      --border: #29334d;
-      --text: #f5f7ff;
-      --muted: #8e9ab5;
-      --blue: #4f8cff;
-      --blue2: #78a8ff;
-      --green: #38d996;
-      --red: #ff667d;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#07111f;
+      --bg2:#0b1728;
+      --card:rgba(17,31,52,.72);
+      --card2:rgba(20,38,63,.8);
+      --border:rgba(255,255,255,.09);
+      --text:#f5f8ff;
+      --muted:#9eacc2;
+      --blue:#4f8cff;
+      --blue2:#79a9ff;
+      --green:#45d483;
+      --danger:#ff6b7a;
+      --shadow:0 20px 60px rgba(0,0,0,.28)
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      color: var(--text);
+    body{
+      font-family:Inter,Arial,sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(79,140,255,.15), transparent 35%),
-        radial-gradient(circle at top right, rgba(56,217,150,.08), transparent 30%),
+        radial-gradient(circle at 20% 0%,rgba(55,105,190,.18),transparent 32%),
+        radial-gradient(circle at 90% 20%,rgba(79,140,255,.10),transparent 30%),
         var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      line-height:1.55
     }
 
-    a {
-      color: var(--blue2);
-      text-decoration: none;
+    a{
+      color:inherit;
+      text-decoration:none
     }
 
-    a:hover {
-      text-decoration: underline;
+    .container{
+      width:min(1120px,calc(100% - 32px));
+      margin:auto
     }
 
-    button,
-    input {
-      font: inherit;
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(7,17,31,.78);
+      border-bottom:1px solid var(--border)
     }
 
-    .container {
-      width: min(1100px, calc(100% - 32px));
-      margin: 0 auto;
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-      background: rgba(8,11,20,.82);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+    .logo{
+      font-size:25px;
+      font-weight:900;
+      letter-spacing:.08em
     }
 
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    .logo span{
+      color:var(--blue2)
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: .3px;
+    nav{
+      display:flex;
+      align-items:center;
+      gap:24px
     }
 
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--blue), #765cff);
-      box-shadow: 0 10px 30px rgba(79,140,255,.25);
-      font-weight: 900;
+    nav a{
+      color:var(--muted);
+      font-size:14px;
+      transition:.2s
     }
 
-    .nav-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
+    nav a:hover{
+      color:var(--text)
     }
 
-    button {
-      border: 0;
-      cursor: pointer;
+    .lang-btn,
+    .wallet-btn,
+    .send-btn{
+      border:0;
+      cursor:pointer;
+      border-radius:12px;
+      font-weight:700;
+      transition:.2s
     }
 
-    .btn {
-      min-height: 42px;
-      padding: 0 16px;
-      border-radius: 12px;
-      color: var(--text);
-      background: var(--card2);
-      border: 1px solid var(--border);
-      transition: .2s ease;
+    .lang-btn{
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      padding:9px 13px;
+      border:1px solid var(--border)
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      border-color: var(--blue);
+    .wallet-btn{
+      background:var(--blue);
+      color:#fff;
+      padding:12px 18px;
+      box-shadow:0 8px 25px rgba(79,140,255,.22)
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), #765cff);
-      border-color: transparent;
+    .wallet-btn:hover,
+    .send-btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.08)
     }
 
-    main {
-      padding: 70px 0;
+    .hero{
+      padding:95px 0 70px;
+      text-align:center
     }
 
-    .hero {
-      text-align: center;
-      padding: 40px 0 60px;
+    .badge{
+      display:inline-flex;
+      padding:7px 12px;
+      border:1px solid rgba(79,140,255,.3);
+      background:rgba(79,140,255,.09);
+      color:var(--blue2);
+      border-radius:999px;
+      font-size:13px;
+      margin-bottom:22px
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 13px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(17,23,39,.7);
-      font-size: 13px;
+    h1{
+      font-size:clamp(55px,11vw,105px);
+      line-height:.95;
+      letter-spacing:-.05em;
+      margin-bottom:22px
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px rgba(56,217,150,.8);
+    .hero h1 span{
+      color:var(--blue2)
     }
 
-    h1 {
-      margin: 22px 0 14px;
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: .95;
-      letter-spacing: -3px;
+    .hero p{
+      max-width:650px;
+      margin:auto;
+      color:var(--muted);
+      font-size:18px
     }
 
-    .gradient {
-      background: linear-gradient(135deg, #fff, #79a9ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .hero-actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:30px;
+      flex-wrap:wrap
     }
 
-    .hero p {
-      max-width: 650px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
+    .outline-btn{
+      padding:12px 18px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      color:var(--text);
+      background:rgba(255,255,255,.04)
     }
 
-    .hero-actions {
-      margin-top: 28px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
+    section{
+      padding:70px 0
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .section-title{
+      margin-bottom:30px
     }
 
-    .card {
-      background: linear-gradient(
+    .section-title h2{
+      font-size:34px;
+      margin-bottom:8px
+    }
+
+    .section-title p{
+      color:var(--muted)
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px
+    }
+
+    .card{
+      background:linear-gradient(
         145deg,
-        rgba(23,30,49,.94),
-        rgba(12,16,29,.94)
+        var(--card),
+        rgba(10,23,40,.7)
       );
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--shadow);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:24px;
+      box-shadow:var(--shadow)
     }
 
-    .stat-label {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 10px;
+    .stat-label{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:9px
     }
 
-    .stat-value {
-      font-size: 28px;
-      font-weight: 800;
-      word-break: break-word;
+    .stat-value{
+      font-size:25px;
+      font-weight:800;
+      word-break:break-word
     }
 
-    .section {
-      margin-top: 20px;
+    .wallet-card{
+      margin-top:18px
     }
 
-    .section-title {
-      margin: 0 0 16px;
-      font-size: 24px;
+    .wallet-address{
+      font-family:monospace;
+      color:var(--blue2);
+      word-break:break-all;
+      margin-top:6px
     }
 
-    .wallet-card {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 20px;
-      align-items: center;
+    .balance-big{
+      font-size:38px;
+      font-weight:900;
+      margin:15px 0 5px
     }
 
-    .wallet-address {
-      margin-top: 7px;
-      color: var(--blue2);
-      word-break: break-all;
-      font-family: monospace;
-      font-size: 14px;
+    .eth-balance{
+      color:var(--muted)
     }
 
-    .wallet-balance {
-      font-size: 36px;
-      font-weight: 900;
-      margin-top: 12px;
+    .form{
+      display:grid;
+      gap:13px
     }
 
-    .form {
-      display: grid;
-      gap: 14px;
+    label{
+      font-size:13px;
+      color:var(--muted)
     }
 
-    label {
-      display: grid;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 14px;
+    input{
+      width:100%;
+      background:rgba(0,0,0,.22);
+      color:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:13px 14px;
+      outline:none
     }
 
-    input {
-      width: 100%;
-      min-height: 50px;
-      padding: 0 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      outline: none;
-      color: var(--text);
-      background: #0b1020;
+    input:focus{
+      border-color:rgba(79,140,255,.65)
     }
 
-    input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(79,140,255,.12);
+    .send-btn{
+      background:var(--blue);
+      color:#fff;
+      padding:13px 18px;
+      margin-top:4px
     }
 
-    .send-row {
-      display: grid;
-      grid-template-columns: 1fr 220px auto;
-      gap: 12px;
-      align-items: end;
+    .status{
+      min-height:22px;
+      color:var(--muted);
+      font-size:13px
     }
 
-    .status {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      line-height: 1.5;
+    .status.success{
+      color:var(--green)
     }
 
-    .status.success {
-      color: var(--green);
-      background: rgba(56,217,150,.08);
+    .status.error{
+      color:var(--danger)
     }
 
-    .status.error {
-      color: var(--red);
-      background: rgba(255,102,125,.08);
+    .history{
+      display:grid;
+      gap:10px
     }
 
-    .history {
-      display: grid;
-      gap: 10px;
+    .history-item{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:15px;
+      padding:16px;
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--border);
+      border-radius:14px
     }
 
-    .history-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px;
-      border-radius: 15px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.025);
+    .history-main{
+      min-width:0
     }
 
-    .history-type {
-      font-weight: 700;
-      margin-bottom: 7px;
+    .history-type{
+      font-weight:800;
+      margin-bottom:3px
     }
 
-    .history-address {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 4px;
-      word-break: break-all;
+    .history-address{
+      color:var(--muted);
+      font-family:monospace;
+      font-size:12px;
+      overflow-wrap:anywhere
     }
 
-    .history-amount {
-      font-weight: 800;
-      white-space: nowrap;
-      color: var(--green);
+    .history-amount{
+      text-align:right;
+      font-weight:800;
+      white-space:nowrap
     }
 
-    .history-link {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 13px;
+    .history-link{
+      color:var(--blue2);
+      font-size:12px;
+      margin-top:5px;
+      display:inline-block
     }
 
-    .contract-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
+    .copy-row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top:8px;
+      flex-wrap:wrap
     }
 
-    .contract-address {
-      color: var(--blue2);
-      font-family: monospace;
-      word-break: break-all;
+    .copy-btn,
+    .refresh-btn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 11px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:12px;
+      font-weight:700
     }
 
-    footer {
-      padding: 30px 0 50px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
+    .copy-btn:hover,
+    .refresh-btn:hover{
+      background:rgba(255,255,255,.09)
     }
 
-    .small {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
+    .history-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px
     }
 
-    @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr;
+    .tx-status{
+      margin-top:6px
+    }
+
+    .tokenomics{
+      display:grid;
+      gap:13px
+    }
+
+    .token-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding:15px 0;
+      border-bottom:1px solid var(--border)
+    }
+
+    .token-row:last-child{
+      border-bottom:0
+    }
+
+    .token-row span:first-child{
+      color:var(--muted)
+    }
+
+    .roadmap{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px
+    }
+
+    .phase-number{
+      color:var(--blue2);
+      font-weight:900;
+      margin-bottom:10px
+    }
+
+    .phase h3{
+      margin-bottom:8px
+    }
+
+    .phase p{
+      color:var(--muted);
+      font-size:14px
+    }
+
+    .contract{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center
+    }
+
+    .contract-address{
+      font-family:monospace;
+      color:var(--blue2);
+      overflow-wrap:anywhere
+    }
+
+    .explorer-link{
+      display:inline-block;
+      padding:11px 15px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      white-space:nowrap
+    }
+
+    footer{
+      padding:35px 0 50px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      text-align:center;
+      font-size:13px
+    }
+
+    @media(max-width:850px){
+      nav a{
+        display:none
       }
 
-      .wallet-card {
-        grid-template-columns: 1fr;
+      .grid{
+        grid-template-columns:repeat(2,1fr)
       }
 
-      .send-row {
-        grid-template-columns: 1fr;
+      .roadmap{
+        grid-template-columns:1fr
       }
 
-      .contract-box {
-        align-items: flex-start;
-        flex-direction: column;
+      .contract{
+        align-items:flex-start;
+        flex-direction:column
+      }
+    }
+
+    @media(max-width:520px){
+      .container{
+        width:min(100% - 22px,1120px)
       }
 
-      h1 {
-        letter-spacing: -2px;
+      .hero{
+        padding-top:70px
+      }
+
+      .grid{
+        grid-template-columns:1fr
+      }
+
+      .card{
+        padding:19px
+      }
+
+      section{
+        padding:50px 0
+      }
+
+      .history-item{
+        grid-template-columns:1fr
+      }
+
+      .history-amount{
+        text-align:left
       }
     }
   </style>
@@ -402,254 +488,371 @@
 
 <header>
   <div class="container nav">
-    <div class="logo">
-      <div class="logo-mark">P</div>
-      <span>PUL Token</span>
-    </div>
 
-    <div class="nav-actions">
-      <button class="btn" id="langBtn">EN</button>
-      <button class="btn btn-primary" id="connectBtn"
-              data-ru="Подключить"
-              data-en="Connect">
-        Подключить
+    <a href="#" class="logo">
+      PU<span>L</span>
+    </a>
+
+    <nav>
+      <a href="#wallet" data-ru="Кошелёк" data-en="Wallet">Кошелёк</a>
+      <a href="#send" data-ru="Отправить" data-en="Send">Отправить</a>
+      <a href="#history" data-ru="История" data-en="History">История</a>
+      <a href="#tokenomics" data-ru="Токеномика" data-en="Tokenomics">Токеномика</a>
+      <a href="#roadmap" data-ru="План" data-en="Roadmap">План</a>
+    </nav>
+
+    <div style="display:flex;gap:8px;align-items:center">
+
+      <button
+        class="lang-btn"
+        id="langBtn">
+        EN
       </button>
+
+      <button
+        class="wallet-btn"
+        id="connectBtn"
+        data-ru="Подключить MetaMask"
+        data-en="Connect MetaMask">
+        Подключить MetaMask
+      </button>
+
     </div>
   </div>
 </header>
 
+
 <main>
+
+<section class="hero">
   <div class="container">
 
-    <section class="hero">
-      <div class="badge">
-        <span class="dot"></span>
-        Ethereum Sepolia
-      </div>
+    <div
+      class="badge"
+      data-ru="Ethereum Sepolia • Тестовая сеть"
+      data-en="Ethereum Sepolia • Test Network">
+      Ethereum Sepolia • Тестовая сеть
+    </div>
 
-      <h1>
-        <span class="gradient">PUL Token</span>
-      </h1>
+    <h1>
+      P<span>UL</span>
+    </h1>
 
-      <p
-        data-ru="PUL — токен стандарта ERC-20 в сети Ethereum Sepolia."
-        data-en="PUL is an ERC-20 token on Ethereum Sepolia.">
-        PUL — токен стандарта ERC-20 в сети Ethereum Sepolia.
-      </p>
+    <p
+      data-ru="Цифровой токен PUL на Ethereum Sepolia. Простой, прозрачный и созданный для экспериментов с Web3."
+      data-en="PUL is a digital token on Ethereum Sepolia. Simple, transparent and built for Web3 experimentation.">
+      Цифровой токен PUL на Ethereum Sepolia. Простой, прозрачный и созданный для экспериментов с Web3.
+    </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-primary"
-           href="https://eth-sepolia.blockscout.com/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
-           target="_blank"
-           rel="noopener"
-           data-ru="Открыть Blockscout"
-           data-en="Open Blockscout">
-          Открыть Blockscout
-        </a>
+    <div class="hero-actions">
 
-        <a class="btn"
-           href="#send"
-           data-ru="Отправить PUL"
-           data-en="Send PUL">
-          Отправить PUL
-        </a>
-      </div>
-    </section>
+      <a
+        href="#wallet"
+        class="outline-btn"
+        data-ru="Открыть кошелёк"
+        data-en="Open wallet">
+        Открыть кошелёк
+      </a>
 
-    <section class="grid">
+      <a
+        href="https://eth-sepolia.blockscout.com/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+        target="_blank"
+        class="outline-btn"
+        data-ru="Открыть контракт"
+        data-en="Open contract">
+        Открыть контракт
+      </a>
 
-      <div class="card">
-        <div class="stat-label"
-             data-ru="Общее предложение"
-             data-en="Total supply">
-          Общее предложение
-        </div>
+    </div>
 
-        <div class="stat-value" id="totalSupply">
-          …
-        </div>
+  </div>
+</section>
 
-        <div class="small">PUL</div>
-      </div>
 
-      <div class="card">
-        <div class="stat-label"
-             data-ru="Держатели"
-             data-en="Holders">
-          Держатели
-        </div>
+<section id="wallet">
 
-        <div class="stat-value" id="holders">
-          …
-        </div>
-      </div>
+  <div class="container">
 
-      <div class="card">
-        <div class="stat-label"
-             data-ru="Переводы"
-             data-en="Transfers">
-          Переводы
-        </div>
+    <div class="section-title">
 
-        <div class="stat-value" id="transfers">
-          …
-        </div>
-      </div>
-
-    </section>
-
-    <section class="section card">
-      <h2 class="section-title"
-          data-ru="Кошелёк"
-          data-en="Wallet">
+      <h2
+        data-ru="Кошелёк"
+        data-en="Wallet">
         Кошелёк
       </h2>
 
-      <div class="wallet-card">
+      <p
+        data-ru="Подключите MetaMask, чтобы увидеть свои PUL и Sepolia ETH."
+        data-en="Connect MetaMask to see your PUL and Sepolia ETH.">
+        Подключите MetaMask, чтобы увидеть свои PUL и Sepolia ETH.
+      </p>
 
-        <div>
-          <div class="stat-label"
-               data-ru="Адрес"
-               data-en="Address">
-            Адрес
-          </div>
+    </div>
 
-          <div class="wallet-address" id="walletAddress">
-            —
-          </div>
 
-          <div class="wallet-balance">
-            <span id="walletBalance">0</span> PUL
-          </div>
+    <div class="card wallet-card">
 
-          <div class="small">
-            ETH: <span id="ethBalance">—</span>
-          </div>
+      <div
+        class="stat-label"
+        data-ru="Адрес кошелька"
+        data-en="Wallet address">
+        Адрес кошелька
+      </div>
+
+      <div
+        id="walletAddress"
+        class="wallet-address">
+        —
+      </div>
+
+      <div class="copy-row">
+
+        <button
+          id="copyWalletBtn"
+          class="copy-btn"
+          data-ru="Скопировать адрес"
+          data-en="Copy address">
+          Скопировать адрес
+        </button>
+
+      </div>
+
+
+      <div class="balance-big">
+        <span id="walletBalance">—</span> PUL
+      </div>
+
+      <div class="eth-balance">
+        <span id="ethBalance">—</span> ETH
+      </div>
+
+      <div
+        id="walletStatus"
+        class="status"
+        style="margin-top:14px">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="Статистика токена"
+        data-en="Token statistics">
+        Статистика токена
+      </h2>
+
+      <p
+        data-ru="Основные данные PUL из блокчейна."
+        data-en="Main PUL data from the blockchain.">
+        Основные данные PUL из блокчейна.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div
+          class="stat-label"
+          data-ru="Общее предложение"
+          data-en="Total supply">
+          Общее предложение
         </div>
 
-        <div>
-          <button class="btn btn-primary"
-                  id="connectWalletButton"
-                  data-ru="Подключить MetaMask"
-                  data-en="Connect MetaMask">
-            Подключить MetaMask
-          </button>
+        <div
+          class="stat-value"
+          id="totalSupply">
+          —
         </div>
 
       </div>
 
-      <div class="status" id="walletStatus">
-        <span
-          data-ru="Кошелёк не подключён."
-          data-en="Wallet is not connected.">
-          Кошелёк не подключён.
-        </span>
+
+      <div class="card">
+
+        <div
+          class="stat-label"
+          data-ru="Владельцы"
+          data-en="Holders">
+          Владельцы
+        </div>
+
+        <div
+          class="stat-value"
+          id="holders">
+          —
+        </div>
+
       </div>
-    </section>
 
-    <section class="section card" id="send">
 
-      <h2 class="section-title"
-          data-ru="Отправить PUL"
-          data-en="Send PUL">
+      <div class="card">
+
+        <div
+          class="stat-label"
+          data-ru="Переводы"
+          data-en="Transfers">
+          Переводы
+        </div>
+
+        <div
+          class="stat-value"
+          id="transfers">
+          —
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          Decimals
+        </div>
+
+        <div class="stat-value">
+          18
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="send">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="Отправить PUL"
+        data-en="Send PUL">
         Отправить PUL
       </h2>
 
-      <div class="send-row">
+      <p
+        data-ru="Отправка токенов выполняется через MetaMask в сети Sepolia."
+        data-en="Tokens are sent through MetaMask on Sepolia.">
+        Отправка токенов выполняется через MetaMask в сети Sepolia.
+      </p>
 
-        <label>
-          <span
+    </div>
+
+
+    <div class="card">
+
+      <div class="form">
+
+        <div>
+
+          <label
             data-ru="Адрес получателя"
             data-en="Recipient address">
             Адрес получателя
-          </span>
+          </label>
 
           <input
             id="recipient"
             type="text"
             placeholder="0x..."
             autocomplete="off">
-        </label>
 
-        <label>
-          <span
+        </div>
+
+
+        <div>
+
+          <label
             data-ru="Количество PUL"
             data-en="PUL amount">
             Количество PUL
-          </span>
+          </label>
 
           <input
             id="amount"
             type="text"
             inputmode="decimal"
-            placeholder="100">
-        </label>
+            placeholder="100"
+            autocomplete="off">
 
-        <button
-          class="btn btn-primary"
-          id="sendBtn"
-          data-ru="Отправить"
-          data-en="Send">
-          Отправить
-        </button>
-
-      </div>
-
-      <div class="status" id="sendStatus">
-        <span
-          data-ru="Подключите кошелёк для отправки PUL."
-          data-en="Connect your wallet to send PUL.">
-          Подключите кошелёк для отправки PUL.
-        </span>
-      </div>
-
-    </section>
-
-    <section class="section card">
-
-      <div class="contract-box">
-
-        <div>
-          <h2 class="section-title"
-              data-ru="Контракт"
-              data-en="Contract">
-            Контракт
-          </h2>
-
-          <div class="contract-address">
-            0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
-          </div>
         </div>
 
-        <a
-          class="btn"
-          href="https://eth-sepolia.blockscout.com/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
-          target="_blank"
-          rel="noopener">
-          Blockscout ↗
-        </a>
+
+        <button
+          class="send-btn"
+          id="sendBtn"
+          data-ru="Отправить PUL"
+          data-en="Send PUL">
+          Отправить PUL
+        </button>
+
+
+        <div
+          id="sendStatus"
+          class="status">
+        </div>
 
       </div>
 
-      <p class="small">
-        Network: Ethereum Sepolia · ERC-20
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="history">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="История переводов"
+        data-en="Transfer history">
+        История переводов
+      </h2>
+
+      <p
+        data-ru="Последние операции токена PUL в сети Sepolia."
+        data-en="Recent PUL token transfers on Sepolia.">
+        Последние операции токена PUL в сети Sepolia.
       </p>
 
-    </section>
+    </div>
 
-    <section class="section card">
 
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;">
+    <div class="card">
 
-        <h2 class="section-title"
-            data-ru="История переводов"
-            data-en="Transfer history">
-          История переводов
-        </h2>
+      <div class="history-header">
+
+        <div
+          class="stat-label"
+          style="margin:0"
+          data-ru="Данные обновляются из Blockscout"
+          data-en="Data updates from Blockscout">
+          Данные обновляются из Blockscout
+        </div>
 
         <button
-          class="btn"
           id="refreshHistoryBtn"
+          class="refresh-btn"
           data-ru="Обновить"
           data-en="Refresh">
           Обновить
@@ -657,27 +860,307 @@
 
       </div>
 
-      <div class="history" id="historyList">
-        <div class="status">
-          Загрузка…
+
+      <div
+        id="historyList"
+        class="history">
+
+        <div
+          class="status"
+          data-ru="Загрузка истории..."
+          data-en="Loading history...">
+          Загрузка истории...
         </div>
+
       </div>
 
-    </section>
+    </div>
 
   </div>
+
+</section>
+
+
+<section id="tokenomics">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="Токеномика"
+        data-en="Tokenomics">
+        Токеномика
+      </h2>
+
+      <p
+        data-ru="Основные параметры токена PUL."
+        data-en="Main PUL token parameters.">
+        Основные параметры токена PUL.
+      </p>
+
+    </div>
+
+
+    <div class="card tokenomics">
+
+      <div class="token-row">
+
+        <span
+          data-ru="Название"
+          data-en="Name">
+          Название
+        </span>
+
+        <strong>
+          PUL
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
+        <span
+          data-ru="Тикер"
+          data-en="Ticker">
+          Тикер
+        </span>
+
+        <strong>
+          PUL
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
+        <span
+          data-ru="Общее предложение"
+          data-en="Total supply">
+          Общее предложение
+        </span>
+
+        <strong>
+          1,000,000,000 PUL
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
+        <span>
+          Decimals
+        </span>
+
+        <strong>
+          18
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
+        <span
+          data-ru="Дополнительный выпуск"
+          data-en="Additional minting">
+          Дополнительный выпуск
+        </span>
+
+        <strong
+          data-ru="Нет"
+          data-en="No">
+          Нет
+        </strong>
+
+      </div>
+
+
+      <div class="token-row">
+
+        <span
+          data-ru="Сеть"
+          data-en="Network">
+          Сеть
+        </span>
+
+        <strong>
+          Ethereum Sepolia
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="roadmap">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="План развития"
+        data-en="Roadmap">
+        План развития
+      </h2>
+
+      <p
+        data-ru="Основные этапы развития проекта."
+        data-en="Main project development stages.">
+        Основные этапы развития проекта.
+      </p>
+
+    </div>
+
+
+    <div class="roadmap">
+
+      <div class="card">
+
+        <div class="phase-number">
+          01
+        </div>
+
+        <h3
+          data-ru="Запуск"
+          data-en="Launch">
+          Запуск
+        </h3>
+
+        <p
+          data-ru="Создание PUL и развёртывание смарт-контракта в Ethereum Sepolia."
+          data-en="Creation of PUL and deployment of the smart contract on Ethereum Sepolia.">
+          Создание PUL и развёртывание смарт-контракта в Ethereum Sepolia.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="phase-number">
+          02
+        </div>
+
+        <h3
+          data-ru="Тестирование"
+          data-en="Testing">
+          Тестирование
+        </h3>
+
+        <p
+          data-ru="Переводы токенов, подключение кошельков и развитие Web3-интерфейса."
+          data-en="Token transfers, wallet connections and Web3 interface development.">
+          Переводы токенов, подключение кошельков и развитие Web3-интерфейса.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="phase-number">
+          03
+        </div>
+
+        <h3
+          data-ru="Развитие"
+          data-en="Development">
+          Развитие
+        </h3>
+
+        <p
+          data-ru="Дальнейшее развитие экосистемы PUL и новых функций."
+          data-en="Further development of the PUL ecosystem and new features.">
+          Дальнейшее развитие экосистемы PUL и новых функций.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2
+        data-ru="Смарт-контракт"
+        data-en="Smart contract">
+        Смарт-контракт
+      </h2>
+
+    </div>
+
+
+    <div class="card contract">
+
+      <div>
+
+        <div
+          class="stat-label"
+          data-ru="Адрес контракта"
+          data-en="Contract address">
+          Адрес контракта
+        </div>
+
+        <div class="contract-address">
+          0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+        </div>
+
+        <div class="copy-row">
+
+          <button
+            id="copyContractBtn"
+            class="copy-btn"
+            data-ru="Скопировать адрес"
+            data-en="Copy address">
+            Скопировать адрес
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <a
+        href="https://eth-sepolia.blockscout.com/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+        target="_blank"
+        class="explorer-link">
+        Blockscout ↗
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
 </main>
+
 
 <footer>
   <div class="container">
-    PUL Token · Ethereum Sepolia
+    PUL • Ethereum Sepolia • 2026
   </div>
 </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
 
-  "use strict";
+<script>
 
   const CONTRACT =
     "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
@@ -685,40 +1168,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const SEPOLIA_CHAIN_ID =
     "0xaa36a7";
 
+
   const RPCS = [
     "https://ethereum-sepolia-rpc.publicnode.com",
     "https://eth-sepolia.api.onfinality.io/public",
     "https://rpc.sepolia.ethpandaops.io"
   ];
 
+
   const BLOCKSCOUT =
     "https://eth-sepolia.blockscout.com";
+
 
   let currentAccount = null;
 
   let currentLang =
-    localStorage.getItem("pul-language") || "ru";
+    localStorage.getItem("pul-language") ||
+    "ru";
 
-  const $ = id =>
-    document.getElementById(id);
 
-  function shortAddress(address) {
-    if (!address) return "—";
-
-    return (
-      address.slice(0, 8) +
-      "..." +
-      address.slice(-6)
-    );
-  }
-
-  function applyLanguage() {
+  function applyLanguage(){
 
     document.documentElement.lang =
       currentLang;
 
+
     document
-      .querySelectorAll("[data-ru][data-en]")
+      .querySelectorAll(
+        "[data-ru][data-en]"
+      )
       .forEach(el => {
 
         el.textContent =
@@ -728,37 +1206,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
       });
 
-    const langBtn =
-      $("langBtn");
 
-    if (langBtn) {
-      langBtn.textContent =
+    document.getElementById(
+      "langBtn"
+    ).textContent =
+      currentLang === "ru"
+        ? "EN"
+        : "RU";
+
+
+    const refreshBtn =
+      document.getElementById(
+        "refreshHistoryBtn"
+      );
+
+
+    if(
+      refreshBtn &&
+      !refreshBtn.textContent.includes("...")
+    ){
+
+      refreshBtn.textContent =
         currentLang === "ru"
-          ? "EN"
-          : "RU";
+          ? "Обновить"
+          : "Refresh";
+
     }
 
   }
 
-  function setStatus(
-    element,
-    message,
-    type = ""
-  ) {
 
-    if (!element) return;
+  document
+    .getElementById("langBtn")
+    .addEventListener(
+      "click",
+      () => {
 
-    element.textContent =
-      message;
+        currentLang =
+          currentLang === "ru"
+            ? "en"
+            : "ru";
 
-    element.className =
-      "status " + type;
+
+        localStorage.setItem(
+          "pul-language",
+          currentLang
+        );
+
+
+        applyLanguage();
+
+      }
+    );
+
+
+  function shortAddress(address){
+
+    return address
+      ? address.slice(0,8) +
+        "..." +
+        address.slice(-6)
+      : "—";
+
   }
+
 
   function formatNumber(
     value,
     maximumFractionDigits = 4
-  ) {
+  ){
 
     return new Intl.NumberFormat(
       currentLang === "ru"
@@ -768,51 +1284,73 @@ document.addEventListener("DOMContentLoaded", () => {
         maximumFractionDigits
       }
     ).format(value);
+
   }
 
-  function formatTokenAmount(
-    value
-  ) {
 
-    const number =
+  function formatTokenAmount(value){
+
+    const n =
       Number(value);
 
-    return Number.isFinite(number)
-      ? formatNumber(number, 6)
+
+    return Number.isFinite(n)
+      ? formatNumber(n,6)
       : "—";
+
   }
+
+
+  function setStatus(
+    element,
+    message,
+    type = ""
+  ){
+
+    element.textContent =
+      message;
+
+
+    element.className =
+      "status " +
+      type;
+
+  }
+
 
   async function rpcRequest(
     url,
     method,
     params = []
-  ) {
+  ){
 
     const controller =
       new AbortController();
 
+
     const timer =
       setTimeout(
         () => controller.abort(),
-        8000
+        7000
       );
 
-    try {
+
+    try{
 
       const response =
         await fetch(
           url,
           {
-            method: "POST",
+            method:"POST",
 
-            headers: {
+            headers:{
               "Content-Type":
                 "application/json"
             },
 
-            body: JSON.stringify({
-              jsonrpc: "2.0",
-              id: Date.now(),
+            body:JSON.stringify({
+              jsonrpc:"2.0",
+              id:Date.now(),
               method,
               params
             }),
@@ -822,42 +1360,56 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
 
-      if (!response.ok) {
+
+      if(!response.ok){
+
         throw new Error(
           "RPC HTTP " +
           response.status
         );
+
       }
+
 
       const data =
         await response.json();
 
-      if (data.error) {
+
+      if(data.error){
+
         throw new Error(
           data.error.message ||
           "RPC error"
         );
+
       }
+
 
       return data.result;
 
-    } finally {
+    }finally{
 
       clearTimeout(timer);
 
     }
+
   }
+
 
   async function rpc(
     method,
     params = []
-  ) {
+  ){
 
-    let lastError = null;
+    let lastError =
+      null;
 
-    for (const url of RPCS) {
 
-      try {
+    for(
+      const url of RPCS
+    ){
+
+      try{
 
         return await rpcRequest(
           url,
@@ -865,27 +1417,35 @@ document.addEventListener("DOMContentLoaded", () => {
           params
         );
 
-      } catch (error) {
+      }catch(error){
 
-        lastError = error;
+        lastError =
+          error;
 
       }
+
     }
+
 
     throw (
       lastError ||
-      new Error("No RPC available")
+      new Error(
+        "No RPC available"
+      )
     );
+
   }
+
 
   async function getTokenBalance(
     address
-  ) {
+  ){
 
     const cleanAddress =
       address
-        .replace(/^0x/, "")
+        .replace(/^0x/,"")
         .toLowerCase();
+
 
     const data =
       "0x70a08231" +
@@ -894,114 +1454,126 @@ document.addEventListener("DOMContentLoaded", () => {
         "0"
       );
 
+
     const result =
       await rpc(
         "eth_call",
         [
           {
-            to: CONTRACT,
+            to:CONTRACT,
             data
           },
           "latest"
         ]
       );
 
-    if (!result) {
+
+    if(!result){
+
       return 0;
+
     }
+
 
     const raw =
       BigInt(result);
 
-    const base =
-      1000000000000000000n;
 
     const whole =
-      raw / base;
+      raw /
+      1000000000000000000n;
+
 
     const fraction =
-      raw % base;
+      raw %
+      1000000000000000000n;
+
 
     const combined =
       whole.toString() +
       "." +
       fraction
         .toString()
-        .padStart(18, "0");
+        .padStart(
+          18,
+          "0"
+        );
 
-    return Number(combined);
+
+    return Number(
+      combined
+    );
+
   }
 
-  async function loadTotalSupply() {
+
+  async function loadTotalSupply(){
 
     const element =
-      $("totalSupply");
+      document.getElementById(
+        "totalSupply"
+      );
 
-    if (!element) return;
 
-    try {
+    try{
 
       const result =
         await rpc(
           "eth_call",
           [
             {
-              to: CONTRACT,
-              data: "0x18160ddd"
+              to:CONTRACT,
+              data:"0x18160ddd"
             },
             "latest"
           ]
         );
 
+
       const raw =
         BigInt(result);
 
-      const base =
-        1000000000000000000n;
 
       const whole =
-        raw / base;
+        raw /
+        1000000000000000000n;
+
 
       const fraction =
-        raw % base;
+        raw %
+        1000000000000000000n;
 
-      if (fraction === 0n) {
-
-        element.textContent =
-          formatNumber(
-            Number(whole),
-            0
-          );
-
-      } else {
-
-        element.textContent =
-          formatNumber(
-            Number(raw) / 1e18,
-            6
-          );
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Supply error:",
-        error
-      );
 
       element.textContent =
-        "—";
+        fraction === 0n
+          ? formatNumber(
+              Number(whole),
+              0
+            )
+          : formatNumber(
+              Number(raw) /
+              1e18,
+              6
+            );
+
+    }catch(error){
+
+      element.textContent =
+        "1,000,000,000";
+
     }
+
   }
+
 
   async function fetchWithTimeout(
     url,
-    timeout = 10000
-  ) {
+    timeout = 8000
+  ){
 
     const controller =
       new AbortController();
+
 
     const timer =
       setTimeout(
@@ -1009,48 +1581,56 @@ document.addEventListener("DOMContentLoaded", () => {
         timeout
       );
 
-    try {
+
+    try{
 
       const response =
         await fetch(
           url,
           {
-            cache: "no-store",
+            cache:"no-store",
             signal:
               controller.signal
           }
         );
 
-      if (!response.ok) {
+
+      if(!response.ok){
 
         throw new Error(
           "HTTP " +
           response.status
         );
+
       }
+
 
       return await response.json();
 
-    } finally {
+    }finally{
 
       clearTimeout(timer);
 
     }
+
   }
 
-  async function loadStats() {
 
-    const holders =
-      $("holders");
+  async function loadStats(){
 
-    const transfers =
-      $("transfers");
+    const holdersElement =
+      document.getElementById(
+        "holders"
+      );
 
-    if (!holders || !transfers) {
-      return;
-    }
 
-    try {
+    const transfersElement =
+      document.getElementById(
+        "transfers"
+      );
+
+
+    try{
 
       const data =
         await fetchWithTimeout(
@@ -1060,7 +1640,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "/counters"
         );
 
-      holders.textContent =
+
+      holdersElement.textContent =
         data?.token_holders_count !== undefined
           ? formatNumber(
               Number(
@@ -1070,7 +1651,8 @@ document.addEventListener("DOMContentLoaded", () => {
             )
           : "—";
 
-      transfers.textContent =
+
+      transfersElement.textContent =
         data?.transfers_count !== undefined
           ? formatNumber(
               Number(
@@ -1080,652 +1662,30 @@ document.addEventListener("DOMContentLoaded", () => {
             )
           : "—";
 
-    } catch (error) {
+    }catch(error){
 
-      console.error(
-        "Stats error:",
-        error
-      );
-
-      holders.textContent =
+      holdersElement.textContent =
         "—";
 
-      transfers.textContent =
+      transfersElement.textContent =
         "—";
+
     }
+
   }
 
-  async function loadEthBalance(
-    address
-  ) {
-
-    const element =
-      $("ethBalance");
-
-    if (!element) return;
-
-    try {
-
-      const result =
-        await rpc(
-          "eth_getBalance",
-          [
-            address,
-            "latest"
-          ]
-        );
-
-      const wei =
-        BigInt(result);
-
-      const base =
-        1000000000000000000n;
-
-      const whole =
-        wei / base;
-
-      const fraction =
-        wei % base;
-
-      const value =
-        Number(
-          whole.toString() +
-          "." +
-          fraction
-            .toString()
-            .padStart(18, "0")
-        );
-
-      element.textContent =
-        formatNumber(
-          value,
-          6
-        );
-
-    } catch (error) {
-
-      console.error(
-        "ETH balance error:",
-        error
-      );
-
-      element.textContent =
-        "—";
-    }
-  }
-
-  async function refreshWallet(
-    address
-  ) {
-
-    currentAccount =
-      address;
-
-    const walletAddress =
-      $("walletAddress");
-
-    const walletBalance =
-      $("walletBalance");
-
-    if (walletAddress) {
-      walletAddress.textContent =
-        address;
-    }
-
-    if (walletBalance) {
-
-      try {
-
-        walletBalance.textContent =
-          formatNumber(
-            await getTokenBalance(
-              address
-            ),
-            6
-          );
-
-      } catch (error) {
-
-        console.error(
-          "PUL balance error:",
-          error
-        );
-
-        walletBalance.textContent =
-          "—";
-      }
-    }
-
-    await loadEthBalance(
-      address
-    );
-  }
-
-  async function switchToSepolia() {
-
-    if (!window.ethereum) {
-      throw new Error(
-        currentLang === "ru"
-          ? "MetaMask не найден."
-          : "MetaMask not found."
-      );
-    }
-
-    let chainId =
-      await window.ethereum.request({
-        method: "eth_chainId"
-      });
-
-    if (
-      chainId.toLowerCase() ===
-      SEPOLIA_CHAIN_ID
-    ) {
-      return;
-    }
-
-    try {
-
-      await window.ethereum.request({
-        method:
-          "wallet_switchEthereumChain",
-
-        params: [
-          {
-            chainId:
-              SEPOLIA_CHAIN_ID
-          }
-        ]
-      });
-
-    } catch (error) {
-
-      if (error.code !== 4902) {
-        throw error;
-      }
-
-      await window.ethereum.request({
-
-        method:
-          "wallet_addEthereumChain",
-
-        params: [
-          {
-            chainId:
-              SEPOLIA_CHAIN_ID,
-
-            chainName:
-              "Ethereum Sepolia",
-
-            nativeCurrency: {
-              name:
-                "Sepolia Ether",
-
-              symbol:
-                "ETH",
-
-              decimals:
-                18
-            },
-
-            rpcUrls: [
-              RPCS[0]
-            ],
-
-            blockExplorerUrls: [
-              BLOCKSCOUT
-            ]
-          }
-        ]
-      });
-    }
-
-    chainId =
-      await window.ethereum.request({
-        method: "eth_chainId"
-      });
-
-    if (
-      chainId.toLowerCase() !==
-      SEPOLIA_CHAIN_ID
-    ) {
-
-      throw new Error(
-        currentLang === "ru"
-          ? "Переключитесь на Ethereum Sepolia."
-          : "Switch to Ethereum Sepolia."
-      );
-    }
-  }
-
-  async function connectWallet() {
-
-    const status =
-      $("walletStatus");
-
-    if (!window.ethereum) {
-
-      setStatus(
-        status,
-
-        currentLang === "ru"
-          ? "MetaMask не найден. Установите MetaMask."
-          : "MetaMask was not found. Install MetaMask.",
-
-        "error"
-      );
-
-      return;
-    }
-
-    try {
-
-      const accounts =
-        await window.ethereum.request({
-          method:
-            "eth_requestAccounts"
-        });
-
-      if (!accounts.length) {
-        return;
-      }
-
-      await switchToSepolia();
-
-      await refreshWallet(
-        accounts[0]
-      );
-
-      const connectBtn =
-        $("connectBtn");
-
-      if (connectBtn) {
-
-        connectBtn.textContent =
-          shortAddress(
-            accounts[0]
-          );
-      }
-
-      setStatus(
-        status,
-
-        currentLang === "ru"
-          ? "Кошелёк подключён."
-          : "Wallet connected.",
-
-        "success"
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Wallet error:",
-        error
-      );
-
-      setStatus(
-        status,
-
-        error?.message ||
-        (
-          currentLang === "ru"
-            ? "Не удалось подключить кошелёк."
-            : "Could not connect wallet."
-        ),
-
-        "error"
-      );
-    }
-  }
-
-  function parsePulAmount(
-    value
-  ) {
-
-    const input =
-      String(value)
-        .trim()
-        .replace(",", ".");
-
-    if (
-      !/^\d+(?:\.\d{1,18})?$/.test(
-        input
-      )
-    ) {
-
-      throw new Error(
-        currentLang === "ru"
-          ? "Введите сумму с максимум 18 знаками после точки."
-          : "Enter an amount with up to 18 decimal places."
-      );
-    }
-
-    const parts =
-      input.split(".");
-
-    const wholePart =
-      parts[0];
-
-    const fractionPart =
-      parts[1] || "";
-
-    const whole =
-      BigInt(wholePart);
-
-    const fraction =
-      BigInt(
-        (
-          fractionPart +
-          "0".repeat(18)
-        ).slice(0, 18)
-      );
-
-    const result =
-      whole *
-        1000000000000000000n +
-      fraction;
-
-    if (result <= 0n) {
-
-      throw new Error(
-        currentLang === "ru"
-          ? "Количество PUL должно быть больше нуля."
-          : "PUL amount must be greater than zero."
-      );
-    }
-
-    return result;
-  }
-
-  function showTxStatus(
-    txHash,
-    state
-  ) {
-
-    const status =
-      $("sendStatus");
-
-    if (!status) return;
-
-    const labels = {
-
-      sent:
-        currentLang === "ru"
-          ? "Транзакция отправлена. Ожидаем подтверждение..."
-          : "Transaction sent. Waiting for confirmation...",
-
-      pending:
-        currentLang === "ru"
-          ? "Проверяем статус транзакции..."
-          : "Checking transaction status...",
-
-      confirmed:
-        currentLang === "ru"
-          ? "Транзакция подтверждена."
-          : "Transaction confirmed.",
-
-      failed:
-        currentLang === "ru"
-          ? "Транзакция не подтверждена."
-          : "Transaction failed."
-    };
-
-    status.className =
-      "status " +
-      (
-        state === "confirmed"
-          ? "success"
-          : state === "failed"
-            ? "error"
-            : ""
-      );
-
-    status.innerHTML =
-      "<div>" +
-      labels[state] +
-      "</div>";
-
-    if (txHash) {
-
-      const link =
-        document.createElement(
-          "a"
-        );
-
-      link.href =
-        BLOCKSCOUT +
-        "/tx/" +
-        txHash;
-
-      link.target =
-        "_blank";
-
-      link.rel =
-        "noopener";
-
-      link.textContent =
-        currentLang === "ru"
-          ? "Открыть транзакцию ↗"
-          : "Open transaction ↗";
-
-      link.style.display =
-        "inline-block";
-
-      link.style.marginTop =
-        "8px";
-
-      status.appendChild(
-        link
-      );
-    }
-  }
-
-  async function sendPUL() {
-
-    const sendStatus =
-      $("sendStatus");
-
-    if (!window.ethereum) {
-
-      setStatus(
-        sendStatus,
-
-        currentLang === "ru"
-          ? "MetaMask не найден."
-          : "MetaMask not found.",
-
-        "error"
-      );
-
-      return;
-    }
-
-    try {
-
-      await switchToSepolia();
-
-      const accounts =
-        await window.ethereum.request({
-          method:
-            "eth_accounts"
-        });
-
-      if (!accounts.length) {
-
-        await connectWallet();
-
-        if (!currentAccount) {
-          return;
-        }
-
-      }
-
-      const from =
-        currentAccount ||
-        accounts[0];
-
-      const recipient =
-        $("recipient")?.value.trim();
-
-      const amountInput =
-        $("amount")?.value.trim();
-
-      if (
-        !/^0x[a-fA-F0-9]{40}$/.test(
-          recipient
-        )
-      ) {
-
-        throw new Error(
-          currentLang === "ru"
-            ? "Введите корректный адрес получателя."
-            : "Enter a valid recipient address."
-        );
-      }
-
-      const amount =
-        parsePulAmount(
-          amountInput
-        );
-
-      const recipientData =
-        recipient
-          .replace(/^0x/, "")
-          .padStart(64, "0");
-
-      const amountData =
-        amount
-          .toString(16)
-          .padStart(64, "0");
-
-      const data =
-        "0xa9059cbb" +
-        recipientData +
-        amountData;
-
-      showTxStatus(
-        null,
-        "sent"
-      );
-
-      const txHash =
-        await window.ethereum.request({
-          method:
-            "eth_sendTransaction",
-
-          params: [
-            {
-              from,
-              to: CONTRACT,
-              data
-            }
-          ]
-        });
-
-      showTxStatus(
-        txHash,
-        "pending"
-      );
-
-      await waitForReceipt(
-        txHash
-      );
-
-      await refreshWallet(
-        from
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Transfer error:",
-        error
-      );
-
-      setStatus(
-        sendStatus,
-
-        error?.message ||
-        (
-          currentLang === "ru"
-            ? "Ошибка транзакции."
-            : "Transaction error."
-        ),
-
-        "error"
-      );
-    }
-  }
-
-  async function waitForReceipt(
-    txHash
-  ) {
-
-    for (
-      let i = 0;
-      i < 60;
-      i++
-    ) {
-
-      try {
-
-        const receipt =
-          await rpc(
-            "eth_getTransactionReceipt",
-            [txHash]
-          );
-
-        if (receipt) {
-
-          if (
-            receipt.status ===
-            "0x1"
-          ) {
-
-            showTxStatus(
-              txHash,
-              "confirmed"
-            );
-
-          } else {
-
-            showTxStatus(
-              txHash,
-              "failed"
-            );
-          }
-
-          return receipt;
-        }
-
-      } catch (error) {
-
-        console.error(
-          "Receipt error:",
-          error
-        );
-      }
-
-      await new Promise(
-        resolve =>
-          setTimeout(
-            resolve,
-            3000
-          )
-      );
-    }
-  }
 
   function renderHistoryItems(
     items
-  ) {
+  ){
 
     const container =
-      $("historyList");
+      document.getElementById(
+        "historyList"
+      );
 
-    if (!container) return;
 
-    if (!items.length) {
+    if(!items.length){
 
       container.innerHTML =
         `
@@ -1739,26 +1699,32 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
       return;
+
     }
+
 
     container.innerHTML =
       "";
 
+
     items
-      .slice(0, 20)
+      .slice(0,20)
       .forEach(item => {
 
         const from =
           item.from?.hash ||
           "";
 
+
         const to =
           item.to?.hash ||
           "";
 
+
         const rawValue =
           item.total?.value ||
           "0";
+
 
         const decimals =
           Number(
@@ -1766,16 +1732,21 @@ document.addEventListener("DOMContentLoaded", () => {
             18
           );
 
+
         const amount =
-          Number(rawValue) /
+          Number(
+            rawValue
+          ) /
           Math.pow(
             10,
             decimals
           );
 
+
         const txHash =
           item.transaction_hash ||
           "";
+
 
         const timestamp =
           item.timestamp
@@ -1788,17 +1759,21 @@ document.addEventListener("DOMContentLoaded", () => {
               )
             : "";
 
+
         const div =
           document.createElement(
             "div"
           );
 
+
         div.className =
           "history-item";
 
+
         div.innerHTML =
           `
-          <div>
+          <div class="history-main">
+
             <div class="history-type">
               ${
                 currentLang === "ru"
@@ -1812,8 +1787,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentLang === "ru"
                   ? "От: "
                   : "From: "
-              }
-              ${
+              }${
                 from
                   ? shortAddress(from)
                   : "—"
@@ -1825,8 +1799,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentLang === "ru"
                   ? "Кому: "
                   : "To: "
-              }
-              ${
+              }${
                 to
                   ? shortAddress(to)
                   : "—"
@@ -1836,7 +1809,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ${
               timestamp
                 ? `
-                  <div class="history-address">
+                  <div
+                    class="history-address"
+                    style="margin-top:4px">
                     ${timestamp}
                   </div>
                 `
@@ -1860,39 +1835,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 `
                 : ""
             }
+
           </div>
 
           <div class="history-amount">
-            ${formatTokenAmount(amount)}
-            PUL
+            ${
+              formatTokenAmount(
+                amount
+              )
+            } PUL
           </div>
           `;
+
 
         container.appendChild(
           div
         );
+
       });
+
   }
 
-  async function loadHistory() {
+
+  async function loadHistory(){
 
     const container =
-      $("historyList");
+      document.getElementById(
+        "historyList"
+      );
 
-    if (!container) return;
 
-    container.innerHTML =
-      `
-      <div class="status">
-        ${
-          currentLang === "ru"
-            ? "Загрузка истории..."
-            : "Loading history..."
-        }
-      </div>
-      `;
-
-    try {
+    try{
 
       const data =
         await fetchWithTimeout(
@@ -1902,6 +1875,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "/transfers"
         );
 
+
       const items =
         Array.isArray(
           data?.items
@@ -1910,28 +1884,25 @@ document.addEventListener("DOMContentLoaded", () => {
               item =>
                 !item.token_type ||
                 item.token_type ===
-                "ERC-20"
+                  "ERC-20"
             )
           : [];
+
 
       renderHistoryItems(
         items
       );
 
-    } catch (error) {
-
-      console.error(
-        "History error:",
-        error
-      );
+    }catch(error){
 
       container.innerHTML =
         `
         <div class="status">
+
           ${
             currentLang === "ru"
-              ? "История временно недоступна."
-              : "History is temporarily unavailable."
+              ? "История временно недоступна. Откройте Blockscout для просмотра переводов."
+              : "History is temporarily unavailable. Open Blockscout to view transfers."
           }
 
           <br><br>
@@ -1939,202 +1910,1107 @@ document.addEventListener("DOMContentLoaded", () => {
           <a
             href="${BLOCKSCOUT}/token/${CONTRACT}"
             target="_blank"
-            rel="noopener">
+            rel="noopener"
+            style="color:var(--blue2)">
             Blockscout ↗
           </a>
+
         </div>
         `;
+
     }
+
   }
 
-  const langBtn =
-    $("langBtn");
 
-  if (langBtn) {
+  async function loadEthBalance(
+    address
+  ){
 
-    langBtn.addEventListener(
-      "click",
-      () => {
+    try{
 
-        currentLang =
-          currentLang === "ru"
-            ? "en"
-            : "ru";
-
-        localStorage.setItem(
-          "pul-language",
-          currentLang
+      const result =
+        await rpc(
+          "eth_getBalance",
+          [
+            address,
+            "latest"
+          ]
         );
 
-        applyLanguage();
 
-        loadHistory();
+      const wei =
+        BigInt(result);
+
+
+      const whole =
+        wei /
+        1000000000000000000n;
+
+
+      const fraction =
+        wei %
+        1000000000000000000n;
+
+
+      const value =
+        Number(
+          whole.toString() +
+          "." +
+          fraction
+            .toString()
+            .padStart(
+              18,
+              "0"
+            )
+        );
+
+
+      document.getElementById(
+        "ethBalance"
+      ).textContent =
+        formatNumber(
+          value,
+          6
+        );
+
+    }catch(error){
+
+      document.getElementById(
+        "ethBalance"
+      ).textContent =
+        "—";
+
+    }
+
+  }
+
+
+  async function refreshWallet(
+    address
+  ){
+
+    currentAccount =
+      address;
+
+
+    document.getElementById(
+      "walletAddress"
+    ).textContent =
+      address;
+
+
+    try{
+
+      document.getElementById(
+        "walletBalance"
+      ).textContent =
+        formatNumber(
+          await getTokenBalance(
+            address
+          ),
+          6
+        );
+
+    }catch(error){
+
+      document.getElementById(
+        "walletBalance"
+      ).textContent =
+        "—";
+
+    }
+
+
+    await loadEthBalance(
+      address
+    );
+
+  }
+
+
+  async function connectWallet(){
+
+    const status =
+      document.getElementById(
+        "walletStatus"
+      );
+
+
+    if(!window.ethereum){
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "MetaMask не найден. Установите MetaMask."
+          : "MetaMask was not found. Please install MetaMask.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    try{
+
+      const accounts =
+        await window.ethereum.request({
+          method:
+            "eth_requestAccounts"
+        });
+
+
+      if(!accounts.length){
+
+        return;
+
       }
-    );
+
+
+      let chainId =
+        await window.ethereum.request({
+          method:"eth_chainId"
+        });
+
+
+      if(
+        chainId.toLowerCase() !==
+        SEPOLIA_CHAIN_ID
+      ){
+
+        try{
+
+          await window.ethereum.request({
+            method:
+              "wallet_switchEthereumChain",
+
+            params:[
+              {
+                chainId:
+                  SEPOLIA_CHAIN_ID
+              }
+            ]
+          });
+
+        }catch(switchError){
+
+          if(
+            switchError.code ===
+            4902
+          ){
+
+            await window.ethereum.request({
+              method:
+                "wallet_addEthereumChain",
+
+              params:[
+                {
+                  chainId:
+                    SEPOLIA_CHAIN_ID,
+
+                  chainName:
+                    "Ethereum Sepolia",
+
+                  nativeCurrency:{
+                    name:
+                      "Sepolia Ether",
+
+                    symbol:
+                      "ETH",
+
+                    decimals:
+                      18
+                  },
+
+                  rpcUrls:[
+                    RPCS[0]
+                  ],
+
+                  blockExplorerUrls:[
+                    BLOCKSCOUT
+                  ]
+                }
+              ]
+            });
+
+          }else{
+
+            throw switchError;
+
+          }
+
+        }
+
+
+        chainId =
+          await window.ethereum.request({
+            method:
+              "eth_chainId"
+          });
+
+      }
+
+
+      if(
+        chainId.toLowerCase() !==
+        SEPOLIA_CHAIN_ID
+      ){
+
+        throw new Error(
+          currentLang === "ru"
+            ? "Переключитесь на Ethereum Sepolia в MetaMask."
+            : "Switch MetaMask to Ethereum Sepolia."
+        );
+
+      }
+
+
+      await refreshWallet(
+        accounts[0]
+      );
+
+
+      document.getElementById(
+        "connectBtn"
+      ).textContent =
+        shortAddress(
+          accounts[0]
+        );
+
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "Кошелёк подключён."
+          : "Wallet connected.",
+        "success"
+      );
+
+
+    }catch(error){
+
+      setStatus(
+        status,
+        error?.message ||
+          (
+            currentLang === "ru"
+              ? "Не удалось подключить кошелёк."
+              : "Could not connect wallet."
+          ),
+        "error"
+      );
+
+    }
+
   }
 
-  const connectBtn =
-    $("connectBtn");
 
-  if (connectBtn) {
-
-    connectBtn.addEventListener(
+  document
+    .getElementById("connectBtn")
+    .addEventListener(
       "click",
       connectWallet
     );
+
+
+  function parsePulAmount(
+    value
+  ){
+
+    const input =
+      String(value)
+        .trim()
+        .replace(",",".");
+
+
+    if(
+      !/^\d+(?:\.\d{1,18})?$/.test(
+        input
+      )
+    ){
+
+      throw new Error(
+        currentLang === "ru"
+          ? "Введите сумму от 0 до 18 знаков после точки."
+          : "Enter an amount with up to 18 decimal places."
+      );
+
+    }
+
+
+    const [
+      wholePart,
+      fractionPart = ""
+    ] =
+      input.split(".");
+
+
+    const whole =
+      BigInt(
+        wholePart
+      );
+
+
+    const fraction =
+      BigInt(
+        (
+          fractionPart +
+          "0".repeat(18)
+        ).slice(0,18)
+      );
+
+
+    const result =
+      whole *
+        1000000000000000000n +
+      fraction;
+
+
+    if(
+      result <= 0n
+    ){
+
+      throw new Error(
+        currentLang === "ru"
+          ? "Количество PUL должно быть больше нуля."
+          : "PUL amount must be greater than zero."
+      );
+
+    }
+
+
+    return result;
+
   }
 
-  const connectWalletButton =
-    $("connectWalletButton");
 
-  if (connectWalletButton) {
+  function showTxStatus(
+    txHash,
+    state
+  ){
 
-    connectWalletButton.addEventListener(
-      "click",
-      connectWallet
-    );
+    const status =
+      document.getElementById(
+        "sendStatus"
+      );
+
+
+    const labels = {
+
+      sent:
+        currentLang === "ru"
+          ? "Транзакция отправлена. Ожидаем подтверждение..."
+          : "Transaction sent. Waiting for confirmation...",
+
+      confirmed:
+        currentLang === "ru"
+          ? "Транзакция подтверждена."
+          : "Transaction confirmed.",
+
+      failed:
+        currentLang === "ru"
+          ? "Транзакция не подтверждена."
+          : "Transaction failed.",
+
+      pending:
+        currentLang === "ru"
+          ? "Проверяем статус транзакции..."
+          : "Checking transaction status..."
+
+    };
+
+
+    status.className =
+      "status " +
+      (
+        state === "confirmed"
+          ? "success"
+          : state === "failed"
+            ? "error"
+            : ""
+      );
+
+
+    status.innerHTML =
+      "<div>" +
+      labels[state] +
+      "</div>";
+
+
+    if(txHash){
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href =
+        BLOCKSCOUT +
+        "/tx/" +
+        txHash;
+
+
+      link.target =
+        "_blank";
+
+
+      link.rel =
+        "noopener";
+
+
+      link.className =
+        "history-link tx-status";
+
+
+      link.textContent =
+        currentLang === "ru"
+          ? "Открыть транзакцию ↗"
+          : "Open transaction ↗";
+
+
+      status.appendChild(
+        link
+      );
+
+    }
+
   }
 
-  const sendBtn =
-    $("sendBtn");
 
-  if (sendBtn) {
+  async function waitForReceipt(
+    txHash
+  ){
 
-    sendBtn.addEventListener(
+    for(
+      let i=0;
+      i<30;
+      i++
+    ){
+
+      try{
+
+        const receipt =
+          await window.ethereum.request({
+            method:
+              "eth_getTransactionReceipt",
+
+            params:[
+              txHash
+            ]
+          });
+
+
+        if(receipt){
+
+          if(
+            receipt.status ===
+            "0x1"
+          ){
+
+            return true;
+
+          }
+
+
+          if(
+            receipt.status ===
+            "0x0"
+          ){
+
+            return false;
+
+          }
+
+        }
+
+      }catch(error){
+
+        console.log(
+          "Receipt check:",
+          error
+        );
+
+      }
+
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            3000
+          )
+      );
+
+    }
+
+
+    return null;
+
+  }
+
+
+  async function sendPUL(){
+
+    const status =
+      document.getElementById(
+        "sendStatus"
+      );
+
+
+    const recipient =
+      document.getElementById(
+        "recipient"
+      ).value.trim();
+
+
+    const amount =
+      document.getElementById(
+        "amount"
+      ).value.trim();
+
+
+    if(!window.ethereum){
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "Сначала установите MetaMask."
+          : "Please install MetaMask first.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(!currentAccount){
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "Сначала подключите MetaMask."
+          : "Connect MetaMask first.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(
+      !/^0x[a-fA-F0-9]{40}$/.test(
+        recipient
+      )
+    ){
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "Введите корректный адрес Ethereum."
+          : "Enter a valid Ethereum address.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    let tokenAmount;
+
+
+    try{
+
+      tokenAmount =
+        parsePulAmount(
+          amount
+        );
+
+    }catch(error){
+
+      setStatus(
+        status,
+        error.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    try{
+
+      setStatus(
+        status,
+        currentLang === "ru"
+          ? "Подтвердите транзакцию в MetaMask..."
+          : "Confirm the transaction in MetaMask..."
+      );
+
+
+      const data =
+        "0xa9059cbb" +
+        recipient
+          .replace(
+            /^0x/,
+            ""
+          )
+          .toLowerCase()
+          .padStart(
+            64,
+            "0"
+          ) +
+        tokenAmount
+          .toString(16)
+          .padStart(
+            64,
+            "0"
+          );
+
+
+      const txHash =
+        await window.ethereum.request({
+
+          method:
+            "eth_sendTransaction",
+
+          params:[
+            {
+              from:
+                currentAccount,
+
+              to:
+                CONTRACT,
+
+              data
+            }
+          ]
+
+        });
+
+
+      document.getElementById(
+        "amount"
+      ).value = "";
+
+
+      document.getElementById(
+        "recipient"
+      ).value = "";
+
+
+      showTxStatus(
+        txHash,
+        "sent"
+      );
+
+
+      const result =
+        await waitForReceipt(
+          txHash
+        );
+
+
+      if(
+        result === true
+      ){
+
+        showTxStatus(
+          txHash,
+          "confirmed"
+        );
+
+
+        await Promise.allSettled([
+          loadHistory(),
+          loadStats(),
+          currentAccount
+            ? refreshWallet(
+                currentAccount
+              )
+            : Promise.resolve()
+        ]);
+
+      }else if(
+        result === false
+      ){
+
+        showTxStatus(
+          txHash,
+          "failed"
+        );
+
+      }else{
+
+        showTxStatus(
+          txHash,
+          "pending"
+        );
+
+
+        await loadHistory();
+
+      }
+
+
+    }catch(error){
+
+      setStatus(
+        status,
+        error?.message ||
+          (
+            currentLang === "ru"
+              ? "Транзакция отменена или произошла ошибка."
+              : "Transaction was cancelled or failed."
+          ),
+        "error"
+      );
+
+    }
+
+  }
+
+
+  document
+    .getElementById("sendBtn")
+    .addEventListener(
       "click",
       sendPUL
     );
-  }
 
-  const refreshHistoryBtn =
-    $("refreshHistoryBtn");
 
-  if (refreshHistoryBtn) {
-
-    refreshHistoryBtn.addEventListener(
-      "click",
-      loadHistory
-    );
-  }
-
-  if (window.ethereum) {
+  if(
+    window.ethereum
+  ){
 
     window.ethereum.on(
       "accountsChanged",
       async accounts => {
 
-        if (!accounts.length) {
+        if(
+          !accounts.length
+        ){
 
           currentAccount =
             null;
 
-          const walletAddress =
-            $("walletAddress");
 
-          const walletBalance =
-            $("walletBalance");
+          document.getElementById(
+            "walletAddress"
+          ).textContent =
+            "—";
 
-          if (walletAddress) {
-            walletAddress.textContent =
-              "—";
-          }
 
-          if (walletBalance) {
-            walletBalance.textContent =
-              "0";
-          }
+          document.getElementById(
+            "walletBalance"
+          ).textContent =
+            "—";
 
-          const connectBtn =
-            $("connectBtn");
 
-          if (connectBtn) {
+          document.getElementById(
+            "ethBalance"
+          ).textContent =
+            "—";
 
-            connectBtn.textContent =
-              currentLang === "ru"
-                ? "Подключить"
-                : "Connect";
-          }
+
+          document.getElementById(
+            "connectBtn"
+          ).textContent =
+            currentLang === "ru"
+              ? "Подключить MetaMask"
+              : "Connect MetaMask";
+
 
           return;
+
         }
+
 
         await refreshWallet(
           accounts[0]
         );
 
-        const connectBtn =
-          $("connectBtn");
 
-        if (connectBtn) {
+        document.getElementById(
+          "connectBtn"
+        ).textContent =
+          shortAddress(
+            accounts[0]
+          );
 
-          connectBtn.textContent =
-            shortAddress(
-              accounts[0]
-            );
-        }
       }
     );
+
 
     window.ethereum.on(
       "chainChanged",
       () => {
-        if (currentAccount) {
-          refreshWallet(
-            currentAccount
-          );
-        }
+        window.location.reload();
       }
     );
+
   }
 
-  try {
 
-    const url =
-      new URL(
-        window.location.href
-      );
+  async function copyText(
+    text
+  ){
 
-    if (
-      url.searchParams.has(
-        "utm_source"
-      )
-    ) {
+    if(
+      !text ||
+      text === "—"
+    ){
 
-      url.searchParams.delete(
-        "utm_source"
-      );
+      return false;
 
-      window.history.replaceState(
-        {},
-        document.title,
-        url.pathname +
-        (
-          url.searchParams.toString()
-            ? "?" +
-              url.searchParams.toString()
-            : ""
-        ) +
-        url.hash
-      );
     }
 
-  } catch (error) {
 
-    console.error(
-      "URL cleanup error:",
-      error
-    );
+    try{
+
+      await navigator.clipboard.writeText(
+        text
+      );
+
+
+      return true;
+
+    }catch(error){
+
+      const area =
+        document.createElement(
+          "textarea"
+        );
+
+
+      area.value =
+        text;
+
+
+      area.style.position =
+        "fixed";
+
+
+      area.style.opacity =
+        "0";
+
+
+      document.body.appendChild(
+        area
+      );
+
+
+      area.select();
+
+
+      const ok =
+        document.execCommand(
+          "copy"
+        );
+
+
+      area.remove();
+
+
+      return ok;
+
+    }
+
   }
 
-  applyLanguage();
 
-  loadTotalSupply();
+  function bindCopyButton(
+    buttonId,
+    getValue
+  ){
 
-  loadStats();
+    const button =
+      document.getElementById(
+        buttonId
+      );
 
-  loadHistory();
 
-});
+    if(!button){
+
+      return;
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      async () => {
+
+        const ok =
+          await copyText(
+            getValue()
+          );
+
+
+        const original =
+          button.textContent;
+
+
+        button.textContent =
+          ok
+            ? (
+                currentLang === "ru"
+                  ? "Скопировано ✓"
+                  : "Copied ✓"
+              )
+            : original;
+
+
+        setTimeout(
+          () => {
+
+            button.textContent =
+              currentLang === "ru"
+                ? "Скопировать адрес"
+                : "Copy address";
+
+          },
+          1500
+        );
+
+      }
+    );
+
+  }
+
+
+  bindCopyButton(
+    "copyWalletBtn",
+    () =>
+      currentAccount ||
+      document.getElementById(
+        "walletAddress"
+      ).textContent
+  );
+
+
+  bindCopyButton(
+    "copyContractBtn",
+    () =>
+      CONTRACT
+  );
+
+
+  document
+    .getElementById(
+      "refreshHistoryBtn"
+    )
+    .addEventListener(
+      "click",
+      async () => {
+
+        const btn =
+          document.getElementById(
+            "refreshHistoryBtn"
+          );
+
+
+        const old =
+          btn.textContent;
+
+
+        btn.textContent =
+          currentLang === "ru"
+            ? "Обновление..."
+            : "Refreshing...";
+
+
+        await Promise.allSettled([
+          loadHistory(),
+          loadStats()
+        ]);
+
+
+        btn.textContent =
+          old;
+
+      }
+    );
+
+
+  async function init(){
+
+    applyLanguage();
+
+
+    await Promise.allSettled([
+      loadTotalSupply(),
+      loadStats(),
+      loadHistory()
+    ]);
+
+
+    if(
+      window.ethereum
+    ){
+
+      try{
+
+        const accounts =
+          await window.ethereum.request({
+            method:
+              "eth_accounts"
+          });
+
+
+        if(
+          accounts.length
+        ){
+
+          const chainId =
+            await window.ethereum.request({
+              method:
+                "eth_chainId"
+            });
+
+
+          if(
+            chainId.toLowerCase() ===
+            SEPOLIA_CHAIN_ID
+          ){
+
+            await refreshWallet(
+              accounts[0]
+            );
+
+
+            document.getElementById(
+              "connectBtn"
+            ).textContent =
+              shortAddress(
+                accounts[0]
+              );
+
+          }
+
+        }
+
+      }catch(error){
+
+        console.log(
+          "Wallet restore:",
+          error
+        );
+
+      }
+
+    }
+
+  }
+
+
+  init();
+
 </script>
 
 </body>
