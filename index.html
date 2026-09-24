@@ -1,41 +1,7 @@
 <script>
-
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* =========================
-     Удаляем utm_source из URL
-  ========================= */
-
-  (() => {
-    const url = new URL(window.location.href);
-
-    if (url.searchParams.has("utm_source")) {
-      url.searchParams.delete("utm_source");
-
-      const cleanUrl =
-        url.pathname +
-        (
-          url.searchParams.toString()
-            ? "?" + url.searchParams.toString()
-            : ""
-        ) +
-        url.hash;
-
-      window.history.replaceState(
-        {},
-        document.title,
-        cleanUrl
-      );
-    }
-  })();
-
-
-  const CONTRACT =
-    "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
-
-  const SEPOLIA_CHAIN_ID =
-    "0xaa36a7";
-
+  const CONTRACT = "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
+  const SEPOLIA_CHAIN_ID = "0xaa36a7";
 
   const RPCS = [
     "https://ethereum-sepolia-rpc.publicnode.com",
@@ -43,1970 +9,557 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://rpc.sepolia.ethpandaops.io"
   ];
 
+  const BLOCKSCOUT = "https://eth-sepolia.blockscout.com";
 
-  const BLOCKSCOUT =
-    "https://eth-sepolia.blockscout.com";
+  const $ = (id) => document.getElementById(id);
 
+  const langBtn = $("langBtn");
+  const connectBtn = $("connectBtn");
+  const sendBtn = $("sendBtn");
+  const refreshHistoryBtn = $("refreshHistoryBtn");
 
-  let currentAccount = null;
+  let currentLang = localStorage.getItem("pul_lang") || "ru";
+  let account = null;
 
-  let currentLang =
-    localStorage.getItem("pul-language") ||
-    "ru";
+  function safeClick(element, handler) {
+    if (element) {
+      element.addEventListener("click", handler);
+    }
+  }
 
+  function shortAddress(address) {
+    if (!address) return "";
+    return address.slice(0, 6) + "..." + address.slice(-4);
+  }
 
-  function applyLanguage(){
+  function showStatus(message, type = "") {
+    const el = $("status");
+    if (!el) return;
 
-    document.documentElement.lang =
-      currentLang;
+    el.textContent = message;
+    el.className = "status " + type;
+  }
 
-    document
-      .querySelectorAll("[data-ru][data-en]")
-      .forEach(el => {
+  function applyLanguage() {
+    document.documentElement.lang = currentLang;
 
-        el.textContent =
-          currentLang === "ru"
-            ? el.dataset.ru
-            : el.dataset.en;
+    document.querySelectorAll("[data-ru][data-en]").forEach((el) => {
+      el.textContent = currentLang === "ru"
+        ? el.dataset.ru
+        : el.dataset.en;
+    });
 
+    if (langBtn) {
+      langBtn.textContent = currentLang === "ru" ? "EN" : "RU";
+    }
+  }
+
+  safeClick(langBtn, () => {
+    currentLang = currentLang === "ru" ? "en" : "ru";
+    localStorage.setItem("pul_lang", currentLang);
+    applyLanguage();
+  });
+
+  async function getProvider() {
+    if (!window.ethereum) {
+      throw new Error(
+        currentLang === "ru"
+          ? "MetaMask не установлен"
+          : "MetaMask is not installed"
+      );
+    }
+
+    return window.ethereum;
+  }
+
+  async function switchToSepolia() {
+    const provider = await getProvider();
+
+    try {
+      await provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: SEPOLIA_CHAIN_ID }]
+      });
+    } catch (error) {
+      if (error.code === 4902) {
+        await provider.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: SEPOLIA_CHAIN_ID,
+            chainName: "Sepolia",
+            nativeCurrency: {
+              name: "Sepolia Ether",
+              symbol: "ETH",
+              decimals: 18
+            },
+            rpcUrls: [RPCS[0]],
+            blockExplorerUrls: [BLOCKSCOUT]
+          }]
+        });
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  async function connectWallet() {
+    try {
+      const provider = await getProvider();
+
+      await switchToSepolia();
+
+      const accounts = await provider.request({
+        method: "eth_requestAccounts"
       });
 
+      if (!accounts || !accounts.length) {
+        throw new Error("Wallet account not found");
+      }
 
-    const langBtn =
-      document.getElementById("langBtn");
+      account = accounts[0];
 
-    if(langBtn){
-      langBtn.textContent =
+      if (connectBtn) {
+        connectBtn.textContent = shortAddress(account);
+      }
+
+      showStatus(
         currentLang === "ru"
-          ? "EN"
-          : "RU";
-    }
-
-
-    const refreshBtn =
-      document.getElementById(
-        "refreshHistoryBtn"
-      );
-
-
-    if(
-      refreshBtn &&
-      !refreshBtn.textContent.includes("...")
-    ){
-
-      refreshBtn.textContent =
-        currentLang === "ru"
-          ? "Обновить"
-          : "Refresh";
-
-    }
-
-  }
-
-
-  const langBtn =
-    document.getElementById("langBtn");
-
-  if(langBtn){
-
-    langBtn.addEventListener(
-      "click",
-      () => {
-
-        currentLang =
-          currentLang === "ru"
-            ? "en"
-            : "ru";
-
-
-        localStorage.setItem(
-          "pul-language",
-          currentLang
-        );
-
-
-        applyLanguage();
-
-      }
-    );
-
-  }
-
-
-  function shortAddress(address){
-
-    return address
-      ? address.slice(0,8) +
-        "..." +
-        address.slice(-6)
-      : "—";
-
-  }
-
-
-  function formatNumber(
-    value,
-    maximumFractionDigits = 4
-  ){
-
-    return new Intl.NumberFormat(
-      currentLang === "ru"
-        ? "ru-RU"
-        : "en-US",
-      {
-        maximumFractionDigits
-      }
-    ).format(value);
-
-  }
-
-
-  function formatTokenAmount(value){
-
-    const n =
-      Number(value);
-
-    return Number.isFinite(n)
-      ? formatNumber(n,6)
-      : "—";
-
-  }
-
-
-  function setStatus(
-    element,
-    message,
-    type = ""
-  ){
-
-    if(!element){
-      return;
-    }
-
-    element.textContent =
-      message;
-
-    element.className =
-      "status " +
-      type;
-
-  }
-
-
-  async function rpcRequest(
-    url,
-    method,
-    params = []
-  ){
-
-    const controller =
-      new AbortController();
-
-    const timer =
-      setTimeout(
-        () => controller.abort(),
-        7000
-      );
-
-    try{
-
-      const response =
-        await fetch(
-          url,
-          {
-            method:"POST",
-
-            headers:{
-              "Content-Type":
-                "application/json"
-            },
-
-            body:JSON.stringify({
-              jsonrpc:"2.0",
-              id:Date.now(),
-              method,
-              params
-            }),
-
-            signal:
-              controller.signal
-          }
-        );
-
-
-      if(!response.ok){
-
-        throw new Error(
-          "RPC HTTP " +
-          response.status
-        );
-
-      }
-
-
-      const data =
-        await response.json();
-
-
-      if(data.error){
-
-        throw new Error(
-          data.error.message ||
-          "RPC error"
-        );
-
-      }
-
-
-      return data.result;
-
-    }finally{
-
-      clearTimeout(timer);
-
-    }
-
-  }
-
-
-  async function rpc(
-    method,
-    params = []
-  ){
-
-    let lastError =
-      null;
-
-
-    for(
-      const url of RPCS
-    ){
-
-      try{
-
-        return await rpcRequest(
-          url,
-          method,
-          params
-        );
-
-      }catch(error){
-
-        lastError =
-          error;
-
-      }
-
-    }
-
-
-    throw (
-      lastError ||
-      new Error(
-        "No RPC available"
-      )
-    );
-
-  }
-
-
-  async function getTokenBalance(
-    address
-  ){
-
-    const cleanAddress =
-      address
-        .replace(/^0x/,"")
-        .toLowerCase();
-
-
-    const data =
-      "0x70a08231" +
-      cleanAddress.padStart(
-        64,
-        "0"
-      );
-
-
-    const result =
-      await rpc(
-        "eth_call",
-        [
-          {
-            to:CONTRACT,
-            data
-          },
-          "latest"
-        ]
-      );
-
-
-    if(!result){
-
-      return 0;
-
-    }
-
-
-    const raw =
-      BigInt(result);
-
-
-    const whole =
-      raw /
-      1000000000000000000n;
-
-
-    const fraction =
-      raw %
-      1000000000000000000n;
-
-
-    const combined =
-      whole.toString() +
-      "." +
-      fraction
-        .toString()
-        .padStart(
-          18,
-          "0"
-        );
-
-
-    return Number(
-      combined
-    );
-
-  }
-
-
-  async function loadTotalSupply(){
-
-    const element =
-      document.getElementById(
-        "totalSupply"
-      );
-
-
-    if(!element){
-      return;
-    }
-
-
-    try{
-
-      const result =
-        await rpc(
-          "eth_call",
-          [
-            {
-              to:CONTRACT,
-              data:"0x18160ddd"
-            },
-            "latest"
-          ]
-        );
-
-
-      const raw =
-        BigInt(result);
-
-
-      const whole =
-        raw /
-        1000000000000000000n;
-
-
-      const fraction =
-        raw %
-        1000000000000000000n;
-
-
-      element.textContent =
-        fraction === 0n
-          ? formatNumber(
-              Number(whole),
-              0
-            )
-          : formatNumber(
-              Number(raw) /
-              1e18,
-              6
-            );
-
-    }catch(error){
-
-      element.textContent =
-        "1,000,000,000";
-
-    }
-
-  }
-
-
-  async function fetchWithTimeout(
-    url,
-    timeout = 8000
-  ){
-
-    const controller =
-      new AbortController();
-
-
-    const timer =
-      setTimeout(
-        () => controller.abort(),
-        timeout
-      );
-
-
-    try{
-
-      const response =
-        await fetch(
-          url,
-          {
-            cache:"no-store",
-            signal:
-              controller.signal
-          }
-        );
-
-
-      if(!response.ok){
-
-        throw new Error(
-          "HTTP " +
-          response.status
-        );
-
-      }
-
-
-      return await response.json();
-
-    }finally{
-
-      clearTimeout(timer);
-
-    }
-
-  }
-
-
-  async function loadStats(){
-
-    const holdersElement =
-      document.getElementById(
-        "holders"
-      );
-
-
-    const transfersElement =
-      document.getElementById(
-        "transfers"
-      );
-
-
-    if(!holdersElement || !transfersElement){
-      return;
-    }
-
-
-    try{
-
-      const data =
-        await fetchWithTimeout(
-          BLOCKSCOUT +
-          "/api/v2/tokens/" +
-          CONTRACT +
-          "/counters"
-        );
-
-
-      holdersElement.textContent =
-        data?.token_holders_count !== undefined
-          ? formatNumber(
-              Number(
-                data.token_holders_count
-              ),
-              0
-            )
-          : "—";
-
-
-      transfersElement.textContent =
-        data?.transfers_count !== undefined
-          ? formatNumber(
-              Number(
-                data.transfers_count
-              ),
-              0
-            )
-          : "—";
-
-    }catch(error){
-
-      holdersElement.textContent =
-        "—";
-
-      transfersElement.textContent =
-        "—";
-
-    }
-
-  }
-
-
-  function renderHistoryItems(
-    items
-  ){
-
-    const container =
-      document.getElementById(
-        "historyList"
-      );
-
-
-    if(!container){
-      return;
-    }
-
-
-    if(!items.length){
-
-      container.innerHTML =
-        `
-        <div class="status">
-          ${
-            currentLang === "ru"
-              ? "Переводы пока не найдены."
-              : "No transfers found yet."
-          }
-        </div>
-        `;
-
-      return;
-
-    }
-
-
-    container.innerHTML =
-      "";
-
-
-    items
-      .slice(0,20)
-      .forEach(item => {
-
-        const from =
-          item.from?.hash ||
-          "";
-
-
-        const to =
-          item.to?.hash ||
-          "";
-
-
-        const rawValue =
-          item.total?.value ||
-          "0";
-
-
-        const decimals =
-          Number(
-            item.total?.decimals ??
-            18
-          );
-
-
-        const amount =
-          Number(
-            rawValue
-          ) /
-          Math.pow(
-            10,
-            decimals
-          );
-
-
-        const txHash =
-          item.transaction_hash ||
-          "";
-
-
-        const timestamp =
-          item.timestamp
-            ? new Date(
-                item.timestamp
-              ).toLocaleString(
-                currentLang === "ru"
-                  ? "ru-RU"
-                  : "en-US"
-              )
-            : "";
-
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-
-        div.className =
-          "history-item";
-
-
-        div.innerHTML =
-          `
-          <div class="history-main">
-
-            <div class="history-type">
-              ${
-                currentLang === "ru"
-                  ? "Перевод PUL"
-                  : "PUL transfer"
-              }
-            </div>
-
-            <div class="history-address">
-              ${
-                currentLang === "ru"
-                  ? "От: "
-                  : "From: "
-              }${
-                from
-                  ? shortAddress(from)
-                  : "—"
-              }
-            </div>
-
-            <div class="history-address">
-              ${
-                currentLang === "ru"
-                  ? "Кому: "
-                  : "To: "
-              }${
-                to
-                  ? shortAddress(to)
-                  : "—"
-              }
-            </div>
-
-            ${
-              timestamp
-                ? `
-                  <div
-                    class="history-address"
-                    style="margin-top:4px">
-                    ${timestamp}
-                  </div>
-                `
-                : ""
-            }
-
-            ${
-              txHash
-                ? `
-                  <a
-                    class="history-link"
-                    href="${BLOCKSCOUT}/tx/${txHash}"
-                    target="_blank"
-                    rel="noopener">
-                    ${
-                      currentLang === "ru"
-                        ? "Открыть транзакцию ↗"
-                        : "Open transaction ↗"
-                    }
-                  </a>
-                `
-                : ""
-            }
-
-          </div>
-
-          <div class="history-amount">
-            ${
-              formatTokenAmount(
-                amount
-              )
-            } PUL
-          </div>
-          `;
-
-
-        container.appendChild(
-          div
-        );
-
-      });
-
-  }
-
-
-  async function loadHistory(){
-
-    const container =
-      document.getElementById(
-        "historyList"
-      );
-
-
-    if(!container){
-      return;
-    }
-
-
-    try{
-
-      const data =
-        await fetchWithTimeout(
-          BLOCKSCOUT +
-          "/api/v2/tokens/" +
-          CONTRACT +
-          "/transfers"
-        );
-
-
-      const items =
-        Array.isArray(
-          data?.items
-        )
-          ? data.items.filter(
-              item =>
-                !item.token_type ||
-                item.token_type ===
-                  "ERC-20"
-            )
-          : [];
-
-
-      renderHistoryItems(
-        items
-      );
-
-    }catch(error){
-
-      container.innerHTML =
-        `
-        <div class="status">
-
-          ${
-            currentLang === "ru"
-              ? "История временно недоступна. Откройте Blockscout для просмотра переводов."
-              : "History is temporarily unavailable. Open Blockscout to view transfers."
-          }
-
-          <br><br>
-
-          <a
-            href="${BLOCKSCOUT}/token/${CONTRACT}"
-            target="_blank"
-            rel="noopener"
-            style="color:var(--blue2)">
-            Blockscout ↗
-          </a>
-
-        </div>
-        `;
-
-    }
-
-  }
-
-
-  async function loadEthBalance(
-    address
-  ){
-
-    try{
-
-      const result =
-        await rpc(
-          "eth_getBalance",
-          [
-            address,
-            "latest"
-          ]
-        );
-
-
-      const wei =
-        BigInt(result);
-
-
-      const whole =
-        wei /
-        1000000000000000000n;
-
-
-      const fraction =
-        wei %
-        1000000000000000000n;
-
-
-      const value =
-        Number(
-          whole.toString() +
-          "." +
-          fraction
-            .toString()
-            .padStart(
-              18,
-              "0"
-            )
-        );
-
-
-      const element =
-        document.getElementById(
-          "ethBalance"
-        );
-
-
-      if(element){
-
-        element.textContent =
-          formatNumber(
-            value,
-            6
-          );
-
-      }
-
-    }catch(error){
-
-      const element =
-        document.getElementById(
-          "ethBalance"
-        );
-
-
-      if(element){
-        element.textContent =
-          "—";
-      }
-
-    }
-
-  }
-
-
-  async function refreshWallet(
-    address
-  ){
-
-    currentAccount =
-      address;
-
-
-    const walletAddress =
-      document.getElementById(
-        "walletAddress"
-      );
-
-
-    if(walletAddress){
-      walletAddress.textContent =
-        address;
-    }
-
-
-    try{
-
-      const walletBalance =
-        document.getElementById(
-          "walletBalance"
-        );
-
-
-      if(walletBalance){
-
-        walletBalance.textContent =
-          formatNumber(
-            await getTokenBalance(
-              address
-            ),
-            6
-          );
-
-      }
-
-    }catch(error){
-
-      const walletBalance =
-        document.getElementById(
-          "walletBalance"
-        );
-
-
-      if(walletBalance){
-        walletBalance.textContent =
-          "—";
-      }
-
-    }
-
-
-    await loadEthBalance(
-      address
-    );
-
-  }
-
-
-  async function connectWallet(){
-
-    const status =
-      document.getElementById(
-        "walletStatus"
-      );
-
-
-    if(!window.ethereum){
-
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "MetaMask не найден. Установите MetaMask."
-          : "MetaMask was not found. Please install MetaMask.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    try{
-
-      const accounts =
-        await window.ethereum.request({
-          method:
-            "eth_requestAccounts"
-        });
-
-
-      if(!accounts.length){
-        return;
-      }
-
-
-      let chainId =
-        await window.ethereum.request({
-          method:"eth_chainId"
-        });
-
-
-      if(
-        chainId.toLowerCase() !==
-        SEPOLIA_CHAIN_ID
-      ){
-
-        try{
-
-          await window.ethereum.request({
-            method:
-              "wallet_switchEthereumChain",
-
-            params:[
-              {
-                chainId:
-                  SEPOLIA_CHAIN_ID
-              }
-            ]
-          });
-
-        }catch(switchError){
-
-          if(
-            switchError.code ===
-            4902
-          ){
-
-            await window.ethereum.request({
-              method:
-                "wallet_addEthereumChain",
-
-              params:[
-                {
-                  chainId:
-                    SEPOLIA_CHAIN_ID,
-
-                  chainName:
-                    "Ethereum Sepolia",
-
-                  nativeCurrency:{
-                    name:
-                      "Sepolia Ether",
-
-                    symbol:
-                      "ETH",
-
-                    decimals:
-                      18
-                  },
-
-                  rpcUrls:[
-                    RPCS[0]
-                  ],
-
-                  blockExplorerUrls:[
-                    BLOCKSCOUT
-                  ]
-                }
-              ]
-            });
-
-          }else{
-
-            throw switchError;
-
-          }
-
-        }
-
-
-        chainId =
-          await window.ethereum.request({
-            method:
-              "eth_chainId"
-          });
-
-      }
-
-
-      if(
-        chainId.toLowerCase() !==
-        SEPOLIA_CHAIN_ID
-      ){
-
-        throw new Error(
-          currentLang === "ru"
-            ? "Переключитесь на Ethereum Sepolia в MetaMask."
-            : "Switch MetaMask to Ethereum Sepolia."
-        );
-
-      }
-
-
-      await refreshWallet(
-        accounts[0]
-      );
-
-
-      const connectBtn =
-        document.getElementById(
-          "connectBtn"
-        );
-
-
-      if(connectBtn){
-
-        connectBtn.textContent =
-          shortAddress(
-            accounts[0]
-          );
-
-      }
-
-
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Кошелёк подключён."
-          : "Wallet connected.",
+          ? "Кошелёк подключён"
+          : "Wallet connected",
         "success"
       );
 
+      await refreshBalance();
+    } catch (error) {
+      console.error(error);
 
-    }catch(error){
-
-      setStatus(
-        status,
-        error?.message ||
-          (
-            currentLang === "ru"
-              ? "Не удалось подключить кошелёк."
-              : "Could not connect wallet."
-          ),
+      showStatus(
+        error.message ||
+        (currentLang === "ru"
+          ? "Не удалось подключить кошелёк"
+          : "Failed to connect wallet"),
         "error"
       );
-
     }
-
   }
 
-
-  const connectBtn =
-    document.getElementById(
-      "connectBtn"
-    );
-
-
-  if(connectBtn){
-
-    connectBtn.addEventListener(
-      "click",
-      connectWallet
-    );
-
-  }
-
-
-  function parsePulAmount(
-    value
-  ){
-
-    const input =
-      String(value)
-        .trim()
-        .replace(",",".");
-
-
-    if(
-      !/^\d+(?:\.\d{1,18})?$/.test(
-        input
-      )
-    ){
-
-      throw new Error(
-        currentLang === "ru"
-          ? "Введите сумму от 0 до 18 знаков после точки."
-          : "Enter an amount with up to 18 decimal places."
-      );
-
-    }
-
-
-    const [
-      wholePart,
-      fractionPart = ""
-    ] =
-      input.split(".");
-
-
-    const whole =
-      BigInt(
-        wholePart
-      );
-
-
-    const fraction =
-      BigInt(
-        (
-          fractionPart +
-          "0".repeat(18)
-        ).slice(0,18)
-      );
-
-
-    const result =
-      whole *
-        1000000000000000000n +
-      fraction;
-
-
-    if(
-      result <= 0n
-    ){
-
-      throw new Error(
-        currentLang === "ru"
-          ? "Количество PUL должно быть больше нуля."
-          : "PUL amount must be greater than zero."
-      );
-
-    }
-
-
-    return result;
-
-  }
-
-
-  function showTxStatus(
-    txHash,
-    state
-  ){
-
-    const status =
-      document.getElementById(
-        "sendStatus"
-      );
-
-
-    if(!status){
-      return;
-    }
-
-
-    const labels = {
-
-      sent:
-        currentLang === "ru"
-          ? "Транзакция отправлена. Ожидаем подтверждение..."
-          : "Transaction sent. Waiting for confirmation...",
-
-      confirmed:
-        currentLang === "ru"
-          ? "Транзакция подтверждена."
-          : "Transaction confirmed.",
-
-      failed:
-        currentLang === "ru"
-          ? "Транзакция не подтверждена."
-          : "Transaction failed.",
-
-      pending:
-        currentLang === "ru"
-          ? "Проверяем статус транзакции..."
-          : "Checking transaction status..."
-
-    };
-
-
-    status.className =
-      "status " +
-      (
-        state === "confirmed"
-          ? "success"
-          : state === "failed"
-            ? "error"
-            : ""
-      );
-
-
-    status.innerHTML =
-      "<div>" +
-      labels[state] +
-      "</div>";
-
-
-    if(txHash){
-
-      const link =
-        document.createElement(
-          "a"
-        );
-
-
-      link.href =
-        BLOCKSCOUT +
-        "/tx/" +
-        txHash;
-
-
-      link.target =
-        "_blank";
-
-
-      link.rel =
-        "noopener";
-
-
-      link.className =
-        "history-link tx-status";
-
-
-      link.textContent =
-        currentLang === "ru"
-          ? "Открыть транзакцию ↗"
-          : "Open transaction ↗";
-
-
-      status.appendChild(
-        link
-      );
-
-    }
-
-  }
-
-
-  async function waitForReceipt(
-    txHash
-  ){
-
-    for(
-      let i=0;
-      i<30;
-      i++
-    ){
-
-      try{
-
-        const receipt =
-          await window.ethereum.request({
-            method:
-              "eth_getTransactionReceipt",
-
-            params:[
-              txHash
-            ]
-          });
-
-
-        if(receipt){
-
-          if(
-            receipt.status ===
-            "0x1"
-          ){
-
-            return true;
-
-          }
-
-
-          if(
-            receipt.status ===
-            "0x0"
-          ){
-
-            return false;
-
-          }
-
+  safeClick(connectBtn, connectWallet);
+
+  async function rpc(method, params = []) {
+    let lastError = null;
+
+    for (const url of RPCS) {
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method,
+            params
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("RPC HTTP " + response.status);
         }
 
-      }catch(error){
+        const data = await response.json();
 
-        console.log(
-          "Receipt check:",
-          error
-        );
+        if (data.error) {
+          throw new Error(data.error.message || "RPC error");
+        }
 
+        return data.result;
+      } catch (error) {
+        lastError = error;
       }
-
-
-      await new Promise(
-        resolve =>
-          setTimeout(
-            resolve,
-            3000
-          )
-      );
-
     }
 
-
-    return null;
-
+    throw lastError || new Error("RPC unavailable");
   }
 
+  function hexToNumber(hex) {
+    return parseInt(hex || "0x0", 16);
+  }
 
-  async function sendPUL(){
+  function formatTokenAmount(hex, decimals = 18) {
+    try {
+      const value = BigInt(hex);
+      const base = 10n ** BigInt(decimals);
 
-    const status =
-      document.getElementById(
-        "sendStatus"
-      );
+      const whole = value / base;
+      const fraction = value % base;
 
+      if (fraction === 0n) {
+        return whole.toString();
+      }
 
-    const recipientElement =
-      document.getElementById(
-        "recipient"
-      );
+      const fractionText = fraction
+        .toString()
+        .padStart(decimals, "0")
+        .replace(/0+$/, "");
 
-
-    const amountElement =
-      document.getElementById(
-        "amount"
-      );
-
-
-    if(!recipientElement || !amountElement){
-      return;
+      return whole.toString() + "." + fractionText;
+    } catch {
+      return "0";
     }
+  }
 
+  async function erc20Call(data) {
+    return await rpc("eth_call", [
+      {
+        to: CONTRACT,
+        data
+      },
+      "latest"
+    ]);
+  }
 
-    const recipient =
-      recipientElement.value.trim();
+  async function refreshBalance() {
+    if (!account) return;
 
+    try {
+      // balanceOf(address)
+      const address = account
+        .toLowerCase()
+        .replace(/^0x/, "")
+        .padStart(64, "0");
 
-    const amount =
-      amountElement.value.trim();
+      const data = "0x70a08231" + address;
 
+      const result = await erc20Call(data);
+      const balance = formatTokenAmount(result, 18);
 
-    if(!window.ethereum){
+      const balanceEl = $("balance");
 
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Сначала установите MetaMask."
-          : "Please install MetaMask first.",
-        "error"
-      );
-
-      return;
-
+      if (balanceEl) {
+        balanceEl.textContent = balance + " PUL";
+      }
+    } catch (error) {
+      console.error("Balance error:", error);
     }
+  }
 
+  async function refreshStats() {
+    try {
+      // totalSupply()
+      const result = await erc20Call("0x18160ddd");
+      const supply = formatTokenAmount(result, 18);
 
-    if(!currentAccount){
+      const supplyEl = $("totalSupply");
 
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Сначала подключите MetaMask."
-          : "Connect MetaMask first.",
-        "error"
-      );
-
-      return;
-
+      if (supplyEl) {
+        supplyEl.textContent = supply + " PUL";
+      }
+    } catch (error) {
+      console.error("Supply error:", error);
     }
+  }
 
+  function isValidAddress(address) {
+    return /^0x[a-fA-F0-9]{40}$/.test(address);
+  }
 
-    if(
-      !/^0x[a-fA-F0-9]{40}$/.test(
-        recipient
-      )
-    ){
+  safeClick(sendBtn, async () => {
+    try {
+      if (!account) {
+        await connectWallet();
+      }
 
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Введите корректный адрес Ethereum."
-          : "Enter a valid Ethereum address.",
-        "error"
-      );
+      if (!account) return;
 
-      return;
+      const recipientEl = $("recipient");
+      const amountEl = $("amount");
 
-    }
+      const recipient = recipientEl?.value.trim();
+      const amount = amountEl?.value.trim();
 
-
-    let tokenAmount;
-
-
-    try{
-
-      tokenAmount =
-        parsePulAmount(
-          amount
+      if (!isValidAddress(recipient)) {
+        showStatus(
+          currentLang === "ru"
+            ? "Введите корректный адрес получателя"
+            : "Enter a valid recipient address",
+          "error"
         );
+        return;
+      }
 
-    }catch(error){
+      if (!amount || Number(amount) <= 0) {
+        showStatus(
+          currentLang === "ru"
+            ? "Введите сумму"
+            : "Enter an amount",
+          "error"
+        );
+        return;
+      }
 
-      setStatus(
-        status,
-        error.message,
-        "error"
-      );
+      await switchToSepolia();
 
-      return;
+      const provider = await getProvider();
 
-    }
+      /*
+       * ERC-20 transfer(address,uint256)
+       * selector = 0xa9059cbb
+       */
 
+      const cleanAmount = amount.replace(",", ".");
 
-    try{
+      if (!/^\d+(\.\d+)?$/.test(cleanAmount)) {
+        throw new Error(
+          currentLang === "ru"
+            ? "Некорректная сумма"
+            : "Invalid amount"
+        );
+      }
 
-      setStatus(
-        status,
-        currentLang === "ru"
-          ? "Подтвердите транзакцию в MetaMask..."
-          : "Confirm the transaction in MetaMask..."
-      );
+      const [whole, fraction = ""] = cleanAmount.split(".");
 
+      const paddedFraction = fraction
+        .padEnd(18, "0")
+        .slice(0, 18);
+
+      const tokenAmount =
+        BigInt(whole) * (10n ** 18n) +
+        BigInt(paddedFraction || "0");
+
+      const recipientData = recipient
+        .replace(/^0x/, "")
+        .padStart(64, "0");
+
+      const amountData = tokenAmount
+        .toString(16)
+        .padStart(64, "0");
 
       const data =
         "0xa9059cbb" +
-        recipient
-          .replace(
-            /^0x/,
-            ""
-          )
-          .toLowerCase()
-          .padStart(
-            64,
-            "0"
-          ) +
-        tokenAmount
-          .toString(16)
-          .padStart(
-            64,
-            "0"
-          );
+        recipientData +
+        amountData;
 
-
-      const txHash =
-        await window.ethereum.request({
-
-          method:
-            "eth_sendTransaction",
-
-          params:[
-            {
-              from:
-                currentAccount,
-
-              to:
-                CONTRACT,
-
-              data
-            }
-          ]
-
-        });
-
-
-      amountElement.value = "";
-
-      recipientElement.value = "";
-
-
-      showTxStatus(
-        txHash,
-        "sent"
+      showStatus(
+        currentLang === "ru"
+          ? "Подтвердите транзакцию в MetaMask..."
+          : "Confirm the transaction in MetaMask...",
+        ""
       );
 
+      const txHash = await provider.request({
+        method: "eth_sendTransaction",
+        params: [{
+          from: account,
+          to: CONTRACT,
+          data
+        }]
+      });
 
-      const result =
-        await waitForReceipt(
-          txHash
-        );
+      showStatus(
+        currentLang === "ru"
+          ? "Транзакция отправлена"
+          : "Transaction sent",
+        "success"
+      );
 
+      const txEl = $("txHash");
 
-      if(
-        result === true
-      ){
-
-        showTxStatus(
-          txHash,
-          "confirmed"
-        );
-
-
-        await Promise.allSettled([
-          loadHistory(),
-          loadStats(),
-          currentAccount
-            ? refreshWallet(
-                currentAccount
-              )
-            : Promise.resolve()
-        ]);
-
-      }else if(
-        result === false
-      ){
-
-        showTxStatus(
-          txHash,
-          "failed"
-        );
-
-      }else{
-
-        showTxStatus(
-          txHash,
-          "pending"
-        );
-
-
-        await loadHistory();
-
+      if (txEl) {
+        txEl.innerHTML =
+          `<a href="${BLOCKSCOUT}/tx/${txHash}" target="_blank" rel="noopener">
+            ${shortAddress(txHash)}
+          </a>`;
       }
 
+      await waitForReceipt(txHash);
+      await refreshBalance();
 
-    }catch(error){
+    } catch (error) {
+      console.error("Transfer error:", error);
 
-      setStatus(
-        status,
-        error?.message ||
-          (
-            currentLang === "ru"
-              ? "Транзакция отменена или произошла ошибка."
-              : "Transaction was cancelled or failed."
-          ),
+      showStatus(
+        error.message ||
+        (currentLang === "ru"
+          ? "Ошибка транзакции"
+          : "Transaction error"),
         "error"
       );
-
     }
+  });
 
-  }
+  async function waitForReceipt(txHash) {
+    for (let i = 0; i < 60; i++) {
+      try {
+        const receipt = await rpc(
+          "eth_getTransactionReceipt",
+          [txHash]
+        );
 
-
-  const sendBtn =
-    document.getElementById(
-      "sendBtn"
-    );
-
-
-  if(sendBtn){
-
-    sendBtn.addEventListener(
-      "click",
-      sendPUL
-    );
-
-  }
-
-
-  if(
-    window.ethereum
-  ){
-
-    window.ethereum.on(
-      "accountsChanged",
-      async accounts => {
-
-        if(
-          !accounts.length
-        ){
-
-          currentAccount =
-            null;
-
-
-          const walletAddress =
-            document.getElementById(
-              "walletAddress"
-            );
-
-          const walletBalance =
-            document.getElementById(
-              "walletBalance"
-            );
-
-          const ethBalance =
-            document.getElementById(
-              "ethBalance"
-            );
-
-          const connectButton =
-            document.getElementById(
-              "connectBtn"
-            );
-
-
-          if(walletAddress)
-            walletAddress.textContent = "—";
-
-          if(walletBalance)
-            walletBalance.textContent = "—";
-
-          if(ethBalance)
-            ethBalance.textContent = "—";
-
-
-          if(connectButton){
-
-            connectButton.textContent =
+        if (receipt) {
+          if (receipt.status === "0x1") {
+            showStatus(
               currentLang === "ru"
-                ? "Подключить MetaMask"
-                : "Connect MetaMask";
-
+                ? "Транзакция подтверждена"
+                : "Transaction confirmed",
+              "success"
+            );
+          } else {
+            showStatus(
+              currentLang === "ru"
+                ? "Транзакция отклонена"
+                : "Transaction failed",
+              "error"
+            );
           }
 
-
-          return;
-
+          return receipt;
         }
-
-
-        await refreshWallet(
-          accounts[0]
-        );
-
-
-        const connectButton =
-          document.getElementById(
-            "connectBtn"
-          );
-
-
-        if(connectButton){
-
-          connectButton.textContent =
-            shortAddress(
-              accounts[0]
-            );
-
-        }
-
+      } catch (error) {
+        console.error(error);
       }
-    );
 
-
-    window.ethereum.on(
-      "chainChanged",
-      () => {
-        window.location.reload();
-      }
-    );
-
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
   }
 
+  async function refreshHistory() {
+    const historyEl = $("history");
 
-  async function copyText(
-    text
-  ){
+    if (!historyEl) return;
 
-    if(
-      !text ||
-      text === "—"
-    ){
+    historyEl.innerHTML =
+      currentLang === "ru"
+        ? "Загрузка истории..."
+        : "Loading history...";
 
-      return false;
-
-    }
-
-
-    try{
-
-      await navigator.clipboard.writeText(
-        text
+    try {
+      const response = await fetch(
+        `${BLOCKSCOUT}/api?module=account&action=tokentx&contractaddress=${CONTRACT}&page=1&offset=20&sort=desc`
       );
 
+      if (!response.ok) {
+        throw new Error("Blockscout HTTP " + response.status);
+      }
 
-      return true;
+      const data = await response.json();
 
-    }catch(error){
+      if (!data.result || !Array.isArray(data.result)) {
+        historyEl.textContent =
+          currentLang === "ru"
+            ? "История пока недоступна"
+            : "History unavailable";
+        return;
+      }
 
-      const area =
-        document.createElement(
-          "textarea"
-        );
+      historyEl.innerHTML = "";
 
+      data.result.forEach(tx => {
+        const row = document.createElement("div");
 
-      area.value =
-        text;
+        row.className = "history-row";
 
+        const from = shortAddress(tx.from);
+        const to = shortAddress(tx.to);
+        const value = tx.value
+          ? formatTokenAmount("0x" + BigInt(tx.value).toString(16), Number(tx.tokenDecimal || 18))
+          : "0";
 
-      area.style.position =
-        "fixed";
+        row.innerHTML = `
+          <div>
+            <strong>${value} ${tx.tokenSymbol || "PUL"}</strong>
+          </div>
+          <div>
+            ${from} → ${to}
+          </div>
+          <div>
+            <a
+              href="${BLOCKSCOUT}/tx/${tx.hash}"
+              target="_blank"
+              rel="noopener"
+            >
+              ${shortAddress(tx.hash)}
+            </a>
+          </div>
+        `;
 
+        historyEl.appendChild(row);
+      });
 
-      area.style.opacity =
-        "0";
+    } catch (error) {
+      console.error("History error:", error);
 
-
-      document.body.appendChild(
-        area
-      );
-
-
-      area.select();
-
-
-      const ok =
-        document.execCommand(
-          "copy"
-        );
-
-
-      area.remove();
-
-
-      return ok;
-
+      historyEl.textContent =
+        currentLang === "ru"
+          ? "Не удалось загрузить историю"
+          : "Failed to load history";
     }
-
   }
 
+  safeClick(refreshHistoryBtn, refreshHistory);
 
-  function bindCopyButton(
-    buttonId,
-    getValue
-  ){
+  document.querySelectorAll("[data-copy]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const value = button.dataset.copy;
 
-    const button =
-      document.getElementById(
-        buttonId
-      );
+      if (!value) return;
 
+      try {
+        await navigator.clipboard.writeText(value);
 
-    if(!button){
-      return;
-    }
-
-
-    button.addEventListener(
-      "click",
-      async () => {
-
-        const ok =
-          await copyText(
-            getValue()
-          );
-
-
-        const original =
-          button.textContent;
-
+        const oldText = button.textContent;
 
         button.textContent =
-          ok
-            ? (
-                currentLang === "ru"
-                  ? "Скопировано ✓"
-                  : "Copied ✓"
-              )
-            : original;
-
-
-        setTimeout(
-          () => {
-
-            button.textContent =
-              currentLang === "ru"
-                ? "Скопировать адрес"
-                : "Copy address";
-
-          },
-          1500
-        );
-
-      }
-    );
-
-  }
-
-
-  bindCopyButton(
-    "copyWalletBtn",
-    () =>
-      currentAccount ||
-      document.getElementById(
-        "walletAddress"
-      )?.textContent
-  );
-
-
-  bindCopyButton(
-    "copyContractBtn",
-    () =>
-      CONTRACT
-  );
-
-
-  const refreshHistoryBtn =
-    document.getElementById(
-      "refreshHistoryBtn"
-    );
-
-
-  if(refreshHistoryBtn){
-
-    refreshHistoryBtn.addEventListener(
-      "click",
-      async () => {
-
-        const btn =
-          document.getElementById(
-            "refreshHistoryBtn"
-          );
-
-
-        const old =
-          btn.textContent;
-
-
-        btn.textContent =
           currentLang === "ru"
-            ? "Обновление..."
-            : "Refreshing...";
+            ? "Скопировано"
+            : "Copied";
 
+        setTimeout(() => {
+          button.textContent = oldText;
+        }, 1500);
 
-        await Promise.allSettled([
-          loadHistory(),
-          loadStats()
-        ]);
-
-
-        btn.textContent =
-          old;
-
+      } catch (error) {
+        console.error("Copy error:", error);
       }
-    );
+    });
+  });
 
+  if (window.ethereum) {
+    window.ethereum.on("accountsChanged", accounts => {
+      account = accounts?.[0] || null;
+
+      if (connectBtn) {
+        connectBtn.textContent = account
+          ? shortAddress(account)
+          : (currentLang === "ru"
+              ? "Подключить"
+              : "Connect");
+      }
+
+      refreshBalance();
+    });
+
+    window.ethereum.on("chainChanged", () => {
+      refreshBalance();
+    });
   }
 
+  applyLanguage();
+  refreshStats();
+  refreshHistory();
 
-  async function init(){
+  /*
+   * Remove UTM parameters from the address bar.
+   */
+  try {
+    const url = new URL(window.location.href);
 
-    applyLanguage();
-
-
-    await Promise.allSettled([
-      loadTotalSupply(),
-      loadStats(),
-      loadHistory()
-    ]);
-
-
-    if(
-      window.ethereum
-    ){
-
-      try{
-
-        const accounts =
-          await window.ethereum.request({
-            method:
-              "eth_accounts"
-          });
-
-
-        if(
-          accounts.length
-        ){
-
-          const chainId =
-            await window.ethereum.request({
-              method:
-                "eth_chainId"
-            });
-
-
-          if(
-            chainId.toLowerCase() ===
-            SEPOLIA_CHAIN_ID
-          ){
-
-            await refreshWallet(
-              accounts[0]
-            );
-
-
-            const button =
-              document.getElementById(
-                "connectBtn"
-              );
-
-
-            if(button){
-
-              button.textContent =
-                shortAddress(
-                  accounts[0]
-                );
-
-            }
-
-          }
-
-        }
-
-      }catch(error){
-
-        console.log(
-          "Wallet restore:",
-          error
-        );
-
-      }
-
+    if (url.searchParams.has("utm_source")) {
+      url.searchParams.delete("utm_source");
+      window.history.replaceState({}, "", url.toString());
     }
-
+  } catch (error) {
+    console.error(error);
   }
-
-
-  init();
-
 });
 </script>
