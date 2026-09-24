@@ -13,39 +13,91 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background:
-    radial-gradient(circle at top, #263b70 0%, #0b1020 45%, #050811 100%);
+    radial-gradient(circle at 50% -10%, #314b91 0%, #10172b 35%, #050811 75%);
   color: #fff;
   min-height: 100vh;
 }
 
 .container {
-  width: min(1050px, 92%);
+  width: min(1100px, 92%);
   margin: auto;
 }
 
-.hero {
-  text-align: center;
-  padding: 80px 0 60px;
+/* NAVBAR */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
 }
 
-.coin {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 30px;
+.logo-small {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.logo-small span {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: linear-gradient(145deg, #fff28a, #ffd33d, #ff9518);
+  color: #151515;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 65px;
+  font-weight: 900;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #aeb9d2;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #ffe36e;
+}
+
+/* HERO */
+
+.hero {
+  text-align: center;
+  padding: 75px 0 80px;
+}
+
+.coin {
+  width: 155px;
+  height: 155px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, #fff8b5, #ffd33d 45%, #ff9518 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 68px;
   font-weight: 900;
   color: #151515;
+  border: 7px solid rgba(255,255,255,0.12);
   box-shadow:
-    0 0 45px rgba(255, 193, 50, 0.45),
-    0 25px 70px rgba(0,0,0,0.45);
+    0 0 60px rgba(255,193,50,0.45),
+    0 25px 80px rgba(0,0,0,0.55);
 }
 
 .badge {
@@ -59,13 +111,13 @@ body {
 }
 
 h1 {
-  font-size: clamp(60px, 10vw, 100px);
-  letter-spacing: -5px;
+  font-size: clamp(65px, 11vw, 110px);
+  letter-spacing: -6px;
   margin-bottom: 18px;
 }
 
 .subtitle {
-  max-width: 650px;
+  max-width: 680px;
   margin: auto;
   color: #aeb9d2;
   font-size: 20px;
@@ -95,6 +147,7 @@ h1 {
 
 .button:hover {
   transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255,190,50,0.18);
 }
 
 .secondary {
@@ -103,16 +156,19 @@ h1 {
   border: 1px solid #344466;
 }
 
+/* CARDS */
+
 .card {
-  background: rgba(18,27,49,0.9);
+  background: rgba(18,27,49,0.88);
   border: 1px solid #293858;
   border-radius: 22px;
-  padding: 30px;
-  margin-bottom: 22px;
+  padding: 32px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
 }
 
 .card h2 {
-  font-size: 27px;
+  font-size: 28px;
   margin-bottom: 15px;
 }
 
@@ -121,11 +177,13 @@ h1 {
   line-height: 1.8;
 }
 
+/* STATS */
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .stat {
@@ -147,6 +205,8 @@ h1 {
   color: #8f9bb5;
 }
 
+/* CONTRACT */
+
 .address {
   margin-top: 18px;
   background: #070c18;
@@ -164,44 +224,149 @@ h1 {
   flex-wrap: wrap;
 }
 
-.meta {
-  margin-top: 5px;
-}
-
 .status {
   margin-top: 15px;
-  color: #aeb9d2;
+  color: #8ff0b0;
   min-height: 24px;
 }
+
+/* TOKENOMICS */
+
+.tokenomics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.token-box {
+  background: #0b1121;
+  border: 1px solid #293858;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.token-box h3 {
+  color: #ffe36e;
+  margin-bottom: 12px;
+}
+
+.token-number {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.token-label {
+  color: #8995ad;
+}
+
+.progress {
+  height: 12px;
+  background: #1c2741;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 18px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ffe36e, #ff9e20);
+}
+
+/* ROADMAP */
+
+.roadmap {
+  position: relative;
+  margin-top: 25px;
+}
+
+.phase {
+  position: relative;
+  padding: 24px 25px 24px 65px;
+  margin-bottom: 18px;
+  background: #0b1121;
+  border: 1px solid #293858;
+  border-radius: 18px;
+}
+
+.phase::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 28px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffe36e;
+  box-shadow: 0 0 18px rgba(255,220,80,0.45);
+}
+
+.phase h3 {
+  color: #ffe36e;
+  margin-bottom: 8px;
+}
+
+.phase p {
+  color: #8f9bb5;
+  line-height: 1.7;
+}
+
+/* WARNING */
 
 .warning {
   border-left: 4px solid #ffc52f;
   padding-left: 16px;
 }
 
+/* FOOTER */
+
 footer {
   text-align: center;
-  padding: 45px 20px;
+  padding: 55px 20px;
   color: #65718b;
 }
 
+.footer-logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: #ffe36e;
+  margin-bottom: 10px;
+}
+
+/* MOBILE */
+
 @media (max-width: 700px) {
+
+  nav {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
 
   .hero {
     padding-top: 55px;
   }
 
   .coin {
-    width: 120px;
-    height: 120px;
-    font-size: 50px;
+    width: 125px;
+    height: 125px;
+    font-size: 52px;
   }
 
   h1 {
-    font-size: 58px;
+    font-size: 62px;
   }
 
   .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .tokenomics {
     grid-template-columns: 1fr;
   }
 
@@ -216,6 +381,11 @@ footer {
   .action-buttons {
     flex-direction: column;
   }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 </style>
 </head>
@@ -223,6 +393,27 @@ footer {
 <body>
 
 <div class="container">
+
+  <!-- NAVIGATION -->
+
+  <nav>
+
+    <div class="logo-small">
+      <span>₽</span>
+      PUL
+    </div>
+
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#contract">Contract</a>
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -260,7 +451,9 @@ footer {
   </section>
 
 
-  <section class="card">
+  <!-- ABOUT -->
+
+  <section class="card" id="about">
 
     <h2>About PUL</h2>
 
@@ -272,6 +465,8 @@ footer {
 
   </section>
 
+
+  <!-- STATS -->
 
   <section class="stats">
 
@@ -293,7 +488,120 @@ footer {
   </section>
 
 
-  <section class="card">
+  <!-- TOKENOMICS -->
+
+  <section class="card" id="tokenomics">
+
+    <h2>Tokenomics</h2>
+
+    <p>
+      PUL currently has a fixed supply of 1,000,000,000 tokens.
+      No additional tokens can be minted by the contract.
+    </p>
+
+    <div class="tokenomics">
+
+      <div class="token-box">
+
+        <h3>Total Supply</h3>
+
+        <div class="token-number">
+          1,000,000,000
+        </div>
+
+        <div class="token-label">
+          PUL
+        </div>
+
+        <div class="progress">
+          <div class="progress-fill"></div>
+        </div>
+
+      </div>
+
+
+      <div class="token-box">
+
+        <h3>Network</h3>
+
+        <div class="token-number">
+          Sepolia
+        </div>
+
+        <div class="token-label">
+          Ethereum Testnet
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ROADMAP -->
+
+  <section class="card" id="roadmap">
+
+    <h2>Roadmap</h2>
+
+    <div class="roadmap">
+
+      <div class="phase">
+
+        <h3>Phase 1 — Foundation</h3>
+
+        <p>
+          Smart contract deployment, token creation,
+          verification and initial website launch.
+        </p>
+
+      </div>
+
+
+      <div class="phase">
+
+        <h3>Phase 2 — Community</h3>
+
+        <p>
+          Build the PUL community, improve the website
+          and experiment with additional Web3 features.
+        </p>
+
+      </div>
+
+
+      <div class="phase">
+
+        <h3>Phase 3 — Web3 Development</h3>
+
+        <p>
+          Explore decentralized applications, wallets,
+          token utilities and blockchain integrations.
+        </p>
+
+      </div>
+
+
+      <div class="phase">
+
+        <h3>Phase 4 — Future</h3>
+
+        <p>
+          Research future possibilities for the PUL ecosystem
+          based on community and technical development.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTRACT -->
+
+  <section class="card" id="contract">
 
     <h2>Contract Address</h2>
 
@@ -322,6 +630,8 @@ footer {
   </section>
 
 
+  <!-- IMPORTANT -->
+
   <section class="card">
 
     <h2>Important</h2>
@@ -337,8 +647,20 @@ footer {
 </div>
 
 
+<!-- FOOTER -->
+
 <footer>
-  © 2026 PUL Token · Ethereum Sepolia
+
+  <div class="footer-logo">
+    ₽ PUL
+  </div>
+
+  Ethereum Sepolia · Experimental Web3 Project
+
+  <br><br>
+
+  © 2026 PUL Token
+
 </footer>
 
 
