@@ -208,123 +208,114 @@ footer {
 
 <div class="container">
 
-<section class="hero">
+  <section class="hero">
 
-  <div class="coin">₽</div>
+    <div class="coin">₽</div>
 
-  <div class="badge">
-    ERC-20 · Ethereum Sepolia Testnet
-  </div>
+    <div class="badge">
+      ERC-20 · Ethereum Sepolia Testnet
+    </div>
 
-  <h1>PUL</h1>
+    <h1>PUL</h1>
 
-  <p class="subtitle">
-    A simple ERC-20 token built on Ethereum Sepolia
-    for learning, testing and Web3 development.
-  </p>
+    <p class="subtitle">
+      A simple ERC-20 token built on Ethereum Sepolia
+      for learning, testing and Web3 development.
+    </p>
 
-  <div class="buttons">
+    <div class="buttons">
 
-    <a
-      class="button"
-      href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
-      target="_blank">
-      View Contract
-    </a>
+      <a
+        class="button"
+        href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+        target="_blank">
+        View Contract
+      </a>
 
-    <a
-      class="button secondary"
-      href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
-      target="_blank">
-      Token Explorer
-    </a>
+      <a
+        class="button secondary"
+        href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+        target="_blank">
+        Token Explorer
+      </a>
 
-  </div>
+    </div>
 
-</section>
+  </section>
 
+  <section class="card">
 
-<section class="card">
+    <h2>About PUL</h2>
 
-  <h2>About PUL</h2>
+    <p>
+      PUL is an experimental ERC-20 token deployed on the
+      Ethereum Sepolia testnet. The project is designed for
+      educational purposes, smart-contract testing and Web3 development.
+    </p>
 
-  <p>
-    PUL is an experimental ERC-20 token deployed on the
-    Ethereum Sepolia testnet. The project is designed for
-    educational purposes, smart-contract testing and Web3 development.
-  </p>
+  </section>
 
-</section>
+  <section class="stats">
 
+    <div class="stat">
+      <strong>1B</strong>
+      <span>Total Supply</span>
+    </div>
 
-<section class="stats">
+    <div class="stat">
+      <strong>PUL</strong>
+      <span>Token</span>
+    </div>
 
-  <div class="stat">
-    <strong>1B</strong>
-    <span>Total Supply</span>
-  </div>
+    <div class="stat">
+      <strong>18</strong>
+      <span>Decimals</span>
+    </div>
 
-  <div class="stat">
-    <strong>PUL</strong>
-    <span>Token</span>
-  </div>
+  </section>
 
-  <div class="stat">
-    <strong>18</strong>
-    <span>Decimals</span>
-  </div>
+  <section class="card">
 
-</section>
+    <h2>Contract Address</h2>
 
+    <button
+      class="button meta"
+      onclick="addToMetaMask()">
+      🦊 Add PUL to MetaMask
+    </button>
 
-<section class="card">
+    <div class="address">
+      0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+    </div>
 
-  <h2>Contract Address</h2>
+  </section>
 
-  <button
-    class="button meta"
-    onclick="addToMetaMask()">
-    🦊 Add PUL to MetaMask
-  </button>
+  <section class="card">
 
-  <div class="address">
-    0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
-  </div>
+    <h2>Important</h2>
 
-</section>
+    <p class="warning">
+      PUL is currently a test token on Ethereum Sepolia.
+      It is not intended to represent real-world value.
+      The project is created for learning, testing and development.
+    </p>
 
-
-<section class="card">
-
-  <h2>Important</h2>
-
-  <p class="warning">
-    PUL is currently a test token on Ethereum Sepolia.
-    It is not intended to represent real-world value.
-    The project is created for learning, testing and development.
-  </p>
-
-</section>
+  </section>
 
 </div>
-
 
 <footer>
   © 2026 PUL Token · Ethereum Sepolia
 </footer>
 
-
 <script>
-
 const contractAddress =
-"0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
+  "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
 
 async function addToMetaMask() {
 
   if (!window.ethereum) {
-
     alert("Please install MetaMask first.");
-
     return;
   }
 
@@ -341,9 +332,7 @@ async function addToMetaMask() {
         options: {
 
           address: contractAddress,
-
           symbol: "PUL",
-
           decimals: 18
 
         }
@@ -357,9 +346,7 @@ async function addToMetaMask() {
     console.log(error);
 
   }
-
 }
-
 </script>
 
 </body>
