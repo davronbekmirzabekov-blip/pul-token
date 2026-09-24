@@ -138,6 +138,7 @@ h1 {
   font-size: 14px;
   transition: 0.2s;
   border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
 }
 
 .btn-primary {
@@ -377,8 +378,6 @@ footer strong {
 
 <body>
 
-<!-- NAVIGATION -->
-
 <nav>
   <div class="logo"><span>₽</span> PUL</div>
 
@@ -389,9 +388,6 @@ footer strong {
     <a href="#contract">Contract</a>
   </div>
 </nav>
-
-
-<!-- HERO -->
 
 <section class="hero">
 
@@ -430,9 +426,6 @@ footer strong {
 
 </section>
 
-
-<!-- ABOUT -->
-
 <section id="about">
 
   <div class="section-title">
@@ -441,10 +434,8 @@ footer strong {
   </div>
 
   <div class="about">
-
     PUL is an experimental ERC-20 token created to explore
     blockchain technology, smart contracts and Web3 applications.
-
   </div>
 
   <div class="stats">
@@ -467,9 +458,6 @@ footer strong {
   </div>
 
 </section>
-
-
-<!-- TOKENOMICS -->
 
 <section id="tokenomics" class="tokenomics">
 
@@ -499,9 +487,6 @@ footer strong {
 
 </section>
 
-
-<!-- ROADMAP -->
-
 <section id="roadmap">
 
   <div class="section-title">
@@ -525,7 +510,6 @@ footer strong {
 
     </div>
 
-
     <div class="phase">
 
       <div class="phase-number">2</div>
@@ -540,7 +524,6 @@ footer strong {
 
     </div>
 
-
     <div class="phase">
 
       <div class="phase-number">3</div>
@@ -554,7 +537,6 @@ footer strong {
       </div>
 
     </div>
-
 
     <div class="phase">
 
@@ -572,9 +554,6 @@ footer strong {
   </div>
 
 </section>
-
-
-<!-- CONTRACT -->
 
 <section id="contract">
 
@@ -605,7 +584,6 @@ footer strong {
 
   </div>
 
-
   <div class="disclaimer">
 
     <strong>Important:</strong>
@@ -617,9 +595,6 @@ footer strong {
 
 </section>
 
-
-<!-- FOOTER -->
-
 <footer>
 
   <strong>₽ PUL</strong>
@@ -630,7 +605,6 @@ footer strong {
 
 </footer>
 
-
 <script>
 
 const contractAddress =
@@ -638,9 +612,10 @@ const contractAddress =
 
 const tokenSymbol = "PUL";
 const tokenDecimals = 18;
-
 const tokenImage = "";
 
+
+/* MetaMask */
 
 async function addToMetaMask() {
 
@@ -685,6 +660,8 @@ async function addToMetaMask() {
 }
 
 
+/* Copy contract */
+
 async function copyContract() {
 
   try {
@@ -700,6 +677,19 @@ async function copyContract() {
       "Copy failed.";
 
   }
+
+}
+
+
+/* Remove tracking parameters from URL */
+
+if (window.location.search.includes("utm_source")) {
+
+  window.history.replaceState(
+    {},
+    document.title,
+    window.location.pathname + window.location.hash
+  );
 
 }
 
