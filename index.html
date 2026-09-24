@@ -45,17 +45,20 @@
       font-weight: bold;
     }
 
-    .mini-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffe36e, #ff9f1c);
-      color: #111827;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      box-shadow: 0 0 25px rgba(255, 193, 61, 0.35);
+.mini-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff5b0, #ffc52f, #c77b12);
+  color: #171717;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 900;
+  font-style: italic;
+  border: 2px solid #ffe36e;
+  box-shadow: 0 0 25px rgba(255, 193, 61, 0.4);
     }
 
     .network {
@@ -72,21 +75,30 @@
       padding: 80px 0 70px;
     }
 
-    .logo {
-      width: 150px;
-      height: 150px;
-      margin: 0 auto 30px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #fff18a, #ffc52f, #ff9418);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 64px;
-      font-weight: 900;
-      color: #171717;
-      box-shadow:
-        0 0 40px rgba(255, 194, 55, 0.45),
-        0 25px 80px rgba(0, 0, 0, 0.35);
+.logo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 25%,
+    #fff8c9,
+    #ffd54a 35%,
+    #e6a11b 70%,
+    #a9630b 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 84px;
+  font-weight: 900;
+  font-style: italic;
+  color: #171717;
+  border: 3px solid #ffe98a;
+  box-shadow:
+    0 0 40px rgba(255, 194, 55, 0.45),
+    0 25px 80px rgba(0, 0, 0, 0.35),
+    inset 0 0 12px rgba(255, 255, 255, 0.5);
     }
 
     .tag {
@@ -281,7 +293,7 @@
 
     <header>
       <div class="brand">
-        <div class="mini-logo">₽</div>
+       <div class="mini-logo">P</div>
         PUL
       </div>
 
@@ -293,7 +305,7 @@
 
     <section class="hero">
 
-      <div class="logo">₽</div>
+      <div class="logo">P</div>
 
       <div class="tag">
         ERC-20 · TESTNET
