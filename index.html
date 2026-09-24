@@ -1,2 +1,262 @@
-# pul-token
-PUL — token on Ethereum Sepolia
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PUL — Ethereum Sepolia Token</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px 50px;
+    }
+
+    .coin {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd54a, #ff9f1c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+      color: #171717;
+      box-shadow: 0 15px 50px rgba(255, 180, 40, 0.35);
+    }
+
+    h1 {
+      font-size: 64px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #aeb8d0;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 30px;
+      background: #18213b;
+      color: #ffd45a;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      background: #ffd54a;
+      color: #171717;
+    }
+
+    .button.secondary {
+      background: #18213b;
+      color: white;
+      border: 1px solid #34405f;
+    }
+
+    .card {
+      background: #121a30;
+      border: 1px solid #263250;
+      border-radius: 20px;
+      padding: 30px;
+      margin-top: 25px;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      background: #18213b;
+      padding: 22px;
+      border-radius: 15px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #ffd54a;
+    }
+
+    .stat span {
+      color: #aeb8d0;
+    }
+
+    .address {
+      word-break: break-all;
+      background: #0b1020;
+      padding: 16px;
+      border-radius: 12px;
+      color: #ffd54a;
+      margin-top: 15px;
+      font-family: monospace;
+    }
+
+    .warning {
+      color: #aeb8d0;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #68738d;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 46px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <section class="hero">
+
+      <div class="coin">₽</div>
+
+      <div class="badge">Ethereum Sepolia Testnet</div>
+
+      <h1>PUL</h1>
+
+      <p class="subtitle">
+        A simple ERC-20 test token built on Ethereum.
+      </p>
+
+      <div class="buttons">
+
+        <a
+          class="button"
+          href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+          target="_blank">
+          View Contract
+        </a>
+
+        <a
+          class="button secondary"
+          href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
+          target="_blank">
+          Token Explorer
+        </a>
+
+      </div>
+
+    </section>
+
+    <section class="card">
+
+      <h2>About PUL</h2>
+
+      <p class="warning">
+        PUL is an experimental ERC-20 token deployed on the
+        Ethereum Sepolia testnet for educational and development purposes.
+      </p>
+
+    </section>
+
+    <section class="card">
+
+      <h2>Token Information</h2>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong>1B</strong>
+          <span>Total Supply</span>
+        </div>
+
+        <div class="stat">
+          <strong>18</strong>
+          <span>Decimals</span>
+        </div>
+
+        <div class="stat">
+          <strong>ERC-20</strong>
+          <span>Token Standard</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="card">
+
+      <h2>Contract Address</h2>
+
+      <div class="address">
+        0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+      </div>
+
+    </section>
+
+    <section class="card">
+
+      <h2>Important</h2>
+
+      <p class="warning">
+        PUL is currently a test token on Ethereum Sepolia.
+        It is not intended to represent real-world value.
+        The project is created for learning, testing and development.
+      </p>
+
+    </section>
+
+  </div>
+
+  <footer>
+    © 2026 PUL Token · Ethereum Sepolia
+  </footer>
+
+</body>
+</html>
