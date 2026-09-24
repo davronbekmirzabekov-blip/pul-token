@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PUL — Ethereum Sepolia Token</title>
+<title>PUL — Digital Token</title>
 
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;<span>Ᵽ</span>
+  margin: 0;
   padding: 0;
 }
 
@@ -19,162 +18,170 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background:
-    radial-gradient(circle at 50% -10%, #314b91 0%, #10172b 35%, #050811 75%);
-  color: #fff;
-  min-height: 100vh;
+  background: #070707;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
-.container {
-  width: min(1100px, 92%);
-  margin: auto;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* NAVBAR */
+/* NAVIGATION */
 
 nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0;
+  padding: 18px 7%;
+  background: rgba(7, 7, 7, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.logo-small {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 900;
-  font-size: 22px;
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.logo-small span {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #fff28a, #ffd33d, #ff9518);
-  color: #151515;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
+.logo span {
+  color: #f5b942;
 }
 
 .nav-links {
   display: flex;
   gap: 25px;
-}
-
-.nav-links a {
-  color: #aeb9d2;
-  text-decoration: none;
   font-size: 14px;
+  color: #aaa;
 }
 
 .nav-links a:hover {
-  color: #ffe36e;
+  color: #f5b942;
 }
 
 /* HERO */
 
 .hero {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 75px 0 80px;
+  padding: 80px 20px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(245,185,66,0.14), transparent 35%),
+    #070707;
+}
+
+.hero-content {
+  max-width: 850px;
 }
 
 .coin {
-  width: 155px;
-  height: 155px;
+  width: 120px;
+  height: 120px;
   margin: 0 auto 30px;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 25%, #fff8b5, #ffd33d 45%, #ff9518 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 68px;
+  font-size: 58px;
   font-weight: 900;
-  color: #151515;
-  border: 7px solid rgba(255,255,255,0.12);
+  color: #111;
+  background: linear-gradient(145deg, #ffe08a, #f5b942, #b77908);
   box-shadow:
-    0 0 60px rgba(255,193,50,0.45),
-    0 25px 80px rgba(0,0,0,0.55);
+    0 0 35px rgba(245,185,66,0.25),
+    inset 0 2px 4px rgba(255,255,255,0.5);
 }
 
 .badge {
   display: inline-block;
-  padding: 9px 18px;
+  padding: 7px 15px;
+  border: 1px solid rgba(245,185,66,0.35);
   border-radius: 30px;
-  background: rgba(255,215,80,0.1);
-  border: 1px solid rgba(255,215,80,0.35);
-  color: #ffe36e;
+  color: #f5b942;
+  font-size: 13px;
   margin-bottom: 20px;
 }
 
 h1 {
-  font-size: clamp(65px, 11vw, 110px);
-  letter-spacing: -6px;
-  margin-bottom: 18px;
+  font-size: clamp(60px, 10vw, 110px);
+  line-height: 0.95;
+  letter-spacing: -5px;
+  margin-bottom: 20px;
 }
 
-.subtitle {
-  max-width: 680px;
+.hero p {
+  max-width: 650px;
   margin: auto;
-  color: #aeb9d2;
-  font-size: 20px;
-  line-height: 1.7;
+  color: #aaa;
+  font-size: 18px;
 }
 
 .buttons {
+  margin-top: 35px;
   display: flex;
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
-  margin-top: 32px;
 }
 
-.button {
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  padding: 15px 24px;
-  border-radius: 13px;
-  font-size: 15px;
-  font-weight: bold;
+.btn {
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
   transition: 0.2s;
-  background: linear-gradient(135deg, #ffe36e, #ffad24);
-  color: #151515;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-.button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(255,190,50,0.18);
+.btn-primary {
+  background: #f5b942;
+  color: #111;
 }
 
-.secondary {
-  background: #18233f;
+.btn-secondary {
+  background: #111;
   color: #fff;
-  border: 1px solid #344466;
 }
 
-/* CARDS */
-
-.card {
-  background: rgba(18,27,49,0.88);
-  border: 1px solid #293858;
-  border-radius: 22px;
-  padding: 32px;
-  margin-bottom: 24px;
-  backdrop-filter: blur(10px);
+.btn:hover {
+  transform: translateY(-2px);
 }
 
-.card h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
+/* SECTIONS */
+
+section {
+  padding: 90px 7%;
 }
 
-.card p {
-  color: #aeb9d2;
-  line-height: 1.8;
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.section-title p {
+  color: #888;
+}
+
+/* ABOUT */
+
+.about {
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+  color: #aaa;
+  font-size: 17px;
 }
 
 /* STATS */
@@ -182,209 +189,187 @@ h1 {
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  max-width: 1000px;
+  margin: 50px auto 0;
   gap: 18px;
-  margin-bottom: 24px;
 }
 
 .stat {
-  background: rgba(24,33,59,0.95);
-  border: 1px solid #293858;
-  border-radius: 18px;
-  padding: 28px;
+  padding: 30px;
+  background: #101010;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
   text-align: center;
 }
 
 .stat strong {
   display: block;
-  color: #ffe36e;
-  font-size: 30px;
-  margin-bottom: 8px;
+  font-size: 28px;
+  color: #f5b942;
+  margin-bottom: 5px;
 }
 
 .stat span {
-  color: #8f9bb5;
-}
-
-/* CONTRACT */
-
-.address {
-  margin-top: 18px;
-  background: #070c18;
-  border: 1px solid #293858;
-  border-radius: 12px;
-  padding: 16px;
-  color: #ffe36e;
-  font-family: monospace;
-  word-break: break-all;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.status {
-  margin-top: 15px;
-  color: #8ff0b0;
-  min-height: 24px;
+  color: #888;
+  font-size: 13px;
 }
 
 /* TOKENOMICS */
 
 .tokenomics {
+  background: #0b0b0b;
+}
+
+.token-grid {
+  max-width: 1000px;
+  margin: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  align-items: stretch;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
-.token-box {
-  background: #0b1121;
-  border: 1px solid #293858;
-  border-radius: 18px;
-  padding: 25px;
+.token-card {
+  padding: 30px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
 }
 
-.token-box h3 {
-  color: #ffe36e;
-  margin-bottom: 12px;
+.token-card h3 {
+  color: #f5b942;
+  margin-bottom: 10px;
 }
 
-.token-number {
-  font-size: 36px;
-  font-weight: 900;
-  margin-bottom: 6px;
-}
-
-.token-label {
-  color: #8995ad;
-}
-
-.progress {
-  height: 12px;
-  background: #1c2741;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 18px;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #ffe36e, #ff9e20);
+.token-card p {
+  color: #999;
 }
 
 /* ROADMAP */
 
 .roadmap {
-  position: relative;
-  margin-top: 25px;
+  max-width: 850px;
+  margin: auto;
 }
 
 .phase {
-  position: relative;
-  padding: 24px 25px 24px 65px;
-  margin-bottom: 18px;
-  background: #0b1121;
-  border: 1px solid #293858;
-  border-radius: 18px;
+  display: flex;
+  gap: 25px;
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.phase::before {
-  content: "";
-  position: absolute;
-  left: 24px;
-  top: 28px;
-  width: 18px;
-  height: 18px;
+.phase-number {
+  min-width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background: #ffe36e;
-  box-shadow: 0 0 18px rgba(255,220,80,0.45);
+  background: #f5b942;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
 }
 
 .phase h3 {
-  color: #ffe36e;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .phase p {
-  color: #8f9bb5;
-  line-height: 1.7;
+  color: #888;
 }
 
-/* WARNING */
+/* CONTRACT */
 
-.warning {
-  border-left: 4px solid #ffc52f;
-  padding-left: 16px;
+.contract-box {
+  max-width: 900px;
+  margin: auto;
+  padding: 35px;
+  background: #101010;
+  border: 1px solid rgba(245,185,66,0.18);
+  border-radius: 18px;
+  text-align: center;
+}
+
+.contract-address {
+  margin: 20px 0;
+  padding: 15px;
+  background: #070707;
+  border-radius: 10px;
+  color: #f5b942;
+  font-family: monospace;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.contract-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* STATUS */
+
+#status {
+  margin-top: 18px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* DISCLAIMER */
+
+.disclaimer {
+  max-width: 850px;
+  margin: 60px auto 0;
+  padding: 20px;
+  border-left: 3px solid #f5b942;
+  background: #101010;
+  color: #888;
+  font-size: 13px;
 }
 
 /* FOOTER */
 
 footer {
+  padding: 35px 20px;
   text-align: center;
-  padding: 55px 20px;
-  color: #65718b;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #666;
 }
 
-.footer-logo {
-  font-size: 25px;
-  font-weight: 900;
-  color: #ffe36e;
-  margin-bottom: 10px;
+footer strong {
+  color: #f5b942;
 }
 
 /* MOBILE */
 
 @media (max-width: 700px) {
 
-  nav {
-    flex-direction: column;
-    gap: 18px;
-  }
-
   .nav-links {
-    gap: 15px;
-  }
-
-  .hero {
-    padding-top: 55px;
-  }
-
-  .coin {
-    width: 125px;
-    height: 125px;
-    font-size: 52px;
+    display: none;
   }
 
   h1 {
-    font-size: 62px;
+    letter-spacing: -3px;
   }
 
-  .stats {
+  .stats,
+  .token-grid {
     grid-template-columns: 1fr;
   }
 
-  .tokenomics {
-    grid-template-columns: 1fr;
+  section {
+    padding: 70px 20px;
   }
 
-  .card {
-    padding: 24px;
+  .coin {
+    width: 95px;
+    height: 95px;
+    font-size: 45px;
   }
 
-  .button {
-    width: 100%;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+  .contract-box {
+    padding: 25px 18px;
   }
 }
 </style>
@@ -392,55 +377,48 @@ footer {
 
 <body>
 
-<div class="container">
+<!-- NAVIGATION -->
 
-  <!-- NAVIGATION -->
+<nav>
+  <div class="logo"><span>₽</span> PUL</div>
 
-  <nav>
-
-    <div class="logo-small">
-      <span>₽</span>
-      PUL
-    </div>
-
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#contract">Contract</a>
-    </div>
-
-  </nav>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#contract">Contract</a>
+  </div>
+</nav>
 
 
-  <!-- HERO -->
+<!-- HERO -->
 
-  <section class="hero">
+<section class="hero">
+
+  <div class="hero-content">
 
     <div class="coin">₽</div>
 
-    <div class="badge">
-      ERC-20 · Ethereum Sepolia Testnet
-    </div>
+    <div class="badge">ERC-20 • Ethereum Sepolia</div>
 
     <h1>PUL</h1>
 
-    <p class="subtitle">
-      A simple ERC-20 token built on Ethereum Sepolia
-      for learning, testing and Web3 development.
+    <p>
+      A simple experimental digital token built on Ethereum.
+      Explore the basics of blockchain, wallets and Web3.
     </p>
 
     <div class="buttons">
 
       <a
-        class="button"
+        class="btn btn-primary"
         href="https://sepolia.etherscan.io/address/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
         target="_blank">
         View Contract
       </a>
 
       <a
-        class="button secondary"
+        class="btn btn-secondary"
         href="https://sepolia.etherscan.io/token/0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76"
         target="_blank">
         Token Explorer
@@ -448,27 +426,28 @@ footer {
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- ABOUT -->
+<!-- ABOUT -->
 
-  <section class="card" id="about">
+<section id="about">
 
+  <div class="section-title">
     <h2>About PUL</h2>
+    <p>Simple. Transparent. Experimental.</p>
+  </div>
 
-    <p>
-      PUL is an experimental ERC-20 token deployed on the
-      Ethereum Sepolia testnet. The project is designed for
-      educational purposes, smart-contract testing and Web3 development.
-    </p>
+  <div class="about">
 
-  </section>
+    PUL is an experimental ERC-20 token created to explore
+    blockchain technology, smart contracts and Web3 applications.
 
+  </div>
 
-  <!-- STATS -->
-
-  <section class="stats">
+  <div class="stats">
 
     <div class="stat">
       <strong>1B</strong>
@@ -477,7 +456,7 @@ footer {
 
     <div class="stat">
       <strong>PUL</strong>
-      <span>Token</span>
+      <span>Token Symbol</span>
     </div>
 
     <div class="stat">
@@ -485,181 +464,169 @@ footer {
       <span>Decimals</span>
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- TOKENOMICS -->
+<!-- TOKENOMICS -->
 
-  <section class="card" id="tokenomics">
+<section id="tokenomics" class="tokenomics">
 
+  <div class="section-title">
     <h2>Tokenomics</h2>
+    <p>Simple and fixed token structure.</p>
+  </div>
 
-    <p>
-      PUL currently has a fixed supply of 1,000,000,000 tokens.
-      No additional tokens can be minted by the contract.
-    </p>
+  <div class="token-grid">
 
-    <div class="tokenomics">
-
-      <div class="token-box">
-
-        <h3>Total Supply</h3>
-
-        <div class="token-number">
-          1,000,000,000
-        </div>
-
-        <div class="token-label">
-          PUL
-        </div>
-
-        <div class="progress">
-          <div class="progress-fill"></div>
-        </div>
-
-      </div>
-
-
-      <div class="token-box">
-
-        <h3>Network</h3>
-
-        <div class="token-number">
-          Sepolia
-        </div>
-
-        <div class="token-label">
-          Ethereum Testnet
-        </div>
-
-      </div>
-
+    <div class="token-card">
+      <h3>1,000,000,000</h3>
+      <p>Fixed total supply.</p>
     </div>
 
-  </section>
+    <div class="token-card">
+      <h3>No Minting</h3>
+      <p>No additional PUL tokens can be created.</p>
+    </div>
+
+    <div class="token-card">
+      <h3>Ethereum</h3>
+      <p>Currently deployed on Ethereum Sepolia testnet.</p>
+    </div>
+
+  </div>
+
+</section>
 
 
-  <!-- ROADMAP -->
+<!-- ROADMAP -->
 
-  <section class="card" id="roadmap">
+<section id="roadmap">
 
+  <div class="section-title">
     <h2>Roadmap</h2>
+    <p>Development phases for the PUL project.</p>
+  </div>
 
-    <div class="roadmap">
+  <div class="roadmap">
 
-      <div class="phase">
+    <div class="phase">
 
-        <h3>Phase 1 — Foundation</h3>
+      <div class="phase-number">1</div>
 
+      <div>
+        <h3>Foundation</h3>
         <p>
           Smart contract deployment, token creation,
           verification and initial website launch.
         </p>
-
-      </div>
-
-
-      <div class="phase">
-
-        <h3>Phase 2 — Community</h3>
-
-        <p>
-          Build the PUL community, improve the website
-          and experiment with additional Web3 features.
-        </p>
-
-      </div>
-
-
-      <div class="phase">
-
-        <h3>Phase 3 — Web3 Development</h3>
-
-        <p>
-          Explore decentralized applications, wallets,
-          token utilities and blockchain integrations.
-        </p>
-
-      </div>
-
-
-      <div class="phase">
-
-        <h3>Phase 4 — Future</h3>
-
-        <p>
-          Research future possibilities for the PUL ecosystem
-          based on community and technical development.
-        </p>
-
       </div>
 
     </div>
 
-  </section>
+
+    <div class="phase">
+
+      <div class="phase-number">2</div>
+
+      <div>
+        <h3>Community</h3>
+        <p>
+          Build community, improve the website
+          and experiment with Web3.
+        </p>
+      </div>
+
+    </div>
 
 
-  <!-- CONTRACT -->
+    <div class="phase">
 
-  <section class="card" id="contract">
+      <div class="phase-number">3</div>
 
-    <h2>Contract Address</h2>
+      <div>
+        <h3>Web3 Development</h3>
+        <p>
+          Explore dApps, wallets, token utilities
+          and blockchain integrations.
+        </p>
+      </div>
 
-    <div class="action-buttons">
+    </div>
 
-      <button
-        class="button"
-        onclick="addToMetaMask()">
+
+    <div class="phase">
+
+      <div class="phase-number">4</div>
+
+      <div>
+        <h3>Future</h3>
+        <p>
+          Research future possibilities for the PUL ecosystem.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTRACT -->
+
+<section id="contract">
+
+  <div class="section-title">
+    <h2>Contract</h2>
+    <p>Official PUL smart contract.</p>
+  </div>
+
+  <div class="contract-box">
+
+    <div class="contract-address">
+      0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
+    </div>
+
+    <div class="contract-buttons">
+
+      <button class="btn btn-primary" onclick="addToMetaMask()">
         🦊 Add PUL to MetaMask
       </button>
 
-      <button
-        class="button secondary"
-        onclick="copyContract()">
+      <button class="btn btn-secondary" onclick="copyContract()">
         📋 Copy Contract
       </button>
 
     </div>
 
-    <p id="status" class="status"></p>
+    <div id="status"></div>
 
-    <div class="address">
-      0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76
-    </div>
-
-  </section>
+  </div>
 
 
-  <!-- IMPORTANT -->
+  <div class="disclaimer">
 
-  <section class="card">
+    <strong>Important:</strong>
+    PUL is currently an experimental token deployed on the
+    Ethereum Sepolia testnet. It has no guaranteed monetary value
+    and is intended for educational and development purposes.
 
-    <h2>Important</h2>
+  </div>
 
-    <p class="warning">
-      PUL is currently a test token on Ethereum Sepolia.
-      It is not intended to represent real-world value.
-      The project is created for learning, testing and development.
-    </p>
-
-  </section>
-
-</div>
+</section>
 
 
 <!-- FOOTER -->
 
 <footer>
 
-  <div class="footer-logo">
-    ₽ PUL
-  </div>
+  <strong>₽ PUL</strong>
 
-  Ethereum Sepolia · Experimental Web3 Project
+  <br>
 
-  <br><br>
-
-  © 2026 PUL Token
+  Experimental digital token • Ethereum Sepolia
 
 </footer>
 
@@ -667,61 +634,51 @@ footer {
 <script>
 
 const contractAddress =
-  "0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
+"0x756e1Dcb797968AA1d4ED0571A5E64576E8a8a76";
+
+const tokenSymbol = "PUL";
+const tokenDecimals = 18;
+
+const tokenImage = "";
 
 
 async function addToMetaMask() {
 
-  const status = document.getElementById("status");
-
   if (!window.ethereum) {
 
-    status.textContent =
-      "MetaMask was not detected. Please open this site in a browser with MetaMask installed.";
+    document.getElementById("status").innerText =
+      "MetaMask is not installed.";
 
     return;
   }
 
   try {
 
-    const added = await window.ethereum.request({
-
-      method: "wallet_watchAsset",
-
-      params: {
-
-        type: "ERC20",
-
-        options: {
-
-          address: contractAddress,
-          symbol: "PUL",
-          decimals: 18
-
+    const wasAdded =
+      await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: contractAddress,
+            symbol: tokenSymbol,
+            decimals: tokenDecimals,
+            image: tokenImage
+          }
         }
+      });
 
-      }
+    if (wasAdded) {
 
-    });
-
-    if (added) {
-
-      status.textContent =
-        "PUL was added to MetaMask successfully.";
-
-    } else {
-
-      status.textContent =
-        "PUL was not added.";
+      document.getElementById("status").innerText =
+        "PUL was added to MetaMask.";
 
     }
 
   } catch (error) {
 
-    console.log(error);
-
-    status.textContent =
-      "MetaMask request was cancelled or failed.";
+    document.getElementById("status").innerText =
+      "Could not add PUL to MetaMask.";
 
   }
 
@@ -730,21 +687,17 @@ async function addToMetaMask() {
 
 async function copyContract() {
 
-  const status = document.getElementById("status");
-
   try {
 
     await navigator.clipboard.writeText(contractAddress);
 
-    status.textContent =
-      "Contract address copied successfully!";
+    document.getElementById("status").innerText =
+      "Contract address copied.";
 
   } catch (error) {
 
-    console.log(error);
-
-    status.textContent =
-      "Copy failed. Please copy the address manually.";
+    document.getElementById("status").innerText =
+      "Copy failed.";
 
   }
 
